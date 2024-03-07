@@ -3,7 +3,7 @@ import { Header } from "../components/layout/Header";
 
 export default function Home() {
   return (
-    <div className="w-full h-screen max-w-[1800px] m-auto">
+    <div className="w-full h-screen max-w-[1700px] m-auto">
       <AdminDashboard />
     </div>
   );
