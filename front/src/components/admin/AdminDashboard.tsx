@@ -1,5 +1,6 @@
 import { AdminControlHead } from "./AdminControlHead";
 import { AdminTableGeneral } from "./AdminTableGeneral";
+import { OrderHead } from "../order/OrderHead";
 
 export const AdminDashboard = () => {
   const data = [
@@ -26,6 +27,7 @@ export const AdminDashboard = () => {
       <div className="w-full bg-[#F7F7F8]">
         <AdminControlHead />
         <AdminTableGeneral />
+        <OrderHead />
       </div>
     </div>
   );
