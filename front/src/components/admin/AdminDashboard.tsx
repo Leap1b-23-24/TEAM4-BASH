@@ -1,30 +1,30 @@
+import { AdminControlHead } from "./AdminControlHead";
+
 export const AdminDashboard = () => {
+  const data = [
+    { icons: "menu.png", label: "Хяналтын самбар" },
+    { icons: "bag.png", label: "Захиалга" },
+    { icons: "lead.png", label: "Орлого" },
+    { icons: "list.png", label: "Бүтээгдэхүүн" },
+    { icons: "set.png", label: "Тохиргоо" },
+  ];
+
   return (
-    <div className="w-full h-full">
-      <div className="bg-white w-[15%] h-full pt-6 gap-4 flex flex-col">
-        <div className="flex pl-6 gap-4 border-black py-3">
-          <img src="menu.png" alt="" width={24} />
-          <p className="text-lg font-semibold">Хяналтын самбар</p>
-        </div>
-        <div className="flex pl-6 gap-5 border-black py-3">
-          <img src="bag.png" alt="" width={18} />
-          <p className="text-lg font-semibold">Захиалга</p>
-        </div>
-        <div className="flex pl-6 gap-3 border-black py-3">
-          <img src="lead.png" pl-6 alt="" width={26} />
-          <p className="text-lg font-semibold">Орлого</p>
-        </div>
-        <div className="flex pl-6 gap-5  border-black py-3">
-          <img src="list.png" alt="" width={22} />
-          <p className="text-lg font-semibold">Бүтээгдэхүүн</p>
-        </div>
-        <div className="flex pl-6 gap-4 border-black py-3">
-          <img src="set.png" alt="" width={24} />
-          <p className="text-lg font-semibold">Тохиргоо</p>
-        </div>
+    <div className="w-full h-full flex">
+      <div className="bg-white w-[300px] pr-8 h-full pt-6 gap-4 flex flex-col ">
+        {data.map((item, index) => {
+          return (
+            <div className="flex pl-6 gap-4 border-black py-3">
+              <img src={item.icons} alt="" width={24} />
+              <p className="text-lg font-semibold">{item.label}</p>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="w-[85%] bg-[#000]"></div>
+      <div className="w-full bg-[#D6D8DB]">
+        <AdminControlHead />
+      </div>
     </div>
   );
 };
