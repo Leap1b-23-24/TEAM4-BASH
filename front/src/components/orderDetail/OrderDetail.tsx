@@ -1,7 +1,27 @@
 import Image from "next/image";
-import { OrderDetailOrderedProd } from "./OrderDetailOrederedProd";
+import { OrderDetailOrderedProd } from "./OrderDetailOrderedProd";
 
 export const OrderDetail = () => {
+  const orderedProds = [
+    {
+      img: "/orderedProd.png",
+      label: "WOMEN'S HORSEBIT MULE",
+      date: "2024-01-20",
+      prodId: 30349049903,
+      amount: 3,
+      price: 225700,
+      total: 677100,
+    },
+    {
+      img: "./orderedProd.png",
+      label: "WOMEN'S HORSEBIT MULE",
+      date: "2024-01-20",
+      prodId: 30349049903,
+      amount: 3,
+      price: 225700,
+      total: 677100,
+    },
+  ];
   return (
     <div>
       <div className="flex bg-white">
@@ -61,7 +81,17 @@ export const OrderDetail = () => {
           </div>
 
           <div className="flex flex-col gap-[16px]">
-            <OrderDetailOrderedProd />
+            {orderedProds.map((item) => (
+              <OrderDetailOrderedProd
+                img={item.img}
+                label={item.label}
+                date={item.date}
+                prodId={item.prodId}
+                amount={item.price}
+                price={item.price}
+                total={item.total}
+              />
+            ))}
           </div>
         </div>
       </div>
