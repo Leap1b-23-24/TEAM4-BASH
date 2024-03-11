@@ -1,6 +1,5 @@
 import { AdminDashboard } from "../components/admin/AdminDashboard";
 import Footer from "../components/footer";
-import { Header } from "../components/layout/Header";
 
 export default function Home() {
   return (
