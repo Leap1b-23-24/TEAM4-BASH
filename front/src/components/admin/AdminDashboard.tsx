@@ -1,4 +1,5 @@
 import { AdminControlHead } from "./AdminControlHead";
+import { AdminTableGeneral } from "./AdminTableGeneral";
 
 export const AdminDashboard = () => {
   const data = [
@@ -22,8 +23,9 @@ export const AdminDashboard = () => {
         })}
       </div>
 
-      <div className="w-full bg-[#D6D8DB]">
+      <div className="w-full bg-[#F7F7F8]">
         <AdminControlHead />
+        <AdminTableGeneral />
       </div>
     </div>
   );
