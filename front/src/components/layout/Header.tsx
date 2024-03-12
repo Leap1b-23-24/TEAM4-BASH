@@ -1,15 +1,17 @@
 export const Header = () => {
   return (
     <div className="flex bg-black w-full justify-center">
-      <div className="justify-between flex px-6 py-2 w-[1600px]">
-        <img src="pinelogo.png" className="w-[36px] py-2" />
+      <div className="justify-between flex px-6 w-[1700px]">
+        <img src="pinelogo.png" className="py-3 w-[30px]" />
 
         <div className="flex gap-6">
-          <img src="bell.png" className="py-3 w-[28px]" />
+          <img src="bell.png" alt="" className="w-[24px] py-4" />
 
-          <div className="flex gap-5">
-            <img src="container.png" className="w-[46px]" />
-            <p className="text-white text-[16px] font-normal pt-4">Username</p>
+          <div className="flex gap-4">
+            <img src="container.png" className="w-[40px] py-[8px]"></img>
+            <p className="text-white text-[14px] font-normal pt-[18px]">
+              Username{" "}
+            </p>
           </div>
         </div>
       </div>
