@@ -10,7 +10,7 @@ export const AdminSideBar = () => {
   ];
 
   return (
-    <div className="w-full h-full flex">
+    <div className="flex">
       <div className="bg-white h-full py-6 gap-2 flex flex-col">
         {data.map((item, index) => {
           return (
