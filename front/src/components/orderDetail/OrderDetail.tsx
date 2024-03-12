@@ -42,7 +42,7 @@ export const OrderDetail = () => {
         </div>
       </div>
 
-      <div className="flex gap-[20px]">
+      <div className="p-[20px] flex gap-[20px]">
         <div className="px-[24px] py-[15px] bg-[#FFFFFF] rounded-[12px] border-[1px] border-[#ECEDF0] basis-0 grow">
           <div className="flex flex-col gap-[20px]">
             <div className="flex items-center justify-between gap-[4px]">
