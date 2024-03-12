@@ -23,15 +23,15 @@ export const AdminSideBar = () => {
               className="flex gap-4 py-3 pr-12 pl-6 hover:bg-[#e6e6e8] cursor-pointer"
               onClick={() => {
                 if (item.label == "Хяналтын самбар") {
-                  router.push("/control");
+                  router.push("/dashboard/");
                 } else if (item.label == "Захиалга") {
-                  router.push("/order");
+                  router.push("/dashboard/order");
                 } else if (item.label == "Орлого") {
-                  router.push("/income");
+                  router.push("/dashboard/income");
                 } else if (item.label == "Бүтээгдэхүүн") {
                   router.push("/product");
                 } else if (item.label == "Тохиргоо") {
-                  router.push("/settings");
+                  router.push("/dashboard/settings");
                 }
               }}
             >
