@@ -29,7 +29,7 @@ export const AdminSideBar = () => {
                 } else if (item.label == "Орлого") {
                   router.push("/dashboard/income");
                 } else if (item.label == "Бүтээгдэхүүн") {
-                  router.push("/product");
+                  router.push("/dashboard/product");
                 } else if (item.label == "Тохиргоо") {
                   router.push("/dashboard/settings");
                 }
