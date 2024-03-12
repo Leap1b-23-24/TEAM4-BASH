@@ -1,5 +1,5 @@
-import { OrderDetail } from "@/src/components/orderDetail/OrderDetail";
+import { OrderHead } from "@/src/components/order/OrderHead";
 
 export default function DashboardOrder() {
-  return <OrderDetail />;
+  return <OrderHead />;
 }

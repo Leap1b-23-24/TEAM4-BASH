@@ -39,7 +39,7 @@ export const OrderHead = () => {
     },
   ];
   return (
-    <div>
+    <div className="w-full h-full bg-[#F7F7F8]">
       <div className="flex">
         {label.map((item, index) => {
           return (
@@ -72,7 +72,7 @@ export const OrderHead = () => {
           <input
             type="text"
             placeholder="Дугаар, Имэйл"
-            className="w-[300px] rounded-lg pl-10"
+            className="w-[300px] rounded-lg pl-10 border"
           ></input>
         </div>
 
