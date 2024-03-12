@@ -6,8 +6,8 @@ type OrderDetailOrderedProdProps = {
   date: string;
   prodId: number;
   amount: number;
-  price: number;
-  total: number;
+  price: string;
+  total: string;
 };
 
 export const OrderDetailOrderedProd = (props: OrderDetailOrderedProdProps) => {
@@ -24,7 +24,9 @@ export const OrderDetailOrderedProd = (props: OrderDetailOrderedProdProps) => {
       <div className="py-[16px] px-[24px]">
         <div className="flex flex-col gap-[20px]">
           <div className="flex flex-col gap-[8px]">
-            <p className="text-[#121316] font-bold text-2xl">{label}</p>
+            <p className="text-[#121316] font-bold text-2xl line-clamp-1 ">
+              {label}
+            </p>
             <div className="text-[#3F4145] font-normal text-sm">
               <p>{date}</p>
               <div className="flex">
@@ -37,15 +39,15 @@ export const OrderDetailOrderedProd = (props: OrderDetailOrderedProdProps) => {
           <div className="flex justify-between">
             <div className="flex items-center">
               <div className="flex text-[#121316] font-normal text-base">
-                <p>Тоо ширхэг:</p>
+                <p className="whitespace-nowrap">Тоо ширхэг:</p>
                 <p>{amount}</p>
               </div>
               <div className="flex text-[#3F4145] font-normal text-sm">
                 <p>*</p>
-                <p>₮ {price}</p>
+                <p className="whitespace-nowrap">₮ {price}</p>
               </div>
             </div>
-            <p className="flex text-[#121316] font-semibold text-[18px] leading-[24px]">
+            <p className="whitespace-nowrap flex text-[#121316] font-semibold text-[18px] leading-[24px]">
               ₮ {total}
             </p>
           </div>
