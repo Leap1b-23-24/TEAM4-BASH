@@ -22,7 +22,7 @@ export const AdminSideBar = () => {
               key={index}
               className="flex gap-4 py-3 pr-12 pl-6 hover:bg-[#e6e6e8] cursor-pointer"
             >
-              <img src={item.icons} alt="" width={22} className="py-1" />
+              <img src={item.icons} width={22} className="py-1" />
               <p className="text-lg font-semibold pt-[2px] whitespace-nowrap">
                 {item.label}
               </p>
