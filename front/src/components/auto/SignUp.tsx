@@ -1,6 +1,6 @@
 export const SignUp = () => {
   return (
-    <div className="border-2 w-full h-full bg-white px-14 py-10">
+    <div className="border-2 w-full h-screen bg-white px-14 py-10">
       <div className="flex gap-1 justify-start">
         <img src="pine.png" alt="" />
         <p className="text-3xl font-sans font-bold">pinecone</p>
