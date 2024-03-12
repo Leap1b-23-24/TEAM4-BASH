@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export const AdminSideBar = () => {
   const data = [
     { icons: "menu.png", label: "Хяналтын самбар" },
@@ -10,8 +8,6 @@ export const AdminSideBar = () => {
     { icons: "list.png", label: "Бүтээгдэхүүн" },
     { icons: "set.png", label: "Тохиргоо" },
   ];
-
-  const router = useRouter();
 
   return (
     <div className="w-full h-full flex">
