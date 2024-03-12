@@ -1,23 +1,11 @@
 export const OrderHead = () => {
   const label = [
-    {
-      label: "Бүгд",
-    },
-    {
-      label: "Шинэ захиалага",
-    },
-    {
-      label: "Бэлтгэгдэж байна",
-    },
-    {
-      label: "Хүргэлтэнд гарсан",
-    },
-    {
-      label: "Хүргэгдсэн",
-    },
-    {
-      label: "Цуцлагдсан",
-    },
+    "Бүгд",
+    "Шинэ захиалага",
+    "Бэлтгэгдэж байна",
+    "Хүргэлтэнд гарсан",
+    "Хүргэгдсэн",
+    "Цуцлагдсан",
   ];
 
   const data = [
@@ -48,7 +36,7 @@ export const OrderHead = () => {
                 className="py-6 px-8 text-sm text-[#3F4145] hover:text-[black]"
                 key={index}
               >
-                {item.label}
+                {item}
               </p>
             </div>
           );
