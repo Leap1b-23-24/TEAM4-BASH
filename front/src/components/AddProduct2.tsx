@@ -6,7 +6,6 @@ export const AddProduct2 = () => {
           <label className="font-bold text-base">Ерөнхий ангилал</label>
           <input
             className="w-[525px] h-[56px] bg-[#F7F7F8] rounded-lg py-2 px-3 border  "
-            id="angilal"
             type="text"
             placeholder="Сонгох"
           ></input>
@@ -15,7 +14,6 @@ export const AddProduct2 = () => {
           <label className="font-bold text-base">Дэд ангилал</label>
           <input
             className="w-[525px] h-[56px] bg-[#F7F7F8] border rounded-lg py-2 px-3 "
-            id="angilal"
             type="text"
             placeholder="Сонгох"
           ></input>
@@ -45,7 +43,6 @@ export const AddProduct2 = () => {
             <label className="font-bold text-base">Таг</label>
             <input
               className="w-[525px] h-[56px] bg-[#F7F7F8] border rounded-lg py-2 px-3 "
-              id="angilal"
               type="text"
               placeholder="Таг нэмэх..."
             ></input>
