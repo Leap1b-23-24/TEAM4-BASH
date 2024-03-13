@@ -12,7 +12,7 @@ function Footer() {
   const router = useRouter();
   return (
     <section
-      className="w-full h-fit flex flex-col divide-y divide-[#ffffff20] items-center justify-center py-[50px] px-[260px]"
+      className="w-full h-fit flex flex-col divide-y divide-[#ffffff20] items-center justify-center py-[50px] px-[380px]"
       style={{ background: `${"#12A795"}` }}
     >
       <header className="w-full h-[212px]  flex flex-col items-center gap-[48px] justify-between pb-[24px]">

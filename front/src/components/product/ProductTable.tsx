@@ -1,5 +1,6 @@
 import OneTable from "./ProductTableMini";
-import OneProductData from "./productData";
+import OneProductData from "./ProductData";
+
 const ProductData = [
   "",
   "Бүтээгдэхүүн",
@@ -9,28 +10,29 @@ const ProductData = [
   "Зарагдсан",
   "Нэмсэн огноо",
 ];
+
 function ProductTable() {
   return (
-    <section className="w-[1170px] rounded-xl h-[692px] flex flex-col divide-y divide-black bg-white">
-      <header className="flex felx-row">
+    <section className="w-full rounded-xl flex flex-col divide-y divide-[#D6D8DB] bg-white">
+      <header className="flex flex-row">
         {ProductData.map((product, index) => (
           <div
             style={{
               width:
                 product === ""
-                  ? `${"68px"}`
+                  ? `${"90px"}`
                   : product === "Ангилал"
-                  ? `${"214px"}`
-                  : "156.8px",
+                  ? `${"240px"}`
+                  : "180px",
             }}
             key={index}
-            className="flex items-center justify-start py-[14px] pl-[24px] font-[600] text-[12px] font-sans text-[#3F4145]"
+            className="flex items-center py-[14px] font-[600] text-[12px] font-sans text-[#3F4145]"
           >
             {product}
           </div>
         ))}
       </header>
-      <main className="w-full h-fit flex flex-col overflow-y-auto divide-y divide-black">
+      <main className="w-full h-fit flex flex-col overflow-y-auto divide-y divide-[#D6D8DB]">
         {OneProductData.map((product, index) => (
           <OneTable
             key={index}

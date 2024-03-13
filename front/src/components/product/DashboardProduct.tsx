@@ -1,11 +1,17 @@
+"use client";
+
 import {
   AttachMoney,
   CalendarToday,
   CategoryOutlined,
   KeyboardArrowDownOutlined,
 } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+import ProductTable from "./ProductTable";
 
 export const DashboardProduct = () => {
+  const router = useRouter();
+
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
       <div className="flex">
@@ -18,7 +24,12 @@ export const DashboardProduct = () => {
       </div>
 
       <div className="p-8 flex flex-col gap-6">
-        <button className="py-3 rounded-xl w-[280px] text-[16px] text-white bg-black">
+        <button
+          className="py-3 rounded-xl w-[280px] text-[16px] text-white bg-black"
+          onClick={() => {
+            router.push("/dashboard/product/addpro");
+          }}
+        >
           + Бүтээгдэхүүн нэмэх
         </button>
 
@@ -59,6 +70,10 @@ export const DashboardProduct = () => {
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
               className="w-[415px] h-10 rounded-lg pl-16 border"
             ></input>
+          </div>
+
+          <div className="w-full">
+            <ProductTable />
           </div>
         </div>
       </div>
