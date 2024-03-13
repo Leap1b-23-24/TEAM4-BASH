@@ -1,6 +1,9 @@
-import Image from "next/image";
+"use client";
+
 import { OrderDetailOrderedProd } from "./OrderDetailOrderedProd";
 import { OrderDetailDeliveryPayment } from "./OrderDetailDeliveryPayment";
+import { ChevronLeft } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export const OrderDetail = () => {
   const orderedProds = [
@@ -23,16 +26,18 @@ export const OrderDetail = () => {
       total: 125700,
     },
   ];
+
+  const router = useRouter();
   return (
-    <div>
-      <div className="flex bg-white">
-        <div className="py-[12px] px-[16px] rounded-[12px] cursor-pointer">
-          <div className="w-[20px] h-[20px] flex justify-center items-center">
-            <img
-              className="w-[8.95px] h-[15.64px]"
-              src="./orderdetail.png"
-            ></img>
-          </div>
+    <div className="w-full h-screen">
+      <div className="flex bg-white items-center py-2">
+        <div
+          onClick={() => {
+            router.push("/dashboard/order");
+          }}
+          className="cursor-pointer"
+        >
+          <ChevronLeft className="w-[36px] h-[36px]" />
         </div>
 
         <div className="py-[12px] px-[16px] rounded-[12px]">
@@ -42,7 +47,7 @@ export const OrderDetail = () => {
         </div>
       </div>
 
-      <div className="p-[20px] flex gap-[20px]">
+      <div className="p-[20px] flex gap-[30px] bg-[#F7F7F8] h-full">
         <div className="px-[24px] py-[15px] bg-[#FFFFFF] rounded-[12px] border-[1px] border-[#ECEDF0] basis-0 grow">
           <div className="flex flex-col gap-[20px]">
             <div className="flex items-center justify-between gap-[4px]">

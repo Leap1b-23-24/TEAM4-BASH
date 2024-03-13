@@ -1,3 +1,9 @@
+import {
+  CalendarToday,
+  FileDownloadOutlined,
+  KeyboardArrowDownOutlined,
+} from "@mui/icons-material";
+
 export const DashboardIncome = () => {
   const data = [
     {
@@ -23,9 +29,10 @@ export const DashboardIncome = () => {
         <div className="border-2 border-[#ECEDF0] rounded-2xl overflow-hidden">
           <div className="p-6 flex justify-between bg-white border-b-2">
             <p className="text-xl font-bold">Орлого</p>
-            <p className="text-sm font-semibold border-2 bg-[#1C20240A] px-4 py-2 rounded-lg">
-              Хуулга татах
-            </p>
+            <div className="flex border-2 bg-[#1C20240A] rounded-lg px-4 py-2 gap-2 items-center">
+              <FileDownloadOutlined />
+              <p className="text-sm font-semibold">Хуулга татах</p>
+            </div>
           </div>
 
           <div className="p-6 flex justify-between bg-white">
@@ -38,8 +45,10 @@ export const DashboardIncome = () => {
               <button className="text-sm font-semibold py-2 px-6 border-2 rounded-xl text-[#3F4145] hover:text-white hover:bg-[#18BA51] bg-white">
                 7 хоног
               </button>
-              <button className="text-sm font-semibold py-2 px-4 border-2 rounded-xl text-[#3F4145] hover:text-white hover:bg-[#18BA51] bg-white">
-                Сараар
+              <button className="text-sm font-semibold text-[#3F4145] py-2 px-4 border-2 rounded-xl  hover:text-white hover:bg-[#18BA51] bg-white flex gap-2 items-center">
+                <CalendarToday className="w-4 h-4" />
+                <p>Сараар</p>
+                <KeyboardArrowDownOutlined />
               </button>
             </div>
           </div>

@@ -14,7 +14,7 @@ export const OrderDetailDeliveryPayment = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-[20px] basis-0 grow">
+    <div className="flex flex-col gap-[30px] basis-0 grow">
       <div className="bg-[#FFFFFF] border-[1px] border-[#ECEDF0] rounded-[12px]">
         <div className=" flex flex-col gap-[20px]">
           <div className="pt-[20px] px-[24px]">
@@ -27,7 +27,7 @@ export const OrderDetailDeliveryPayment = () => {
 
         <div className="px-[24px] py-[20px] flex flex-col gap-[4px]">
           <p className="text-base text-[#3F4145]">Гэр</p>
-          <p className="font-semibold text-[16px] leading-[20px] text-[#121316]">
+          <p className="font-semibold text-[16px] leading-[20px] text-[#121316] mb-10">
             Улаанбаатар, Сонгинохайрхан дүүрэг, 1-р хороо, 14r bair 8r orts 6r
             darvar
           </p>
@@ -80,7 +80,7 @@ export const OrderDetailDeliveryPayment = () => {
               </p>
             </div>
             <div className="h-[1px] bg-[#ECEDF0]"></div>
-            <div className="flex justify-between">
+            <div className="flex justify-between mb-6">
               <p className="font-semibold text-[16px] leading-[20px] text-[#121316]">
                 Нийт төлсөн дүн
               </p>

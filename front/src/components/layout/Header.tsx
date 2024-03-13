@@ -1,15 +1,27 @@
+import {
+  NotificationsNoneOutlined,
+  PersonOutline,
+  PersonOutlineOutlined,
+} from "@mui/icons-material";
+import Image from "next/image";
+
 export const Header = () => {
   return (
-    <div className="flex bg-black w-full justify-center">
-      <div className="justify-between flex px-6 py-4 w-[1700px]">
-        <img src="pinelogo.png" alt="" width={36} />
+    <div className="flex bg-black w-full min-w-[1000px] justify-center py-3">
+      <div className="justify-between flex px-10 w-[1700px]">
+        <Image
+          alt="logo"
+          src="/pinelogo.png"
+          width={30}
+          height={30}
+          className="cursor-pointer"
+        />
 
-        <div className="flex gap-8">
-          <img src="bell.png" alt="" width={32} />
-
-          <div className="flex gap-4">
-            <img src="container.png"></img>
-            <p className="text-white text-[14px] font-normal pt-2">Username </p>
+        <div className="flex gap-8 items-center">
+          <NotificationsNoneOutlined className="text-white" />
+          <div className="flex gap-6 items-center">
+            <PersonOutlineOutlined className="text-white" />
+            <p className="text-white text-[14px] font-normal">Username</p>
           </div>
         </div>
       </div>
