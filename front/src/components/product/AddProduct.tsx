@@ -54,7 +54,7 @@ export const AddProduct = () => {
             </div>
           </div>
 
-          <div className="w-full border-2 rounded-xl     p-6 gap-4 flex flex-col bg-white">
+          <div className="w-full border-2 rounded-xl p-6 gap-4 flex flex-col bg-white">
             <p>Бүтээгдэхүүний зураг</p>
 
             <div className="flex items-center gap-3">
@@ -90,7 +90,9 @@ export const AddProduct = () => {
           </div>
         </div>
 
-        <AddProduct2 />
+        <div>
+          <AddProduct2 />
+        </div>
       </div>
 
       <div className="p-8 flex justify-end gap-5">
