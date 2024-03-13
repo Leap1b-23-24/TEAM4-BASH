@@ -26,54 +26,6 @@ export const AdminTable = () => {
       amount: "200",
       price: "12,000",
     },
-    {
-      no: "4",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "5",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "6",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "7",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "8",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "9",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
   ];
 
   const tableHead = ["№", "Бүтээгдэхүүн", "Зарагдсан", "Үнэ"];
@@ -122,10 +74,10 @@ export const AdminTable = () => {
                     </p>
                   </div>
                 </td>
-                <td className="py-[16px] px-[24px] text-[14px] leading-[20px] font-normal text-[#121316]">
+                <td className="py-[16px] pl-[28px] text-[14px] leading-[20px] font-normal text-[#121316]">
                   {item.amount}
                 </td>
-                <td className="py-[16px] px-[24px] text-[14px] leading-[20px] font-normal text-[#121316]">
+                <td className="py-[16px] pl-[34px] text-[14px] leading-[20px] font-normal text-[#121316]">
                   {item.price} ₮
                 </td>
               </tr>

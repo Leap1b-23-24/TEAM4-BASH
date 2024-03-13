@@ -1,5 +1,5 @@
-import { OrderHead } from "@/src/components/order/OrderHead";
+import { OrderGeneral } from "@/src/components/order/OrderGeneral";
 
 export default function DashboardOrder() {
-  return <OrderHead />;
+  return <OrderGeneral />;
 }

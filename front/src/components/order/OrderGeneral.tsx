@@ -1,4 +1,9 @@
-export const OrderHead = () => {
+"use client";
+
+import { KeyboardArrowRight } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+
+export const OrderGeneral = () => {
   const label = [
     "Бүгд",
     "Шинэ захиалага",
@@ -26,12 +31,15 @@ export const OrderHead = () => {
       payment: "1300",
     },
   ];
+
+  const router = useRouter();
+
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
       <div className="flex">
         {label.map((item, index) => {
           return (
-            <div className="border-b-2 border-[#ECEDF0] hover:border-black">
+            <div className="border-b-2 border-[#ECEDF0] hover:border-black cursor-pointer">
               <p
                 className="py-6 px-8 text-sm text-[#3F4145] hover:text-[black]"
                 key={index}
@@ -116,6 +124,15 @@ export const OrderHead = () => {
                 <p className="text-[14px] text-[#0A4E22] bg-[#C1E6CF] rounded-2xl px-3 mb-4 mt-2 ml-36">
                   hurgegdsen
                 </p>
+
+                <div
+                  className="pl-[110px] pt-1 cursor-pointer"
+                  onClick={() => {
+                    router.push("/dashboard/order/detail");
+                  }}
+                >
+                  <KeyboardArrowRight />
+                </div>
               </div>
             );
           })}

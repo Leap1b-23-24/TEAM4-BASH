@@ -1,14 +1,21 @@
 "use client";
 
+import {
+  ContentPasteRounded,
+  GridViewRounded,
+  ListAlt,
+  Sell,
+  Settings,
+} from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
 export const AdminSideBar = () => {
   const data = [
-    { icons: "menu.png", label: "Хяналтын самбар" },
-    { icons: "bag.png", label: "Захиалга" },
-    { icons: "lead.png", label: "Орлого" },
-    { icons: "list.png", label: "Бүтээгдэхүүн" },
-    { icons: "set.png", label: "Тохиргоо" },
+    { icons: <GridViewRounded />, label: "Хяналтын самбар" },
+    { icons: <ContentPasteRounded />, label: "Захиалга" },
+    { icons: <Sell />, label: "Орлого" },
+    { icons: <ListAlt />, label: "Бүтээгдэхүүн" },
+    { icons: <Settings />, label: "Тохиргоо" },
   ];
 
   const router = useRouter();
@@ -20,7 +27,7 @@ export const AdminSideBar = () => {
           return (
             <div
               key={index}
-              className="flex gap-4 py-3 pr-12 pl-6 hover:bg-[#e6e6e8] cursor-pointer"
+              className="flex gap-4 py-3 pr-12 pl-6 hover:bg-[#e6e6e8] cursor-pointer items-center"
               onClick={() => {
                 if (item.label == "Хяналтын самбар") {
                   router.push("/dashboard/");
@@ -35,8 +42,8 @@ export const AdminSideBar = () => {
                 }
               }}
             >
-              <img src={item.icons} width={22} className="py-1" />
-              <p className="text-lg font-semibold pt-[2px] whitespace-nowrap">
+              <div className="">{item.icons}</div>
+              <p className="text-lg font-semibold whitespace-nowrap">
                 {item.label}
               </p>
             </div>
