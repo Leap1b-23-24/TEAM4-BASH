@@ -1,4 +1,5 @@
 import { AdminSideBar } from "@/src/components/admin/AdminSideBar";
+import Footer from "@/src/components/layout/AdminHomeFooter";
 import { Header } from "@/src/components/layout/Header";
 import { PropsWithChildren } from "react";
 
