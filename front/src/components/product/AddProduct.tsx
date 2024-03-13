@@ -2,6 +2,7 @@
 
 import { ChevronLeft } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { AddProduct2 } from "./AddProduct2";
 
 export const AddProduct = () => {
   const router = useRouter();
@@ -89,31 +90,7 @@ export const AddProduct = () => {
           </div>
         </div>
 
-        {/* <div className="w-[575px] border-2 border-black">
-          <div className="w-full p-6 border-2 rounded-xl flex flex-col gap-4 bg-white">
-            <div className="flex flex-col gap-2 w-full">
-              <p className="text-[16px] font-semibold font-inter">
-                Ерөнхий ангилал
-              </p>
-              <input
-                type="text"
-                placeholder="Үндсэн үнэ"
-                className="bg-[#F7F7F8] h-12 border-2 rounded-xl pl-4"
-              ></input>
-            </div>
-
-            <div className="flex flex-col gap-2 w-full">
-              <p className="text-[16px] font-semibold font-inter">
-                Дэд ангилал
-              </p>
-              <input
-                type="text"
-                placeholder="Үндсэн үнэ"
-                className="bg-[#F7F7F8] h-12 border-2 rounded-xl pl-4"
-              ></input>
-            </div>
-          </div>
-        </div> */}
+        <AddProduct2 />
       </div>
 
       <div className="p-8 flex justify-end gap-5">
