@@ -3,7 +3,7 @@ import { CustomInput } from "../customs/CustomInput";
 
 export const AddProductOne = () => {
   return (
-    <div className="w-[563px] flex flex-col gap-6">
+    <div className="basis-0 grow flex flex-col gap-6">
       <div className="basis-0 w-full grow bg-white p-6 rounded-xl flex flex-col gap-4">
         <div className="gap-2 flex flex-col">
           <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>

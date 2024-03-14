@@ -5,6 +5,7 @@ import {
   CalendarToday,
   CategoryOutlined,
   KeyboardArrowDownOutlined,
+  Search,
 } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import ProductTable from "./ProductTable";
@@ -65,11 +66,14 @@ export const DashboardProduct = () => {
               </button>
             </div>
 
-            <input
-              type="text"
-              placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
-              className="w-[415px] h-10 rounded-lg pl-16 border"
-            ></input>
+            <div className="relative">
+              <input
+                type="search"
+                placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
+                className="w-[415px] h-10 rounded-lg pl-14 border"
+              ></input>
+              <Search className="absolute left-5 top-[9px]" />
+            </div>
           </div>
 
           <div className="w-full">
