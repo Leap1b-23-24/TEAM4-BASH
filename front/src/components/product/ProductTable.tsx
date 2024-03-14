@@ -35,15 +35,16 @@ function ProductTable() {
       <main className="w-full h-fit flex flex-col overflow-y-auto divide-y divide-[#D6D8DB]">
         {OneProductData.map((product, index) => (
           <OneTable
+            {...product}
             key={index}
-            img={product.img}
-            ProductName={product.ProductName}
-            ProductNumber={product.ProductNumber}
-            Category={product.Category}
-            Price={product.Price}
-            Total={product.Total}
-            SoldTotal={product.SoldTotal}
-            AddDate={product.AddDate}
+            // img={product.img}
+            // ProductName={product.ProductName}
+            // ProductNumber={product.ProductNumber}
+            // Category={product.Category}
+            // Price={product.Price}
+            // Total={product.Total}
+            // SoldTotal={product.SoldTotal}
+            // AddDate={product.AddDate}
           />
         ))}
       </main>
