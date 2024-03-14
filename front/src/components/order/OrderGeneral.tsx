@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { KeyboardArrowRight, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
 export const OrderGeneral = () => {
@@ -65,11 +65,14 @@ export const OrderGeneral = () => {
             </button>
           </div>
 
-          <input
-            type="text"
-            placeholder="Дугаар, Имэйл"
-            className="w-[300px] rounded-lg pl-10 border"
-          ></input>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Дугаар, Имэйл"
+              className="w-[300px] rounded-lg pl-12 border py-1"
+            />
+            <Search className="absolute left-3 top-[5px]" />
+          </div>
         </div>
 
         <div className="border-2 border-[#ECEDF0] rounded-xl overflow-hidden">

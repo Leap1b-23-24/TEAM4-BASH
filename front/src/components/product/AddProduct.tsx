@@ -24,12 +24,12 @@ export const AddProduct = () => {
         <p className="text-[18px] font-normal py-4 px-5">Бүтээгдэхүүн нэмэх</p>
       </div>
 
-      <div className="p-10 flex w-full gap-10">
+      <div className="p-8 flex w-full gap-10">
         <AddProductOne />
         <AddProductTwo />
       </div>
 
-      <div className="p-8 flex justify-end gap-5">
+      <div className="px-8 flex justify-end gap-5">
         <button className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg">
           Ноорог
         </button>
