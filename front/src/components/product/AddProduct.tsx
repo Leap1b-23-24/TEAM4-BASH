@@ -186,6 +186,7 @@ export const AddProduct = () => {
             </div>
           </div>
         </div>
+        <p></p>
 
         <AddProductTwo
           mainCategory={formik.values.mainCategory}
