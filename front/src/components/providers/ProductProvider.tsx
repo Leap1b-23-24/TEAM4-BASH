@@ -1,8 +1,31 @@
 "use client";
 
 import { api } from "@/src/common";
-import { AxiosError } from "axios";
-import { PropsWithChildren, createContext, useContext } from "react";
+import axios, { AxiosError } from "axios";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { toast } from "react-toastify";
+
+export type Product = {
+  productName: string;
+  additionInfo: string;
+  barCode: number;
+  productImage: string;
+  mainPrice: number;
+  quantity: number;
+  mainCategory: string;
+  secondCategory: string;
+  color: string;
+  size: string;
+  tag: string;
+};
 
 const ProductContext = createContext<ProductContextType>(
   {} as ProductContextType
@@ -22,9 +45,14 @@ type ProductContextType = {
     size: string,
     tag: string
   ) => void;
+
+  productList: Product[];
+  setProductList: Dispatch<SetStateAction<Product[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
+  const [productList, setProductList] = useState<Product[]>([]);
+
   const postProduct = async (
     productName: string,
     additionInfo: string,
@@ -40,7 +68,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   ) => {
     try {
       const { data } = await api.post(
-        "http://localhost:8008/product/add",
+        "/product/add",
         {
           productName,
           additionInfo,
@@ -60,23 +88,43 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
           },
         }
       );
+
+      toast.success(data.message, {
+        position: "top-center",
+      });
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error);
+        toast.error(error.response?.data.message ?? error.message, {
+          hideProgressBar: true,
+        });
       }
     }
   };
 
   const getProduct = async () => {
     try {
-      const { data } = await api.get("http://localhost:8008/product/plus");
-    } catch {}
+      const { data } = await api.get("/product/plus", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setProductList(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <ProductContext.Provider
       value={{
         postProduct,
+        productList,
+        setProductList,
       }}
     >
       {children}

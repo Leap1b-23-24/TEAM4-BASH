@@ -3,11 +3,9 @@
 import { AddPhotoAlternateOutlined, ChevronLeft } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { AddProductTwo } from "./AddProductTwo";
-import { AddProductOne } from "./AddProductOne";
 import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { TextField } from "@mui/material";
 import { CustomInput } from "../customs/CustomInput";
 
 const validationSchema = yup.object({
@@ -60,6 +58,8 @@ export const AddProduct = () => {
     },
   });
 
+  console.log(postProduct);
+
   return (
     <div className="w-full h-screen bg-[#F7F7F8]">
       <div className="flex py-2 bg-white">
@@ -81,8 +81,6 @@ export const AddProduct = () => {
           <div className="basis-0 w-full grow bg-white p-6 rounded-xl flex flex-col gap-4">
             <div className="gap-2 flex flex-col">
               <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>
-
-              <div></div>
               <CustomInput
                 type="text"
                 placeholder="Нэр"
@@ -187,7 +185,6 @@ export const AddProduct = () => {
             </div>
           </div>
         </div>
-        <p></p>
 
         <AddProductTwo
           mainCategory={formik.values.mainCategory}
@@ -211,7 +208,7 @@ export const AddProduct = () => {
         <button
           className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
           onClick={() => {
-            formik.handleSubmit();
+            console.log();
           }}
         >
           Нийтлэх

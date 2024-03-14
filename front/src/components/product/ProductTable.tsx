@@ -1,5 +1,5 @@
 import OneTable from "./ProductTableMini";
-import OneProductData from "./ProductData";
+import { useProduct } from "../providers/ProductProvider";
 
 const ProductData = [
   "",
@@ -11,7 +11,9 @@ const ProductData = [
   "Нэмсэн огноо",
 ];
 
-function ProductTable() {
+export const ProductTable = () => {
+  const { productList } = useProduct();
+
   return (
     <section className="w-full rounded-xl flex flex-col divide-y divide-[#D6D8DB] bg-white">
       <header className="flex flex-row">
@@ -33,21 +35,22 @@ function ProductTable() {
         ))}
       </header>
       <main className="w-full h-fit flex flex-col overflow-y-auto divide-y divide-[#D6D8DB]">
-        {OneProductData.map((product, index) => (
+        {productList.map((item, index) => (
           <OneTable
             key={index}
-            img={product.img}
-            ProductName={product.ProductName}
-            ProductNumber={product.ProductNumber}
-            Category={product.Category}
-            Price={product.Price}
-            Total={product.Total}
-            SoldTotal={product.SoldTotal}
-            AddDate={product.AddDate}
+            img={item.productImage}
+            ProductName={item.productName}
+            ProductNumber={item.quantity}
+            Category={item.mainCategory}
+            Price={item.mainPrice}
+            Total={item.quantity}
+            SoldTotal={item.quantity}
+            // AddDate={item.createdAt}
           />
         ))}
       </main>
     </section>
   );
-}
+};
+
 export default ProductTable;
