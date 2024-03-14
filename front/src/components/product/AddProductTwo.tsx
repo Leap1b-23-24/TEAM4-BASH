@@ -1,16 +1,57 @@
+import { ChangeEvent, ChangeEventHandler, HtmlHTMLAttributes } from "react";
 import { CustomInput } from "../customs/CustomInput";
 
-export const AddProductTwo = () => {
+type FormikProps = {
+  mainCategory: string;
+  secondCategory: string;
+  color: string;
+  size: string;
+  tag: string;
+  handleChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  handleBlur: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  error?: boolean | "";
+};
+
+export const AddProductTwo = (props: FormikProps) => {
+  const {
+    mainCategory,
+    secondCategory,
+    color,
+    size,
+    tag,
+    handleChange,
+    handleBlur,
+    error,
+  } = props;
+
   return (
     <div className="basis-0 grow  flex flex-col rounded-lg justify-between">
       <div className="rounded-lg bg-white flex p-6 flex-col gap-5">
         <div className="flex flex-col gap-1">
           <label className="font-semibold text-base">Ерөнхий ангилал</label>
-          <CustomInput placeholder="Сонгох" />
+          <CustomInput
+            type="text"
+            placeholder="Сонгох"
+            name="mainCategory"
+            value={mainCategory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            // error={mainCategory && Boolean(mainCategory)}
+            // helperText={formik.touched.productName && formik.errors.productName}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="font-semibold text-base">Дэд ангилал</label>
-          <CustomInput placeholder="Сонгох" />
+          <CustomInput
+            type="text"
+            placeholder="Сонгох"
+            name="secondCategory"
+            value={secondCategory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            // error={mainCategory && Boolean(mainCategory)}
+            // helperText={formik.touched.productName && formik.errors.productName}
+          />
         </div>
       </div>
 
@@ -38,8 +79,16 @@ export const AddProductTwo = () => {
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <label className="font-semibold text-base">Таг</label>
-
-            <CustomInput placeholder="Таг нэмэх..." />
+            <CustomInput
+              type="text"
+              placeholder="Таг нэмэх..."
+              name="tag"
+              value={tag}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              // error={mainCategory && Boolean(mainCategory)}
+              // helperText={formik.touched.productName && formik.errors.productName}
+            />
           </div>
 
           <p className="text-[#5E6166] text-sm">

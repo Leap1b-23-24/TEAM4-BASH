@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 export const productSchema = new Schema({
   productName: {
@@ -15,14 +15,14 @@ export const productSchema = new Schema({
   },
   productImage: {
     type: String,
-    require: true,
+    require: false,
   },
   mainPrice: {
-    type: String,
+    type: Number,
     require: true,
   },
   quantity: {
-    type: String,
+    type: Number,
     require: true,
   },
   mainCategory: {
@@ -35,14 +35,18 @@ export const productSchema = new Schema({
   },
   color: {
     type: String,
-    require: true,
+    require: false,
   },
   size: {
     type: String,
-    require: true,
+    require: false,
   },
   tag: {
     type: String,
     require: true,
   },
+  createdAt: Date,
+  updatedAt: Date,
 });
+
+export const ProductModel = model("product", productSchema);
