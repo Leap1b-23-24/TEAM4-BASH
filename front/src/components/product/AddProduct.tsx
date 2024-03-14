@@ -82,6 +82,7 @@ export const AddProduct = () => {
             <div className="gap-2 flex flex-col">
               <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>
 
+              <div></div>
               <CustomInput
                 type="text"
                 placeholder="Нэр"
