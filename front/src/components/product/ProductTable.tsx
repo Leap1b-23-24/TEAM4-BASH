@@ -1,3 +1,4 @@
+"use client";
 import OneTable from "./ProductTableMini";
 import { useProduct } from "../providers/ProductProvider";
 import { useState } from "react";
