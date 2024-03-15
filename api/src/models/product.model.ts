@@ -10,7 +10,7 @@ export const productSchema = new Schema({
     require: true,
   },
   barCode: {
-    type: Number,
+    type: String,
     require: true,
   },
   productImage: {

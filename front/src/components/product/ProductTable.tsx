@@ -24,7 +24,7 @@ export const ProductTable = () => {
                 product === ""
                   ? `${"90px"}`
                   : product === "Ангилал"
-                  ? `${"240px"}`
+                  ? `${"230px"}`
                   : "180px",
             }}
             key={index}
@@ -40,12 +40,12 @@ export const ProductTable = () => {
             key={index}
             img={item.productImage}
             ProductName={item.productName}
-            ProductNumber={item.quantity}
+            ProductNumber={item.barCode}
             Category={item.mainCategory}
             Price={item.mainPrice}
             Total={item.quantity}
             SoldTotal={item.quantity}
-            // AddDate={item.createdAt}
+            AddDate={item.createdAt.toString().slice(0, 10)}
           />
         ))}
       </main>

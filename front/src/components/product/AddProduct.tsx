@@ -7,30 +7,36 @@ import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CustomInput } from "../customs/CustomInput";
+import { useState } from "react";
+import { Upload } from "../upload/page";
+import { Box, Modal } from "@mui/material";
 
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
   barCode: yup.string().required(),
-  productImage: yup.string().required(),
-  mainPrice: yup.string().required(),
-  quantity: yup.string().required(),
+  // productImage: yup.string().required(),
+  mainPrice: yup.number().required(),
+  quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  color: yup.string().required(),
-  size: yup.string().required(),
+  // color: yup.string().required(),
+  // size: yup.string().required(),
   tag: yup.string().required(),
 });
 
 export const AddProduct = () => {
   const { postProduct } = useProduct();
+  const [imageUrl, setImageUrl] = useState("");
+  const [openUpload, setOpenUpload] = useState(false);
+
   const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
       productName: "",
       additionInfo: "",
-      barCode: 0,
+      barCode: "",
       productImage: "",
       mainPrice: 0,
       quantity: 0,
@@ -39,6 +45,7 @@ export const AddProduct = () => {
       color: "",
       size: "",
       tag: "",
+      createdAt: new Date(),
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -53,12 +60,16 @@ export const AddProduct = () => {
         values.secondCategory,
         values.color,
         values.size,
-        values.tag
+        values.tag,
+        values.createdAt
+        // imageUrl
       );
     },
   });
 
-  console.log(postProduct);
+  const handleClick = () => {
+    setOpenUpload(false);
+  };
 
   return (
     <div className="w-full h-screen bg-[#F7F7F8]">
@@ -102,7 +113,7 @@ export const AddProduct = () => {
               <p className="text-[14px] font-semibold">Нэмэлт мэдээлэл</p>
               <CustomInput
                 type="text"
-                placeholder="Нэр"
+                placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон"
                 name="additionInfo"
                 value={formik.values.additionInfo}
                 onChange={formik.handleChange}
@@ -121,7 +132,7 @@ export const AddProduct = () => {
               <p className="text-[14px] font-semibold">Барааны код</p>
               <CustomInput
                 type="text"
-                placeholder="Нэр"
+                placeholder="#12345"
                 name="barCode"
                 value={formik.values.barCode}
                 onChange={formik.handleChange}
@@ -141,11 +152,39 @@ export const AddProduct = () => {
                 <AddPhotoAlternateOutlined />
               </div>
 
-              <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center">
-                <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
+              <div
+                className="rounded-lg w-[125px] h-[125px] flex justify-center items-center"
+                onClick={() => {
+                  setOpenUpload(true);
+                }}
+              >
+                <p
+                  className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]"
+                  onClick={() => {
+                    openUpload;
+                  }}
+                >
                   +
                 </p>
               </div>
+            </div>
+
+            <div
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              <Modal open={openUpload}>
+                <Box
+                  width={"full"}
+                  height={"100vh"}
+                  justifyContent={"center"}
+                  display={"flex"}
+                  alignItems={"center"}
+                >
+                  <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
+                </Box>
+              </Modal>
             </div>
           </div>
 
@@ -206,9 +245,10 @@ export const AddProduct = () => {
         </button>
 
         <button
+          type="button"
           className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
           onClick={() => {
-            console.log();
+            formik.handleSubmit();
           }}
         >
           Нийтлэх

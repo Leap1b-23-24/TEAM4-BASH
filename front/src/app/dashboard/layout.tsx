@@ -1,9 +1,9 @@
 import { AdminSideBar } from "@/src/components/admin/AdminSideBar";
-import Footer from "@/src/components/layout/AdminHomeFooter";
 import { Header } from "@/src/components/layout/Header";
 import { ProductProvider } from "@/src/components/providers/ProductProvider";
 import { PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
   return (

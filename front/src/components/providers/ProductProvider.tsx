@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/src/common";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import {
   Dispatch,
   PropsWithChildren,
@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 export type Product = {
   productName: string;
   additionInfo: string;
-  barCode: number;
+  barCode: string;
   productImage: string;
   mainPrice: number;
   quantity: number;
@@ -25,6 +25,7 @@ export type Product = {
   color: string;
   size: string;
   tag: string;
+  createdAt: Date;
 };
 
 const ProductContext = createContext<ProductContextType>(
@@ -35,7 +36,7 @@ type ProductContextType = {
   postProduct: (
     productName: string,
     additionInfo: string,
-    barCode: number,
+    barCode: string,
     productImage: string,
     mainPrice: number,
     quantity: number,
@@ -43,7 +44,8 @@ type ProductContextType = {
     secondCategory: string,
     color: string,
     size: string,
-    tag: string
+    tag: string,
+    createAt: Date
   ) => void;
 
   productList: Product[];
@@ -56,7 +58,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const postProduct = async (
     productName: string,
     additionInfo: string,
-    barCode: number,
+    barCode: string,
     productImage: string,
     mainPrice: number,
     quantity: number,
@@ -64,7 +66,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     secondCategory: string,
     color: string,
     size: string,
-    tag: string
+    tag: string,
+    createdAt: Date
   ) => {
     try {
       const { data } = await api.post(
@@ -81,6 +84,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
           color,
           size,
           tag,
+          createdAt,
         },
         {
           headers: {
@@ -96,6 +100,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {
           hideProgressBar: true,
+          position: "top-center",
         });
       }
     }
