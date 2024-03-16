@@ -1,4 +1,33 @@
+"use client";
+
+import { useFormik } from "formik";
+import { useAuth } from "../providers/AuthProvider";
+import * as yup from "yup";
+import { CustomInput } from "../customs/CustomInput";
+import { useState } from "react";
+import { Menu } from "@mui/icons-material";
+import { Modal, Stack } from "@mui/material";
+
+const validationSchema = yup.object({
+  email: yup.string().email().required(),
+  name: yup.string().required(),
+});
+
 export const SignUp = () => {
+  const { signUp } = useAuth();
+  const [isGoogle, setIsGoogle] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      name: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      signUp(values.email, values.name);
+    },
+  });
+
   return (
     <div className="border-2 w-full h-screen bg-white px-14 py-10">
       <div className="flex gap-1 justify-start">
@@ -15,22 +44,38 @@ export const SignUp = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1">
               <p className="text-[16px] font-normal">Таны имэйл</p>
-              <input
+              <CustomInput
                 type="text"
                 placeholder="Имэйл"
-                className="border bg-[#F7F7F8] border-[#D6D8DB] w-[360px] h-[50px] rounded-lg pl-3"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
               />
             </div>
             <div className="flex flex-col gap-1">
               <p className="text-[16px] font-normal">Таны нэр</p>
-              <input
+              <CustomInput
                 type="text"
                 placeholder="Нэр"
-                className="border bg-[#F7F7F8] border-[#D6D8DB] w-[360px] h-[50px] rounded-lg pl-3  "
+                name="name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
               />
             </div>
 
-            <button className="text-[18px] font-normal bg-black text-white py-4 rounded-lg">
+            <button
+              type="submit"
+              className="text-[18px] font-normal bg-black text-white py-4 rounded-lg"
+              onClick={() => {
+                formik.handleSubmit();
+              }}
+            >
               Дараах
             </button>
 

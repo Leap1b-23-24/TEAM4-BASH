@@ -1,0 +1,60 @@
+"use client";
+
+import { api } from "@/src/common";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
+
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
+type AuthContextType = {
+  isLogged: Boolean;
+  signUp: (email: string, name: string) => void;
+};
+
+export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [isLogged, setIsLogged] = useState(false);
+  const router = useRouter();
+
+  const signUp = async (email: string, name: string) => {
+    try {
+      const { data } = await api.post("/auth/sign", {
+        email,
+        name,
+      });
+
+      const { token } = data;
+
+      localStorage.setItem("token", token);
+
+      setIsLogged(true);
+
+      toast.success(data.message, {
+        position: "top-center",
+      });
+
+      router.push("/home");
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data.message ?? err.message, {
+          hideProgressBar: true,
+          position: "top-center",
+        });
+      }
+    }
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        signUp,
+        isLogged,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);

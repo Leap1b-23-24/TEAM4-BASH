@@ -73,7 +73,19 @@ export const AdminHome = () => {
 
         <div className="py-4">
           <p className="text-[28px] font-bold">Санал болгож буй</p>
-          <div className="flex justify-between"></div>
+          <div className="grid grid-cols-5 justify-between">
+            {productList.map((item, index) => {
+              return (
+                <CustomItem
+                  key={index}
+                  image={item.productImage}
+                  label={item.additionInfo}
+                  text={item.secondCategory}
+                  price={item.mainPrice}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
