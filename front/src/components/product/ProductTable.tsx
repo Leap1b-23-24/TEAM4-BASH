@@ -38,8 +38,8 @@ export const ProductTable = () => {
         {productList.map((item, index) => (
           <OneTable
             key={index}
-            img={item.productImage}
             ProductName={item.productName}
+            ProductImage={item.productImage}
             ProductNumber={item.barCode}
             Category={item.mainCategory}
             Price={item.mainPrice}

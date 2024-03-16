@@ -39,39 +39,26 @@ export const Upload = (props: ImageUrlProps) => {
   };
 
   return (
-    <Stack>
-      <Container
-        sx={{
-          border: 1,
-          bgcolor: "#FFF",
-        }}
-      >
-        <Stack
-          py={2}
-          gap={3}
-          width={"100%"}
-          direction={"row"}
-          justifyContent={"space-between"}
-        >
-          <Stack gap={3} width={"300px"}>
-            <TextField
-              type="file"
-              onChange={handleImageChange}
-              variant="outlined"
-            />
-            <Button onClick={handleImageUpload} variant="contained">
-              Upload
-            </Button>
-          </Stack>
-          <Stack>
-            {imageUrl && (
-              <Stack position={"relative"} width={"150px"}>
-                <img src={imageUrl} alt="Uploaded" />
-              </Stack>
-            )}
-          </Stack>
+    <Container>
+      <Stack py={2} gap={3} direction={"row"} justifyContent={"space-between"}>
+        <Stack gap={3} width={"80px"}>
+          <TextField
+            type="file"
+            onChange={handleImageChange}
+            variant="outlined"
+          />
+          <Button onClick={handleImageUpload} variant="contained">
+            Upload
+          </Button>
         </Stack>
-      </Container>
-    </Stack>
+        {/* <Stack>
+          {imageUrl && (
+            <Stack position={"relative"} width={"100px"}>
+              <img src={imageUrl} alt="Uploaded" />
+            </Stack>
+          )}
+        </Stack> */}
+      </Stack>
+    </Container>
   );
 };

@@ -9,9 +9,11 @@ import {
 } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import ProductTable from "./ProductTable";
+import { useProduct } from "../providers/ProductProvider";
 
 export const DashboardProduct = () => {
   const router = useRouter();
+  const { productList } = useProduct();
 
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
@@ -41,7 +43,12 @@ export const DashboardProduct = () => {
                 <CategoryOutlined className="absolute top-2 left-2" />
                 <div className="">
                   <select className="w-[145px] h-10 pl-9 rounded-lg text-[#3F4145] border">
-                    <option>Ангилал</option>
+                    <option disabled selected value={""}>
+                      Ангилал
+                    </option>
+                    {productList.map((item, index) => {
+                      return <option key={index}>{item.mainCategory}</option>;
+                    })}
                   </select>
                 </div>
               </div>

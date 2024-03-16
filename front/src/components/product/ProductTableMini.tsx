@@ -2,6 +2,7 @@ import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
 
 function OneTable({
   ProductName,
+  ProductImage,
   ProductNumber,
   Category,
   Price,
@@ -14,8 +15,10 @@ function OneTable({
       <div className="w-[68px] h-fit flex justify-center items-center ">
         <input type="checkbox" className="w-[20px] h-[20px]" />
       </div>
-      <div className="w-[156.8px] pl-[22px] h-fit flex items-center flex-row gap-3">
-        <img src="/images.png" alt="" className="w-10 h-10 rounded-[50%]" />
+      <div className="w-[156.8px] pl-[20px] h-fit flex items-center flex-row gap-3">
+        <div className="w-[full] rounded-[50%] overflow-hidden">
+          <img src={ProductImage} className="w-16 h-10" />
+        </div>
         <div className="w-full h-fit flex flex-col gap-1">
           <p className="text-[14px] font-[600] text-[#121316]">{ProductName}</p>
           <p className="text-[12px] font-[400] text-[#5E6166]">

@@ -2,6 +2,7 @@
 
 import { api } from "@/src/common";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import {
   Dispatch,
   PropsWithChildren,
@@ -54,6 +55,9 @@ type ProductContextType = {
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [productList, setProductList] = useState<Product[]>([]);
+  const [refresh, setRefresh] = useState(1);
+
+  const router = useRouter();
 
   const postProduct = async (
     productName: string,
@@ -96,6 +100,10 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       toast.success(data.message, {
         position: "top-center",
       });
+
+      router.push("/dashboard/product");
+
+      setRefresh(refresh + 1);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {
@@ -122,7 +130,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [refresh]);
 
   return (
     <ProductContext.Provider
