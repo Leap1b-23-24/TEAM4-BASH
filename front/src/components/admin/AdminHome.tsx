@@ -1,15 +1,13 @@
-import {
-  Favorite,
-  FavoriteBorder,
-  FavoriteBorderOutlined,
-  Menu,
-  Search,
-  ShoppingCart,
-} from "@mui/icons-material";
-import { Custom } from "../customs/CustomHome";
+"use client";
+
+import { Favorite, Menu, Search, ShoppingCart } from "@mui/icons-material";
+import { CustomItem } from "../customs/CustomHome";
+import { useProduct } from "../providers/ProductProvider";
 
 export const AdminHome = () => {
   const label = ["Хямдралтай", "Эрэгтэй", "Эмэгтэй", "Хүүхдийн"];
+
+  const { productList } = useProduct();
   return (
     <div className="w-full h-full">
       <div className="px-[235px] bg-[#12A795] flex justify-between py-1">
@@ -57,11 +55,17 @@ export const AdminHome = () => {
         <div className="py-4 flex flex-col gap-2">
           <p className="text-[28px] font-bold">Санал болгож буй</p>
           <div className="grid grid-cols-5 justify-between">
-            <Custom image="images.png" label="ssss" text="hhgh" price={22} />
-            <Custom image="images.png" label="sss" text="hhgh" price={22} />
-            <Custom image="images.png" label="sss" text="hhgh" price={22} />
-            <Custom image="images.png" label="sss" text="hhgh" price={22} />
-            <Custom image="images.png" label="sss" text="hhgh" price={22} />
+            {productList.map((item, index) => {
+              return (
+                <CustomItem
+                  key={index}
+                  image={item.productImage}
+                  label={item.additionInfo}
+                  text={item.secondCategory}
+                  price={item.mainPrice}
+                />
+              );
+            })}
           </div>
         </div>
 
@@ -69,9 +73,7 @@ export const AdminHome = () => {
 
         <div className="py-4">
           <p className="text-[28px] font-bold">Санал болгож буй</p>
-          <div className="flex justify-between">
-            <Custom image="images.png" label="sss" text="hhgh" price={22} />
-          </div>
+          <div className="flex justify-between"></div>
         </div>
       </div>
     </div>

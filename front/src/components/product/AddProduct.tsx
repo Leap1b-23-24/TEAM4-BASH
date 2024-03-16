@@ -3,36 +3,41 @@
 import { AddPhotoAlternateOutlined, ChevronLeft } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { AddProductTwo } from "./AddProductTwo";
-import { AddProductOne } from "./AddProductOne";
 import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { TextField } from "@mui/material";
 import { CustomInput } from "../customs/CustomInput";
+import { useState } from "react";
+import { Upload } from "../upload/page";
+
+type Props = {
+  productImage: string;
+};
 
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
   barCode: yup.string().required(),
-  productImage: yup.string().required(),
-  mainPrice: yup.string().required(),
-  quantity: yup.string().required(),
+  mainPrice: yup.number().required(),
+  quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  color: yup.string().required(),
-  size: yup.string().required(),
+  // color: yup.string().required(),
+  // size: yup.string().required(),
   tag: yup.string().required(),
 });
 
-export const AddProduct = () => {
+export const AddProduct = (props: Props) => {
   const { postProduct } = useProduct();
+  const [imageUrl, setImageUrl] = useState("");
+
   const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
       productName: "",
       additionInfo: "",
-      barCode: 0,
+      barCode: "",
       productImage: "",
       mainPrice: 0,
       quantity: 0,
@@ -41,6 +46,7 @@ export const AddProduct = () => {
       color: "",
       size: "",
       tag: "",
+      createdAt: new Date(),
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -48,14 +54,15 @@ export const AddProduct = () => {
         values.productName,
         values.additionInfo,
         values.barCode,
-        values.productImage,
+        imageUrl,
         values.mainPrice,
         values.quantity,
         values.mainCategory,
         values.secondCategory,
         values.color,
         values.size,
-        values.tag
+        values.tag,
+        values.createdAt
       );
     },
   });
@@ -77,12 +84,10 @@ export const AddProduct = () => {
       </div>
 
       <div className="p-8 flex w-full gap-10">
-        <div className="basis-0 grow flex flex-col gap-6">
-          <div className="basis-0 w-full grow bg-white p-6 rounded-xl flex flex-col gap-4">
+        <div className="basis-0 grow flex flex-col gap-8">
+          <div className="w-full bg-white p-6 rounded-xl flex flex-col gap-4">
             <div className="gap-2 flex flex-col">
               <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>
-
-              <div></div>
               <CustomInput
                 type="text"
                 placeholder="Нэр"
@@ -104,7 +109,7 @@ export const AddProduct = () => {
               <p className="text-[14px] font-semibold">Нэмэлт мэдээлэл</p>
               <CustomInput
                 type="text"
-                placeholder="Нэр"
+                placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон"
                 name="additionInfo"
                 value={formik.values.additionInfo}
                 onChange={formik.handleChange}
@@ -123,7 +128,7 @@ export const AddProduct = () => {
               <p className="text-[14px] font-semibold">Барааны код</p>
               <CustomInput
                 type="text"
-                placeholder="Нэр"
+                placeholder="#12345"
                 name="barCode"
                 value={formik.values.barCode}
                 onChange={formik.handleChange}
@@ -137,16 +142,24 @@ export const AddProduct = () => {
           <div className="w-full rounded-xl p-6 gap-3 flex flex-col bg-white">
             <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
 
-            <div className="flex items-center gap-3">
-              <div className="border-2 border-[#D6D8DB] rounded-lg w-[125px] h-[125px] relative"></div>
+            <div className="flex items-center gap-3 relative">
+              <div className="border-2 border-[#D6D8DB] rounded-lg w-[125px] h-[125px] relative">
+                <img
+                  src={imageUrl}
+                  className="w-[125px] h-[125px] object-cover"
+                />
+              </div>
               <div className="absolute ml-[52px]">
                 <AddPhotoAlternateOutlined />
               </div>
 
               <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center">
-                <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
+                <button className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
                   +
-                </p>
+                </button>
+              </div>
+              <div className="absolute left-32 top-4 opacity-0.5">
+                <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
               </div>
             </div>
           </div>
@@ -187,20 +200,89 @@ export const AddProduct = () => {
             </div>
           </div>
         </div>
-        <p></p>
 
-        <AddProductTwo
-          mainCategory={formik.values.mainCategory}
-          secondCategory={formik.values.secondCategory}
-          color={formik.values.color}
-          size={formik.values.size}
-          tag={formik.values.tag}
-          handleChange={formik.handleChange}
-          handleBlur={formik.handleBlur}
-          // error={
-          //   formik.touched.mainCategory && Boolean(formik.errors.mainCategory)
-          // }
-        />
+        <div className="basis-0 grow  flex flex-col rounded-lg justify-between">
+          <div className="rounded-lg bg-white flex p-6 flex-col gap-5">
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-base">Ерөнхий ангилал</label>
+              <CustomInput
+                type="text"
+                placeholder="Сонгох"
+                name="mainCategory"
+                value={formik.values.mainCategory}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.mainCategory &&
+                  Boolean(formik.errors.mainCategory)
+                }
+                helperText={
+                  formik.touched.mainCategory && formik.errors.mainCategory
+                }
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-base">Дэд ангилал</label>
+              <CustomInput
+                type="text"
+                placeholder="Сонгох"
+                name="secondCategory"
+                value={formik.values.secondCategory}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.secondCategory &&
+                  Boolean(formik.errors.secondCategory)
+                }
+                helperText={
+                  formik.touched.secondCategory && formik.errors.secondCategory
+                }
+              />
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-white flex p-6 flex-col gap-3">
+            <p className="font-semibold text-[18px]">Төрөл</p>
+            <div className=" flex flex-row gap-6 items-center">
+              <p className="text-sm ">Өнгө</p>
+              <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%]">
+                +
+              </p>
+            </div>
+
+            <div className="flex flex-row gap-6 items-center">
+              <p className="text-sm pt-1">Хэмжээ</p>
+              <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%]">
+                +
+              </p>
+            </div>
+            <button className="h-[36px] w-[118px] mt-4 font-semibold border text-sm rounded-lg">
+              Төрөл нэмэх
+            </button>
+          </div>
+
+          <div className="rounded-lg bg-white flex p-6 flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-base">Таг</label>
+                <CustomInput
+                  type="text"
+                  placeholder="Сонгох"
+                  name="tag"
+                  value={formik.values.tag}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.tag && Boolean(formik.errors.tag)}
+                  helperText={formik.touched.tag && formik.errors.tag}
+                />
+              </div>
+
+              <p className="text-[#5E6166] text-sm">
+                Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="px-8 flex justify-end gap-5">
@@ -209,6 +291,7 @@ export const AddProduct = () => {
         </button>
 
         <button
+          type="button"
           className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
           onClick={() => {
             formik.handleSubmit();

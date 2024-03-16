@@ -10,12 +10,12 @@ export const productSchema = new Schema({
     require: true,
   },
   barCode: {
-    type: Number,
+    type: String,
     require: true,
   },
   productImage: {
     type: String,
-    require: false,
+    require: true,
   },
   mainPrice: {
     type: Number,
@@ -35,11 +35,11 @@ export const productSchema = new Schema({
   },
   color: {
     type: String,
-    require: false,
+    require: true,
   },
   size: {
     type: String,
-    require: false,
+    require: true,
   },
   tag: {
     type: String,

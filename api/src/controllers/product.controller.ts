@@ -26,7 +26,7 @@ export const postProduct: RequestHandler = async (req, res) => {
 
   if (findProduct) {
     return res.status(401).json({
-      message: "product is exist",
+      message: "This product has been added",
     });
   }
 
@@ -51,7 +51,7 @@ export const postProduct: RequestHandler = async (req, res) => {
   });
 };
 
-export const getProduct: RequestHandler = async (req, res) => {
+export const getProduct: RequestHandler = async (_req, res) => {
   const product = await ProductModel.find({});
 
   return res.json(product);
