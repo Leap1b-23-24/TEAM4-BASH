@@ -3,6 +3,7 @@
 import { Favorite, Menu, Search, ShoppingCart } from "@mui/icons-material";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
+import Footer from "../layout/AdminHomeFooter";
 
 export const AdminHome = () => {
   const label = ["Хямдралтай", "Эрэгтэй", "Эмэгтэй", "Хүүхдийн"];
@@ -71,7 +72,7 @@ export const AdminHome = () => {
 
         <img src="wake.png" alt="" className="h-[412px]" />
 
-        <div className="py-4">
+        <div className="pt-4 pb-8">
           <p className="text-[28px] font-bold">Санал болгож буй</p>
           <div className="grid grid-cols-5 justify-between">
             {productList.map((item, index) => {
@@ -88,6 +89,8 @@ export const AdminHome = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
