@@ -1,5 +1,26 @@
 import { RequestHandler } from "express";
 import { UserModel } from "../models";
+import jwt from "jsonwebtoken";
+
+export const login: RequestHandler = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await UserModel.findOne({ email, password });
+
+  if (!user) {
+    return res.status(401).json({
+      message: "User not found",
+    });
+  }
+
+  const id = user._id;
+
+  const token = jwt.sign({ id }, "secret-key");
+
+  res.json({
+    token,
+  });
+};
 
 export const signUp: RequestHandler = async (req, res) => {
   const { email, name } = req.body;

@@ -1,30 +1,26 @@
 "use client";
 
+import { CustomInput } from "@/src/components/customs/CustomInput";
 import { useFormik } from "formik";
-import { useAuth } from "../providers/AuthProvider";
 import * as yup from "yup";
-import { CustomInput } from "../customs/CustomInput";
-import { useState } from "react";
-import { Menu } from "@mui/icons-material";
-import { Modal, Stack } from "@mui/material";
+import { useAuth } from "../providers/AuthProvider";
 
 const validationSchema = yup.object({
   email: yup.string().email().required(),
-  name: yup.string().required(),
+  password: yup.string().required(),
 });
 
-export const SignUp = () => {
-  const { signUp } = useAuth();
-  const [isGoogle, setIsGoogle] = useState(false);
+export const Login = () => {
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues: {
       email: "",
-      name: "",
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      signUp(values.email, values.name);
+      login(values.email, values.password);
     },
   });
 
@@ -37,9 +33,7 @@ export const SignUp = () => {
 
       <div className="flex h-[90%] justify-center items-center">
         <div className="flex flex-col border border-[#ECEDF0] p-10 gap-10 rounded-xl">
-          <p className="text-[32px] font-bold flex justify-center">
-            Бүртгүүлэх
-          </p>
+          <p className="text-[32px] font-bold flex justify-center">Нэвтрэх</p>
 
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1">
@@ -55,17 +49,21 @@ export const SignUp = () => {
                 helperText={formik.touched.email && formik.errors.email}
               />
             </div>
+
             <div className="flex flex-col gap-1">
-              <p className="text-[16px] font-normal">Таны нэр</p>
+              <p className="text-[16px] font-normal">Password</p>
+
               <CustomInput
-                type="text"
-                placeholder="Нэр"
-                name="name"
-                value={formik.values.name}
+                type="password"
+                placeholder="password"
+                name="password"
+                value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
               />
             </div>
 
@@ -80,12 +78,7 @@ export const SignUp = () => {
             </button>
 
             <div className="py-6 border-y-2 border-[#ECEDF0] flex flex-col items-center gap-4 mt-2">
-              <div
-                className="flex gap-2 px-[88px] py-4 rounded-lg bg-[#F7F7F8] cursor-pointer"
-                onClick={() => {
-                  setIsGoogle(true);
-                }}
-              >
+              <div className="flex gap-2 px-[88px] py-4 rounded-lg bg-[#F7F7F8] cursor-pointer">
                 <img src="/google.png" className="object-cover" />
                 <p className="text-[16px] font-normal">Google-ээр нэвтрэх</p>
               </div>
@@ -113,31 +106,23 @@ export const SignUp = () => {
         </div>
       </div>
 
-      {isGoogle && (
-        <div className="absolute top-6 right-20 border-2 border-[#DADCE0] rounded-xl">
-          <div className="flex py-2 border-b-2">
-            <img src="google.png" className="py-3 pl-5" />
-            <p className="text-[17px] text-[#5F6368] font-semibold py-3 pr-14 pl-3">
-              Sign in to Pinecone with Google
-            </p>
-            <img
-              src="x.png"
-              className="py-[18px] px-6"
-              onClick={() => {
-                setIsGoogle(false);
-              }}
-            />
-          </div>
+      <div className="absolute top-6 right-20 border-2 border-[#DADCE0] rounded-xl">
+        <div className="flex py-2 border-b-2">
+          <img src="/google.png" className="py-3 pl-5" />
+          <p className="text-[17px] text-[#5F6368] font-semibold py-3 pr-14 pl-3">
+            Sign in to Pinecone with Google
+          </p>
+          <img src="/x.png" className="py-[18px] px-6" />
+        </div>
 
-          <div className="py-4 flex gap-4 px-5">
-            <img src="pro.webp" className="w-10 rounded-[50%] py-1" />
-            <div>
-              <p className="text-[16px] text-[#3C4043]">Chekist</p>
-              <p className="text-[14px] text-[#5F6368]">chekist.ot@gmail.com</p>
-            </div>
+        <div className="py-4 flex gap-4 px-5">
+          <img src="/pro.webp" className="w-10 rounded-[50%] py-1" />
+          <div>
+            <p className="text-[16px] text-[#3C4043]">Chekist</p>
+            <p className="text-[14px] text-[#5F6368]">chekist.ot@gmail.com</p>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
