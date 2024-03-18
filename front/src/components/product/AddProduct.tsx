@@ -14,6 +14,25 @@ type Props = {
   productImage: string;
 };
 
+const color = [
+  "#8D887D",
+  "#DCDDE0",
+  "#0166FF",
+  "#01B3FF",
+  "#F9D100",
+  "#AE01FF",
+  "#41CC00",
+  "#FF0101",
+  "#cede1d",
+  "#f78874",
+  "#76f774",
+  "#000000",
+];
+
+const size = ["Xs", "S", "M", "L", "XL", "2XL"];
+
+const image = ["", ""];
+
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
@@ -22,16 +41,27 @@ const validationSchema = yup.object({
   quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  // color: yup.string().required(),
-  // size: yup.string().required(),
   tag: yup.string().required(),
 });
 
 export const AddProduct = (props: Props) => {
   const { postProduct } = useProduct();
   const [imageUrl, setImageUrl] = useState("");
+  const [isColor, setIsColor] = useState<string[]>([]);
+  const [isSize, setIsSize] = useState<string[]>([]);
+  const [openColor, setOpenColor] = useState(false);
+  const [openSize, setOpenSize] = useState(false);
+  const [valueColor, setValueColor] = useState([]);
 
   const router = useRouter();
+
+  const handleClick = () => {
+    setOpenColor(false);
+  };
+
+  const handleSize = () => {
+    setOpenSize(false);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -143,23 +173,27 @@ export const AddProduct = (props: Props) => {
             <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
 
             <div className="flex items-center gap-3 relative">
-              <div className="border-2 border-[#D6D8DB] rounded-lg w-[125px] h-[125px] relative">
+              <div className="border-dashed border-2 rounded-lg w-[125px] h-[125px] relative">
                 <img
                   src={imageUrl}
                   className="w-[125px] h-[125px] object-cover"
                 />
               </div>
-              <div className="absolute ml-[52px]">
-                <AddPhotoAlternateOutlined />
-              </div>
 
-              <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center">
+              {imageUrl.length == 0 && (
+                <div className="absolute ml-[52px]">
+                  <AddPhotoAlternateOutlined />
+                </div>
+              )}
+
+              <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center relative">
                 <button className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
                   +
                 </button>
-              </div>
-              <div className="absolute left-32 top-4 opacity-0.5">
-                <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
+
+                <div className="absolute top-4 right-1 opacity-0">
+                  <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
+                </div>
               </div>
             </div>
           </div>
@@ -241,21 +275,93 @@ export const AddProduct = (props: Props) => {
             </div>
           </div>
 
-          <div className="rounded-lg bg-white flex p-6 flex-col gap-3">
+          <div className="rounded-lg bg-white flex p-6 flex-col gap-3 relative">
             <p className="font-semibold text-[18px]">Төрөл</p>
             <div className=" flex flex-row gap-6 items-center">
               <p className="text-sm ">Өнгө</p>
-              <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%]">
+
+              {isColor.map((item, index) => {
+                return (
+                  <p
+                    key={index}
+                    style={{ background: item }}
+                    className="w-6 h-6 rounded-[50%]"
+                  ></p>
+                );
+              })}
+
+              <p
+                className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%] relative"
+                onClick={() => {
+                  setOpenColor(true);
+                }}
+              >
                 +
               </p>
+
+              {openColor && (
+                <div className="absolute mt-32 w-fit h-fit p-3 border-2 bg-white flex justify-between grid grid-cols-6 gap-3 rounded-xl">
+                  {color.map((item, index) => {
+                    return (
+                      <p
+                        className="rounded-[50%] w-6 h-6"
+                        onClick={() => {
+                          setIsColor((prev) => [...prev, item]);
+                          handleClick();
+                        }}
+                        key={index}
+                        style={{ background: item }}
+                      />
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="flex flex-row gap-6 items-center">
               <p className="text-sm pt-1">Хэмжээ</p>
-              <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%]">
+
+              {isSize.map((item, index) => {
+                return (
+                  <p
+                    key={index}
+                    className="w-8 h-8 flex justify-center items-center rounded-[50%] bg-[#ECEDF0] text-base text-[#121316] border-2"
+                  >
+                    {item}
+                  </p>
+                );
+              })}
+
+              <p
+                className="text-xl flex justify-center items-center bg-[#ECEDF0] p-3 h-8 w-8 rounded-[50%]"
+                onClick={() => {
+                  setOpenSize(true);
+                }}
+              >
                 +
               </p>
+
+              {openSize && (
+                <div className="overflow-scroll w-[270px] p-2 border-2 rounded-lg absolute top-36 bg-white flex gap-1 bg-[#44e3ae]">
+                  {size.map((item, index) => {
+                    return (
+                      <p
+                        key={index}
+                        className="text-sm border px-4 py-[2px] bg-blue-500 text-white rounded-lg"
+                        onClick={() => {
+                          setIsSize((prev) => [...prev, item]);
+                          handleSize();
+                        }}
+                        style={{ background: item }}
+                      >
+                        {item}
+                      </p>
+                    );
+                  })}
+                </div>
+              )}
             </div>
+
             <button className="h-[36px] w-[118px] mt-4 font-semibold border text-sm rounded-lg">
               Төрөл нэмэх
             </button>
@@ -278,7 +384,7 @@ export const AddProduct = (props: Props) => {
               </div>
 
               <p className="text-[#5E6166] text-sm">
-                Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
+                Санал болгох: Гутал , Цүнх , Эмэгтэй
               </p>
             </div>
           </div>

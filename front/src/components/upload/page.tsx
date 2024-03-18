@@ -1,7 +1,13 @@
 "use client";
 
 import { Button, Container, Stack, TextField } from "@mui/material";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 type ImageUrlProps = {
   imageUrl: string;
@@ -10,7 +16,7 @@ type ImageUrlProps = {
 
 export const Upload = (props: ImageUrlProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { imageUrl, setImageUrl } = props;
+  const { setImageUrl } = props;
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -38,27 +44,19 @@ export const Upload = (props: ImageUrlProps) => {
     }
   };
 
+  useEffect(() => {
+    handleImageUpload();
+  }, [selectedFile]);
+
   return (
-    <Container>
-      <Stack py={2} gap={3} direction={"row"} justifyContent={"space-between"}>
-        <Stack gap={3} width={"80px"}>
-          <TextField
-            type="file"
-            onChange={handleImageChange}
-            variant="outlined"
-          />
-          <Button onClick={handleImageUpload} variant="contained">
-            Upload
-          </Button>
-        </Stack>
-        {/* <Stack>
-          {imageUrl && (
-            <Stack position={"relative"} width={"100px"}>
-              <img src={imageUrl} alt="Uploaded" />
-            </Stack>
-          )}
-        </Stack> */}
+    <Stack py={2} gap={3} direction={"row"} justifyContent={"space-between"}>
+      <Stack gap={3} width={"80px"}>
+        <TextField
+          type="file"
+          onChange={handleImageChange}
+          variant="outlined"
+        />
       </Stack>
-    </Container>
+    </Stack>
   );
 };
