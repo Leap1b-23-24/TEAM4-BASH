@@ -35,7 +35,7 @@ export const OrderGeneral = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full h-full bg-[#F7F7F8]">
+    <div className="w-full h-full bg-[#F7F7F8] text-[black]">
       <div className="flex">
         {label.map((item, index) => {
           return (

@@ -8,6 +8,7 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const AdminSideBar = () => {
   const data = [
@@ -19,10 +20,11 @@ export const AdminSideBar = () => {
   ];
 
   const router = useRouter();
+  const [color,setColor]= useState("#e6e6e8");
 
   return (
     <div className="flex">
-      <div className="bg-white h-full py-6 gap-2 flex flex-col">
+      <div className="bg-white text-[black] h-full py-6 gap-2 flex flex-col">
         {data.map((item, index) => {
           return (
             <div
@@ -38,7 +40,7 @@ export const AdminSideBar = () => {
                 } else if (item.label == "Бүтээгдэхүүн") {
                   router.push("/dashboard/product");
                 } else if (item.label == "Тохиргоо") {
-                  router.push("/dashboard/settings");
+                  router.push("/dashboard/settings")
                 }
               }}
             >

@@ -9,7 +9,7 @@ export const AddProduct = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full h-screen bg-[#F7F7F8]">
+    <div className="w-full h-screen bg-[#F7F7F8] text-[black]">
       <div className="flex py-2 bg-white">
         <div
           onClick={() => {

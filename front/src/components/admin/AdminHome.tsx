@@ -11,7 +11,7 @@ import { Custom } from "../customs/CustomHome";
 export const AdminHome = () => {
   const label = ["Хямдралтай", "Эрэгтэй", "Эмэгтэй", "Хүүхдийн"];
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full text-[black]" >
       <div className="px-[235px] bg-[#12A795] flex justify-between py-1">
         <div className="flex gap-2">
           <img src="pinelogo.png" className="py-4 w-[32px] object-cover" />

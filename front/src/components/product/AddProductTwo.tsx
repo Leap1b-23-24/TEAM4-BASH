@@ -2,7 +2,7 @@ import { CustomInput } from "../customs/CustomInput";
 
 export const AddProductTwo = () => {
   return (
-    <div className="basis-0 grow  flex flex-col rounded-lg justify-between">
+    <div className="basis-0 grow  flex flex-col rounded-lg justify-between text-[black]">
       <div className="rounded-lg bg-white flex p-6 flex-col gap-5">
         <div className="flex flex-col gap-1">
           <label className="font-semibold text-base">Ерөнхий ангилал</label>

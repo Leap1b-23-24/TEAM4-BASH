@@ -8,7 +8,7 @@ export const Custom = (props: CustomProps) => {
   const { image, label, text, price } = props;
 
   return (
-    <div className="w-[235px] rounded-2xl overflow-hidden border-2">
+    <div className="w-[235px] rounded-2xl overflow-hidden border-2 text-[black]">
       <div>
         <img src={image} />
         <div className="p-4 flex flex-col gap-2">

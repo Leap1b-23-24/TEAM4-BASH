@@ -24,7 +24,7 @@ export const DashboardIncome = () => {
   ];
 
   return (
-    <div className="w-full bg-[#F7F7F8]">
+    <div className="w-full bg-[#F7F7F8] text-[black]">
       <div className="px-60 py-4 flex flex-col gap-6 ">
         <div className="border-2 border-[#ECEDF0] rounded-2xl overflow-hidden">
           <div className="p-6 flex justify-between bg-white border-b-2">

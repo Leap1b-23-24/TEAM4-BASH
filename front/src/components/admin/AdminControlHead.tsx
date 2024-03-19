@@ -22,7 +22,7 @@ export const AdminControlHead = () => {
   ];
 
   return (
-    <div className="flex w-full gap-6 px-8 py-10">
+    <div className="flex w-full gap-6 px-8 py-10 text-[black]">
       {data.map((item, index) => {
         return (
           <div className="basis-0 grow">
