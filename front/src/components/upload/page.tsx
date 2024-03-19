@@ -10,8 +10,8 @@ import {
 } from "react";
 
 type ImageUrlProps = {
-  imageUrl: string;
-  setImageUrl: Dispatch<SetStateAction<string>>;
+  imageUrl: string[];
+  setImageUrl: Dispatch<SetStateAction<string[]>>;
 };
 
 export const Upload = (props: ImageUrlProps) => {
@@ -36,8 +36,7 @@ export const Upload = (props: ImageUrlProps) => {
           }
         );
         const data = await response.json();
-        console.log(data);
-        setImageUrl(data.secure_url);
+        setImageUrl((prev) => [...prev, data.secure_url]);
       } catch (error) {
         console.error("Image upload error:", error);
       }
