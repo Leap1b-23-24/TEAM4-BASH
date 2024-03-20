@@ -163,7 +163,7 @@ const Listbox = styled("ul")(
 
 type CustomizedHookProps = {
   onChange: (value: string[]) => void;
-  tags: string[];
+  tags?: string[];
 };
 
 export default function CustomizedHook({
@@ -183,7 +183,7 @@ export default function CustomizedHook({
     setAnchorEl,
   } = useAutocomplete({
     id: "customized-hook-demo",
-    value: tags,
+    value: tags ?? [],
     multiple: true,
     options: top100Films,
     onChange: (_event, value) => {
@@ -219,4 +219,4 @@ export default function CustomizedHook({
   );
 }
 
-const top100Films = ["1", ""];
+const top100Films = ["1"];

@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { AddProductOne } from "./AddProductOne";
 import { useState } from "react";
+import { Button } from "@mui/material";
 
 type Props = {
   productImage: string;
@@ -16,14 +17,14 @@ type Props = {
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
+  // productImage: yup.array().required(),
   barCode: yup.string().required(),
-  productImage: yup.array().required(),
   mainPrice: yup.number().required(),
   quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  color: yup.array().required(),
-  size: yup.array().required(),
+  // color: yup.array().required(),
+  // size: yup.array().required(),
   // tag: yup.array().required(),
 });
 
@@ -44,14 +45,13 @@ export const AddProduct = (props: Props) => {
       productName: "",
       additionInfo: "",
       barCode: "",
-      productImage: "",
       mainPrice: 0,
       quantity: 0,
       mainCategory: "",
       secondCategory: "",
-      color: "",
-      size: "",
-      tag: "",
+      color: [],
+      size: [],
+      tag: [],
       createdAt: new Date(),
     },
     validationSchema: validationSchema,
@@ -165,7 +165,7 @@ export const AddProduct = (props: Props) => {
           }
           //tag
           tagOnChange={handleTags}
-          // tag={formik.values.tag}
+          tag={formik.values.tag}
         />
       </div>
 
@@ -174,15 +174,39 @@ export const AddProduct = (props: Props) => {
           Ноорог
         </button>
 
-        <button
-          type="button"
-          className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
+        <Button
           onClick={() => {
             formik.handleSubmit();
           }}
+          disabled={
+            !formik.values.productName ||
+            !formik.values.additionInfo ||
+            !formik.values.barCode ||
+            imageUrl.length == 0 ||
+            !formik.values.mainPrice ||
+            !formik.values.quantity ||
+            !formik.values.mainCategory ||
+            !formik.values.secondCategory ||
+            isColor.length == 0 ||
+            isSize.length == 0 ||
+            formik.values.tag.length == 0
+          }
+          disableElevation
+          sx={{
+            border: 1,
+            px: 2,
+            py: 1,
+            borderColor: "#888",
+            color: "#000",
+            "&:hover": {
+              bgcolor: "#000",
+              color: "#FFF",
+            },
+            borderRadius: 2,
+          }}
         >
           Нийтлэх
-        </button>
+        </Button>
       </div>
     </div>
   );

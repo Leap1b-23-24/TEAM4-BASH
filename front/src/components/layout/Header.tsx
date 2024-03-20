@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export const Header = () => {
   return (
-    <div className="flex bg-black w-full min-w-[1000px] justify-center py-3">
+    <div className="flex bg-black w-full min-w-[1300px] justify-center py-3">
       <div className="justify-between flex px-10 w-[1700px]">
         <Image
           alt="logo"

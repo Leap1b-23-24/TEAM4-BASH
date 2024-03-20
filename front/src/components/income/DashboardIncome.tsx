@@ -74,7 +74,7 @@ export const DashboardIncome = () => {
                 </p>
 
                 <div className="pl-[205px]">
-                  <p className="text-base font-normal text-[#121316]">
+                  <p className="text-base font-normal text-[#121316] whitespace-nowrap">
                     {item.gmail}
                   </p>
                   <p className="text-[14px] font-normal text-[#121316]">
@@ -84,7 +84,7 @@ export const DashboardIncome = () => {
                 <p className="text-[16px] font-normal text-[#121316] pt-2 pl-[228px]">
                   {item.payment}
                 </p>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px]">
+                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px] whitespace-nowrap">
                   {item.date}
                 </p>
               </div>
