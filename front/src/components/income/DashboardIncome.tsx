@@ -24,8 +24,8 @@ export const DashboardIncome = () => {
   ];
 
   return (
-    <div className="w-full bg-[#F7F7F8]">
-      <div className="px-60 py-4 flex flex-col gap-6 ">
+    <div className="flex justify-center w-full bg-[#F7F7F8]">
+      <div className="py-4 flex flex-col gap-6 ">
         <div className="border-2 border-[#ECEDF0] rounded-2xl overflow-hidden">
           <div className="p-6 flex justify-between bg-white border-b-2">
             <p className="text-xl font-bold">Орлого</p>
@@ -74,7 +74,7 @@ export const DashboardIncome = () => {
                 </p>
 
                 <div className="pl-[205px]">
-                  <p className="text-base font-normal text-[#121316]">
+                  <p className="text-base font-normal text-[#121316] whitespace-nowrap">
                     {item.gmail}
                   </p>
                   <p className="text-[14px] font-normal text-[#121316]">
@@ -84,7 +84,7 @@ export const DashboardIncome = () => {
                 <p className="text-[16px] font-normal text-[#121316] pt-2 pl-[228px]">
                   {item.payment}
                 </p>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px]">
+                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px] whitespace-nowrap">
                   {item.date}
                 </p>
               </div>

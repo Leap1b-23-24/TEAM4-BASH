@@ -25,7 +25,7 @@ export type Product = {
   secondCategory: string;
   color: string;
   size: string;
-  tag: string;
+  tag: string[];
   createdAt: Date;
 };
 
@@ -38,14 +38,14 @@ type ProductContextType = {
     productName: string,
     additionInfo: string,
     barCode: string,
-    productImage: string,
+    productImage: string[],
     mainPrice: number,
     quantity: number,
     mainCategory: string,
     secondCategory: string,
-    color: string,
-    size: string,
-    tag: string,
+    color: string[],
+    size: string[],
+    tag: string[],
     createAt: Date
   ) => void;
 
@@ -63,14 +63,14 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     productName: string,
     additionInfo: string,
     barCode: string,
-    productImage: string,
+    productImage: string[],
     mainPrice: number,
     quantity: number,
     mainCategory: string,
     secondCategory: string,
-    color: string,
-    size: string,
-    tag: string,
+    color: string[],
+    size: string[],
+    tag: string[],
     createdAt: Date
   ) => {
     try {

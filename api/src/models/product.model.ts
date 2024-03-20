@@ -14,7 +14,7 @@ export const productSchema = new Schema({
     require: true,
   },
   productImage: {
-    type: String,
+    type: Array,
     require: true,
   },
   mainPrice: {
@@ -34,15 +34,15 @@ export const productSchema = new Schema({
     require: true,
   },
   color: {
-    type: String,
+    type: Array,
     require: true,
   },
   size: {
-    type: String,
+    type: Array,
     require: true,
   },
   tag: {
-    type: String,
+    type: Array,
     require: true,
   },
   createdAt: Date,

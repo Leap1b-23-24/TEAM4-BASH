@@ -3,6 +3,7 @@
 import { Favorite, Menu, Search, ShoppingCart } from "@mui/icons-material";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
+import Footer from "../layout/AdminHomeFooter";
 
 export const AdminHome = () => {
   const label = ["Хямдралтай", "Эрэгтэй", "Эмэгтэй", "Хүүхдийн"];
@@ -10,7 +11,7 @@ export const AdminHome = () => {
   const { productList } = useProduct();
   return (
     <div className="w-full h-full">
-      <div className="px-[235px] bg-[#12A795] flex justify-between py-1">
+      <div className="px-[200px] bg-[#12A795] flex justify-between py-1">
         <div className="flex gap-2">
           <img src="pinelogo.png" className="py-4 w-[32px] object-cover" />
           <p className="text-[31px] text-white pt-[9px] font-semibold">
@@ -35,7 +36,7 @@ export const AdminHome = () => {
         </div>
       </div>
 
-      <div className="px-[225px] bg-white flex gap-8 py-[18px]">
+      <div className="px-[186px] bg-white flex gap-8 py-[18px]">
         <Menu className="w-[20px]" />
 
         <div className="flex">
@@ -49,7 +50,7 @@ export const AdminHome = () => {
         </div>
       </div>
 
-      <div className="px-[210px] py-8 flex flex-col justify-center gap-8 bg-[#F7F7F8]">
+      <div className="px-[172px] py-8 flex flex-col justify-center gap-8 bg-[#F7F7F8]">
         <img src="mart.png" className="rounded-2xl" />
 
         <div className="py-4 flex flex-col gap-2">
@@ -71,11 +72,25 @@ export const AdminHome = () => {
 
         <img src="wake.png" alt="" className="h-[412px]" />
 
-        <div className="py-4">
+        <div className="pt-4 pb-8">
           <p className="text-[28px] font-bold">Санал болгож буй</p>
-          <div className="flex justify-between"></div>
+          <div className="grid grid-cols-5 justify-between">
+            {productList.map((item, index) => {
+              return (
+                <CustomItem
+                  key={index}
+                  image={item.productImage}
+                  label={item.additionInfo}
+                  text={item.secondCategory}
+                  price={item.mainPrice}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

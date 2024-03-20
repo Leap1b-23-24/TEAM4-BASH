@@ -1,98 +1,193 @@
-// import { AddPhotoAlternateOutlined } from "@mui/icons-material";
-// import { CustomInput } from "../customs/CustomInput";
+import { AddPhotoAlternateOutlined } from "@mui/icons-material";
+import { CustomInput } from "../customs/CustomInput";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { Upload } from "../upload/page";
 
-// type FormikProps = {
-//   productName: string;
-//   additionInfo: string;
-//   barCode: number;
-//   productImage: string;
-//   mainPrice: number;
-//   quantity: number;
-//   onChange: any;
-// };
+type FormikProps = {
+  productName: string;
+  productError: boolean | undefined;
+  nameOnChange: (e: ChangeEvent<any>) => void;
+  nameOnBlur: (e: ChangeEvent<any>) => void;
+  nameHelperText: string | false | undefined;
 
-// export const AddProductOne = (props: FormikProps) => {
-//   const {
-//     productName,
-//     additionInfo,
-//     barCode,
-//     productImage,
-//     mainPrice,
-//     quantity,
-//   } = props;
+  additionInfo: string;
+  infoError: boolean | undefined;
+  infoOnChange: (e: ChangeEvent<any>) => void;
+  infoOnBlur: (e: ChangeEvent<any>) => void;
+  infoHelperText: string | false | undefined;
 
-//   return (
-//     <div className="basis-0 grow flex flex-col gap-6">
-//       <div className="basis-0 w-full grow bg-white p-6 rounded-xl flex flex-col gap-4">
-//         <div className="gap-2 flex flex-col">
-//           <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>
+  barCode: string;
+  codeError: boolean | undefined;
+  codeOnChange: (e: ChangeEvent<any>) => void;
+  codeOnBlur: (e: ChangeEvent<any>) => void;
+  codeHelperText: string | false | undefined;
 
-//           <input
-//             type="text"
-//             placeholder="Нэр"
-//             className="w-full py-2 pl-2 bg-[#F7F7F8] rounded-lg"
-//             name="productName"
-//             value={productName}
-//           />
-//         </div>
+  mainPrice: number;
+  priceError: boolean | undefined;
+  priceOnChange: (e: ChangeEvent<any>) => void;
+  priceOnBlur: (e: ChangeEvent<any>) => void;
+  priceHelperText: string | false | undefined;
 
-//         <div className="gap-2 flex flex-col">
-//           <p className="text-[14px] font-semibold">Нэмэлт мэдээлэл</p>
-//           <input
-//             type="text"
-//             placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон"
-//             className="w-full py-2 pl-2 bg-[#F7F7F8] rounded-lg border-2"
-//           />
-//         </div>
+  quantity: number;
+  quantityError: boolean | undefined;
+  quantityOnChange: (e: ChangeEvent<any>) => void;
+  quantityOnBlur: (e: ChangeEvent<any>) => void;
+  quantityHelperText: string | false | undefined;
 
-//         <div className="gap-2 flex flex-col">
-//           <p className="text-[14px] font-semibold">Барааны код</p>
-//           <input
-//             type="text"
-//             placeholder="#1122"
-//             className="w-full py-2 pl-2 bg-[#F7F7F8] rounded-lg border-2"
-//           />
-//         </div>
-//       </div>
+  imageUrl: string[];
+  setImageUrl: Dispatch<SetStateAction<string[]>>;
+};
 
-//       <div className="w-full rounded-xl p-6 gap-3 flex flex-col bg-white">
-//         <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
+type Props = {
+  productImage: string;
+};
 
-//         <div className="flex items-center gap-3">
-//           <div className="border-2 border-[#D6D8DB] rounded-lg w-[125px] h-[125px] relative"></div>
-//           <div className="absolute ml-[52px]">
-//             <AddPhotoAlternateOutlined />
-//           </div>
+export const AddProductOne = (props: FormikProps) => {
+  const {
+    productName,
+    productError,
+    nameOnChange,
+    nameOnBlur,
+    nameHelperText,
 
-//           <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center">
-//             <p className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
-//               +
-//             </p>
-//           </div>
-//         </div>
-//       </div>
+    additionInfo,
+    infoError,
+    infoOnChange,
+    infoOnBlur,
+    infoHelperText,
 
-//       <div className="w-full p-6 rounded-xl flex gap-4 bg-white">
-//         <div className="flex flex-col gap-1 w-full">
-//           <p className="text-[16px] font-semibold font-inter">Үндсэн үнэ</p>
-//           <input
-//             type="text"
-//             placeholder="Үндсэн үнэ"
-//             className="w-full py-2 pl-2 bg-[#F7F7F8] rounded-lg border-2"
-//           />
-//         </div>
+    barCode,
+    codeError,
+    codeOnChange,
+    codeOnBlur,
+    codeHelperText,
 
-//         <div className="flex flex-col gap-1 w-full">
-//           <p className="text-[16px] font-semibold font-inter">
-//             Үлдэгдэл тоо ширхэг
-//           </p>
-//           <input
-//             type="text"
-//             placeholder="Үлдэгдэл тоо ширхэг"
-//             className="w-full py-2 pl-2 bg-[#F7F7F8] rounded-lg border-2"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+    mainPrice,
+    priceError,
+    priceOnChange,
+    priceOnBlur,
+    priceHelperText,
+
+    quantity,
+    quantityError,
+    quantityOnChange,
+    quantityOnBlur,
+    quantityHelperText,
+
+    imageUrl,
+    setImageUrl,
+  } = props;
+
+  return (
+    <div className="basis-0 grow flex flex-col gap-8">
+      <div className="w-full bg-white p-6 rounded-xl flex flex-col gap-4">
+        <div className="gap-2 flex flex-col">
+          <p className="text-[14px] font-semibold">Бүтээгдэхүүний нэр</p>
+          <CustomInput
+            type="text"
+            placeholder="Нэр"
+            name="productName"
+            value={productName}
+            onChange={nameOnChange}
+            onBlur={nameOnBlur}
+            error={productError}
+            helperText={nameHelperText}
+          />
+        </div>
+
+        <div className="gap-2 flex flex-col">
+          <p className="text-[14px] font-semibold">Нэмэлт мэдээлэл</p>
+          <CustomInput
+            type="text"
+            placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон"
+            name="additionInfo"
+            value={additionInfo}
+            onChange={infoOnChange}
+            onBlur={infoOnBlur}
+            error={infoError}
+            helperText={infoHelperText}
+          />
+        </div>
+
+        <div className="gap-2 flex flex-col">
+          <p className="text-[14px] font-semibold">Барааны код</p>
+          <CustomInput
+            type="text"
+            placeholder="#12345"
+            name="barCode"
+            value={barCode}
+            onChange={codeOnChange}
+            onBlur={codeOnBlur}
+            error={codeError}
+            helperText={codeHelperText}
+          />
+        </div>
+      </div>
+
+      <div className="w-full rounded-xl p-6 gap-3 flex flex-col bg-white">
+        <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
+
+        <div className="flex items-center gap-3 relative">
+          {imageUrl.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="border-dashed border-2 rounded-lg w-[125px] h-[125px] relative"
+              >
+                <img src={item} className="w-[125px] h-[125px] object-cover" />
+              </div>
+            );
+          })}
+
+          {imageUrl.length == 0 && (
+            <div className="absolute ml-[52px]">
+              <AddPhotoAlternateOutlined />
+            </div>
+          )}
+
+          <div className="rounded-lg w-[125px] h-[125px] flex justify-center items-center relative">
+            <button className="text-xl flex justify-center items-center bg-[#ECEDF0] p-5 h-8 w-8 rounded-[50%]">
+              +
+            </button>
+
+            <div className="absolute top-4 right-1 opacity-0">
+              <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full p-6 rounded-xl flex gap-4 bg-white">
+        <div className="flex flex-col gap-1 w-full">
+          <p className="text-[16px] font-semibold font-inter">Үндсэн үнэ</p>
+          <CustomInput
+            type="text"
+            placeholder="#12345"
+            name="mainPrice"
+            value={mainPrice}
+            onChange={priceOnChange}
+            onBlur={priceOnBlur}
+            error={priceError}
+            helperText={priceHelperText}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1 w-full">
+          <p className="text-[16px] font-semibold font-inter">
+            Үлдэгдэл тоо ширхэг
+          </p>
+          <CustomInput
+            type="text"
+            placeholder="#12345"
+            name="quantity"
+            value={quantity}
+            onChange={quantityOnChange}
+            onBlur={quantityOnBlur}
+            error={quantityError}
+            helperText={quantityHelperText}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
