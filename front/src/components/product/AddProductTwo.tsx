@@ -180,16 +180,6 @@ export const AddProductTwo = (props: FormikProps) => {
               })}
             </div>
           )}
-
-          {/* {openColor && (
-          <input
-            type="color"
-            className="absolute left-36 top-18"
-            onClick={() => {
-              setIsColor((prev) => [...prev]);
-            }}
-          />
-        )} */}
         </div>
 
         <div className="flex flex-row gap-6 items-center">

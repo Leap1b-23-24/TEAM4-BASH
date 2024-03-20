@@ -17,11 +17,14 @@ const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
   barCode: yup.string().required(),
+  productImage: yup.array().required(),
   mainPrice: yup.number().required(),
   quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  tag: yup.array().required(),
+  color: yup.array().required(),
+  size: yup.array().required(),
+  // tag: yup.array().required(),
 });
 
 export const AddProduct = (props: Props) => {
@@ -67,21 +70,6 @@ export const AddProduct = (props: Props) => {
         values.tag,
         values.createdAt
       );
-
-      // console.log(
-      //   values.productName,
-      //   values.additionInfo,
-      //   values.barCode,
-      //   imageUrl,
-      //   values.mainPrice,
-      //   values.quantity,
-      //   values.mainCategory,
-      //   values.secondCategory,
-      //   isColor,
-      //   isSize,
-      //   values.tag,
-      //   values.createdAt
-      // );
     },
   });
 
@@ -177,7 +165,7 @@ export const AddProduct = (props: Props) => {
           }
           //tag
           tagOnChange={handleTags}
-          tag={formik.values.tag}
+          // tag={formik.values.tag}
         />
       </div>
 

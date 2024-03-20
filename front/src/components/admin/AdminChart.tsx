@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BarChart } from "../customs/BarChart";
 
 export const AdminChart = () => {
   return (
@@ -9,13 +10,8 @@ export const AdminChart = () => {
           <div className="w-[24px] h-[24px] flex justify-center items-center cursor-pointer">
             <img className="w-[7.41px] h-[12px]" src="./rightArr.svg"></img>
           </div>
-        </div>{" "}
-        <Image
-          width={517}
-          height={257}
-          src="/Borluulalt.png"
-          alt="product image"
-        ></Image>
+        </div>
+        <BarChart />
       </div>
       <div className="basis-0 grow bg-[#FFFFFF] py-[16px] px-[24px] rounded-[12px] flex flex-col gap-[24px]">
         <div className="flex justify-between mb-[20px]">
@@ -25,7 +21,7 @@ export const AdminChart = () => {
           <div className="w-[24px] h-[24px] flex justify-center items-center cursor-pointer">
             <img className="w-[7.41px] h-[12px]" src="./rightArr.svg"></img>
           </div>
-        </div>{" "}
+        </div>
         <Image
           width={517}
           height={257}

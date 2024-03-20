@@ -10,7 +10,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 type AuthContextType = {
   isLogged: Boolean;
-  signUp: (email: string, name: string) => void;
+  signUp: (email: string, name: string, password: string) => void;
   login: (email: string, password: string) => void;
 };
 
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       localStorage.setItem("token", token);
 
       setIsLogged(true);
+      router.push("/home");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {
@@ -40,11 +41,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const signUp = async (email: string, name: string) => {
+  const signUp = async (email: string, name: string, password: string) => {
     try {
       const { data } = await api.post("/auth/sign", {
         email,
         name,
+        password,
       });
 
       const { token } = data;
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         position: "top-center",
       });
 
-      router.push("/home");
+      router.push("/auto/login");
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message ?? err.message, {

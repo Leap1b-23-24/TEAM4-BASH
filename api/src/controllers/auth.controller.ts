@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 export const login: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await UserModel.findOne({ email, password });
+  const user = await UserModel.findOne({ email: email, password: password });
 
   if (!user) {
     return res.status(401).json({
@@ -23,7 +23,7 @@ export const login: RequestHandler = async (req, res) => {
 };
 
 export const signUp: RequestHandler = async (req, res) => {
-  const { email, name } = req.body;
+  const { email, name, password } = req.body;
 
   const user = await UserModel.findOne({ email });
 
@@ -36,6 +36,7 @@ export const signUp: RequestHandler = async (req, res) => {
   const newUser = await UserModel.create({
     email,
     name,
+    password,
   });
 
   return res.json({ message: "New user successfully created" });

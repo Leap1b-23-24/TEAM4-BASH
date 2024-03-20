@@ -11,7 +11,7 @@ export const AdminHome = () => {
   const { productList } = useProduct();
   return (
     <div className="w-full h-full">
-      <div className="px-[235px] bg-[#12A795] flex justify-between py-1">
+      <div className="px-[200px] bg-[#12A795] flex justify-between py-1">
         <div className="flex gap-2">
           <img src="pinelogo.png" className="py-4 w-[32px] object-cover" />
           <p className="text-[31px] text-white pt-[9px] font-semibold">
@@ -36,7 +36,7 @@ export const AdminHome = () => {
         </div>
       </div>
 
-      <div className="px-[225px] bg-white flex gap-8 py-[18px]">
+      <div className="px-[186px] bg-white flex gap-8 py-[18px]">
         <Menu className="w-[20px]" />
 
         <div className="flex">
@@ -50,7 +50,7 @@ export const AdminHome = () => {
         </div>
       </div>
 
-      <div className="px-[210px] py-8 flex flex-col justify-center gap-8 bg-[#F7F7F8]">
+      <div className="px-[172px] py-8 flex flex-col justify-center gap-8 bg-[#F7F7F8]">
         <img src="mart.png" className="rounded-2xl" />
 
         <div className="py-4 flex flex-col gap-2">
