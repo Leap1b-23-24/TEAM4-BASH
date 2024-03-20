@@ -1,6 +1,15 @@
 "use client";
 
-import { Favorite, Menu, Search, ShoppingCart } from "@mui/icons-material";
+import {
+  CallOutlined,
+  EmailOutlined,
+  ExpandMoreOutlined,
+  Favorite,
+  FavoriteBorderOutlined,
+  Menu,
+  PersonOutlined,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import Footer from "../layout/AdminHomeFooter";
@@ -11,43 +20,56 @@ export const AdminHome = () => {
   const { productList } = useProduct();
   return (
     <div className="w-full h-full">
-      <div className="px-[200px] bg-[#12A795] flex justify-between py-1">
-        <div className="flex gap-2">
-          <img src="pinelogo.png" className="py-4 w-[32px] object-cover" />
-          <p className="text-[31px] text-white pt-[9px] font-semibold">
-            Ecommerce
-          </p>
+      <div className="px-[200px] bg-[#7E33E0] flex justify-between py-4">
+        <div className="flex gap-14">
+          <div className="flex gap-2">
+            <EmailOutlined sx={{ color: "#FFF" }} />
+            <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
+              info@ecommerce.mn
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <CallOutlined sx={{ color: "#FFF" }} />
+            <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
+              77123456
+            </p>
+          </div>
         </div>
 
-        <div className="relative">
-          <input
-            placeholder="Хайлт"
-            type="text"
-            className="w-[420px] h-[47px] border-2 border-[#D6D8DB] rounded-xl pl-12 bg-[#F7F7F8] mt-2"
-          />
+        <div className="flex gap-6">
+          <div className="flex gap-1">
+            <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
+              Нэвтрэх
+            </p>
+            <PersonOutlined sx={{ color: "#FFF", width: 20 }} />
+          </div>
 
-          <Search className="absolute left-4 top-[19px]" />
-        </div>
+          <div className="flex gap-1">
+            <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
+              Хадгалах
+            </p>
+            <FavoriteBorderOutlined sx={{ color: "#FFF", width: 16 }} />
+          </div>
 
-        <div className="flex gap-8 items-center">
-          <Favorite className="text-white" />
-          <ShoppingCart className="text-white" />
-          <img src="pro.webp" className="w-[32px] rounded-[50%]" />
+          <ShoppingCartOutlined sx={{ color: "#FFF", width: 19 }} />
         </div>
       </div>
 
-      <div className="px-[186px] bg-white flex gap-8 py-[18px]">
-        <Menu className="w-[20px]" />
-
+      <div className="px-[200px] bg-white flex gap-8 py-6">
         <div className="flex">
-          {label.map((item, index) => {
-            return (
-              <p key={index} className="text-[14px] font-semibold px-5">
-                {item}
-              </p>
-            );
-          })}
+          <p className="font-[700] text-[34px] text-[#0D0E43]">Ecommerce</p>
+
+          <div className="flex">
+            <p className="text-[16px] font-normal hover:text-[#FB2E86]">Нүүр</p>
+            <ExpandMoreOutlined />
+          </div>
+
+          <p className="text-[16px] font-normal hover:text-[#FB2E86]">
+            Ангилал
+          </p>
         </div>
+
+        <input type="text" className="bg-black h-8" />
       </div>
 
       <div className="px-[172px] py-8 flex flex-col justify-center gap-8 bg-[#F7F7F8]">
