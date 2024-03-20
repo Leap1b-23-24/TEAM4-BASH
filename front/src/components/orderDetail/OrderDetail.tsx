@@ -2,10 +2,15 @@
 
 import { OrderDetailOrderedProd } from "./OrderDetailOrderedProd";
 import { OrderDetailDeliveryPayment } from "./OrderDetailDeliveryPayment";
-import { ChevronLeft } from "@mui/icons-material";
+import { ChevronLeft, Dashboard } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
+import { useContext } from "react";
+import { DashboardContext } from "../Providers/DashboardProvider";
 
 export const OrderDetail = () => {
+  const { deliveryStatus, setDeliveryStatus } = useContext(DashboardContext);
+
   const orderedProds = [
     {
       img: "/orderedProd.png",
@@ -25,6 +30,14 @@ export const OrderDetail = () => {
       price: 125700,
       total: 125700,
     },
+  ];
+
+  const status = [
+    "Шинэ захиалга",
+    "Бэлтгэгдэж байна",
+    "Хүргэлтэнд гарсан",
+    "Хүргэгдсэн",
+    "Цуцлагдсан",
   ];
 
   const router = useRouter();
@@ -59,15 +72,56 @@ export const OrderDetail = () => {
                   #12345678
                 </p>
               </div>
-              <div className="bg-[#ECEDF0] p-[4px] rounded-[999px]">
+              <div>
                 <select
-                  className="bg-[#ECEDF0] py-[2px] px-[6px] rounded-[999px] text-[#3F4145] font-normal text-sm cursor-pointer"
+                  className="rounded-[999px] p-[4px] w-fit rounded-[999px] text-[#3F4145] font-normal text-sm cursor-pointer"
                   name="delivery"
                   id="deliveryStatus"
+                  onChange={(e) => setDeliveryStatus(e.target.value)}
+                  style={{
+                    backgroundColor:
+                      deliveryStatus === "delivered"
+                        ? "#C1E6CF"
+                        : deliveryStatus === "delivering"
+                        ? "#B7DDFF"
+                        : deliveryStatus === "preparing"
+                        ? "#ECEDF0"
+                        : deliveryStatus === "new order"
+                        ? "#fff"
+                        : "#FCBABE",
+
+                    color:
+                      deliveryStatus === "delivered"
+                        ? "#0A4E22"
+                        : deliveryStatus === "delivering"
+                        ? "#1890FF"
+                        : deliveryStatus === "preparing"
+                        ? "#3F4145"
+                        : deliveryStatus === "new order"
+                        ? "#3F4145"
+                        : "#3F4145",
+                  }}
                 >
-                  <option value="preparing">Бэлтгэгдэж байна</option>
-                  <option value="delivering">Хүргэгдэж байна</option>
-                  <option value="delivered">Хүргэгдсэн</option>
+                  {status.map((item) => (
+                    <option
+                      className="py-[2px] px-[6px] "
+                      value={`${
+                        item === "Шинэ захиалга"
+                          ? "new order"
+                          : item === "Бэлтгэгдэж байна"
+                          ? "preparing"
+                          : item === "Хүргэлтэнд гарсан"
+                          ? "delivering"
+                          : item === "Хүргэгдсэн"
+                          ? "delivered"
+                          : item === "Цуцлагдсан"
+                          ? "cancelled"
+                          : "hooson"
+                      }`}
+                    >
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

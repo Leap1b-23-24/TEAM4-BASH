@@ -14,26 +14,50 @@ export const DashboardContext = createContext<DashboardContextType>(
   {} as DashboardContextType
 );
 
+type SelectedProdProps = {
+  productName: string;
+  additionInfo: string;
+  barCode: string;
+  productImage: string[];
+  mainPrice: number;
+  quantity: number;
+  mainCategory: string;
+  secondCategory: string;
+  color: string[];
+  size: string[];
+  tag: string[];
+};
+
 type DashboardContextType = {
-  selectedProd: {};
-  setSelectedProd: Dispatch<SetStateAction<{}>>;
+  selectedProd: SelectedProdProps[];
+  setSelectedProd: Dispatch<SetStateAction<SelectedProdProps[]>>;
+  deliveryStatus: string;
+  setDeliveryStatus: Dispatch<SetStateAction<string>>;
+};
+
+const editProduct = async (params: SelectedProdProps) => {
+  try {
+    await api.post("editProduct", params);
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      toast.error(err.response?.data.message ?? err.message);
+    }
+  }
 };
 
 export const DashboardProvider = ({ children }: PropsWithChildren) => {
-  const [selectedProd, setSelectedProd] = useState({});
-
-  const getSelectedProduct = async () => {
-    try {
-      const { data } = await api.get("");
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        toast.error(err.response?.data.message ?? err.message);
-      }
-    }
-  };
+  const [selectedProd, setSelectedProd] = useState<SelectedProdProps[]>([]);
+  const [deliveryStatus, setDeliveryStatus] = useState("");
 
   return (
-    <DashboardContext.Provider value={{ selectedProd, setSelectedProd }}>
+    <DashboardContext.Provider
+      value={{
+        selectedProd,
+        setSelectedProd,
+        deliveryStatus,
+        setDeliveryStatus,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );

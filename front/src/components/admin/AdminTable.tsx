@@ -77,7 +77,7 @@ export const AdminTable = () => {
                 <td className="py-[16px] pl-[28px] text-[14px] leading-[20px] font-normal text-[#121316]">
                   {item.amount}
                 </td>
-                <td className="py-[16px] pl-[34px] text-[14px] leading-[20px] font-normal text-[#121316]">
+                <td className="py-[16px] pl-[34px] text-[14px] leading-[20px] font-normal text-[#121316] whitespace-nowrap">
                   {item.price} ₮
                 </td>
               </tr>

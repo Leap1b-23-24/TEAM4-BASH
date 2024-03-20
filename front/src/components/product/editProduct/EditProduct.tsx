@@ -1,75 +1,38 @@
 "use client";
 
-import { ChevronLeft } from "@mui/icons-material";
+import { ChevronLeft, Dashboard } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { EditProductOne } from "./EditProductOne";
 import { EditProductTwo } from "./EditProductTwo";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import OneProductData from "../ProductData";
+import { useContext, useState } from "react";
+import { DashboardContext } from "../../Providers/DashboardProvider";
+import { CustomInput } from "../../customs/CustomInput";
+import { CustomDeliveryStatus } from "../../customs/CustomDeliveryStatus";
 
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
   barCode: yup.number().required(),
-  productImage: yup.string().required(),
+  productImage: yup.array().required(),
   mainPrice: yup.number().required(),
   quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  color: yup.string().required(),
-  size: yup.string().required(),
-  tag: yup.string().required(),
+  color: yup.array().required(),
+  size: yup.array().required(),
+  tag: yup.array().required(),
 });
 
-type EditProdProps = {
-  productName: String;
-  additionInfo: String;
-  barCode: Number;
-  productImage: String;
-  mainPrice: Number;
-  quantity: Number;
-  mainCategory: String;
-  secondCategory: String;
-  color: String;
-  size: String;
-  tag: String;
-};
-
-export const EditProduct = (props: EditProdProps) => {
+export const EditProduct = () => {
   const router = useRouter();
-
-  const {
-    productName,
-    additionInfo,
-    barCode,
-    productImage,
-    mainPrice,
-    quantity,
-    mainCategory,
-    secondCategory,
-    color,
-    size,
-    tag,
-  } = props;
-
-  const selectedProd = {
-    productName: "Malgaitai tsamts",
-    additionInfo: "Daavuun materialaar hiigdsen",
-    barCode: "0123456789",
-    productImage: "/orderedProd.png",
-    mainPrice: 100000,
-    quantity: 3,
-    mainCategory: "Emegtei huvtsas",
-    secondCategory: "tsamts",
-    color: ["#FFF", "#000"],
-    size: ["XXL", "XL", "L", "M", "S"],
-    tag: ["emegtei", "tsamts"],
-  };
+  const { selectedProd } = useContext(DashboardContext);
 
   const formik = useFormik({
     initialValues: {
-      productName: selectedProd.productImage,
+      productName: selectedProd.productName,
       additionInfo: selectedProd.additionInfo,
       barCode: selectedProd.barCode,
       productImage: selectedProd.productImage,
@@ -84,6 +47,12 @@ export const EditProduct = (props: EditProdProps) => {
     validationSchema: validationSchema,
     onSubmit: (values) => console.log(values),
   });
+
+  console.log(formik.errors);
+
+  const handleTags = (value: string[]) => {
+    formik.setFieldValue("tag", value);
+  };
 
   return (
     <div className="w-full h-screen bg-[#F7F7F8]">
@@ -102,16 +71,49 @@ export const EditProduct = (props: EditProdProps) => {
       </div>
 
       <div className="p-8 flex w-full gap-10">
-        <EditProductOne />
-        <EditProductTwo />
+        <EditProductOne
+          productName={formik.values.productName}
+          productNameOnChange={formik.handleChange}
+          additionInfo={formik.values.additionInfo}
+          additionInfoOnChange={formik.handleChange}
+          barCode={formik.values.barCode}
+          barCodeOnChange={formik.handleChange}
+          productImage={formik.values.productImage}
+          productImageOnChange={formik.handleChange}
+          mainPrice={formik.values.mainPrice}
+          mainPriceOnChange={formik.handleChange}
+          quantity={formik.values.quantity}
+          quantityOnChange={formik.handleChange}
+        />
+        <EditProductTwo
+          mainCategory={formik.values.mainCategory}
+          mainCategoryOnChange={formik.handleChange}
+          secondCategory={formik.values.secondCategory}
+          secondCategoryOnChange={formik.handleChange}
+          color={formik.values.color}
+          colorOnChange={formik.handleChange}
+          size={formik.values.size}
+          sizeOnChange={formik.handleChange}
+          tag={formik.values.tag}
+          tagOnChange={handleTags}
+        />
       </div>
 
       <div className="px-8 flex justify-end gap-5">
-        <button className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg">
+        <button
+          onClick={() => router.push("/dashboard/product")}
+          className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
+        >
           Буцах
         </button>
 
-        <button className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg">
+        <button
+          type="button"
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+          className="border-2 px-6 py-2 bg-white hover:bg-black hover:text-white text-[18px] font-semibold rounded-lg"
+        >
           Шинэчлэх
         </button>
       </div>
