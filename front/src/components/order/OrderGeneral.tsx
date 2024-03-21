@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
 import { useContext } from "react";
 import { DashboardContext } from "../Providers/DashboardProvider";
+import { ProductContext } from "../providers/ProductProvider";
 
 export const OrderGeneral = () => {
-  const { deliveryStatus } = useContext(DashboardContext);
+  const { deliveryStatus } = useContext(ProductContext);
 
   const label = [
     "Бүгд",

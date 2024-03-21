@@ -10,6 +10,8 @@ import {
 import { useRouter } from "next/navigation";
 import ProductTable from "./ProductTable";
 import { useProduct } from "../providers/ProductProvider";
+import { useContext } from "react";
+import { DashboardContext } from "../Providers/DashboardProvider";
 
 export const DashboardProduct = () => {
   const router = useRouter();

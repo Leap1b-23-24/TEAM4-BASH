@@ -3,36 +3,49 @@
 import { ChevronLeft } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { AddProductTwo } from "./AddProductTwo";
-import { useProduct } from "../providers/ProductProvider";
+import { ProductContext, useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AddProductOne } from "./AddProductOne";
-import { useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Button } from "@mui/material";
+import { DashboardContext } from "../Providers/DashboardProvider";
 
 type Props = {
   productImage: string;
+  isColor: string[];
+  setIsColor: Dispatch<SetStateAction<string[]>>;
+  isSize: string[];
+  setIsSize: Dispatch<SetStateAction<string[]>>;
 };
 
 const validationSchema = yup.object({
   productName: yup.string().required(),
   additionInfo: yup.string().required(),
-  // productImage: yup.array().required(),
   barCode: yup.string().required(),
   mainPrice: yup.number().required(),
   quantity: yup.number().required(),
   mainCategory: yup.string().required(),
   secondCategory: yup.string().required(),
-  // color: yup.array().required(),
-  // size: yup.array().required(),
-  // tag: yup.array().required(),
 });
 
 export const AddProduct = (props: Props) => {
   const { postProduct } = useProduct();
-  const [imageUrl, setImageUrl] = useState<string[]>([]);
-  const [isColor, setIsColor] = useState<string[]>([]);
-  const [isSize, setIsSize] = useState<string[]>([]);
+
+  const { productList, editProduct, selectedProd, setSelectedProd } =
+    useContext(ProductContext);
+
+  const [imageUrl, setImageUrl] = useState<string[]>(
+    selectedProd?.productImage ?? []
+  );
+  const [isColor, setIsColor] = useState<string[]>(selectedProd?.color ?? []);
+  const [isSize, setIsSize] = useState<string[]>(selectedProd?.size ?? []);
 
   const handleTags = (value: string[]) => {
     formik.setFieldValue("tag", value);
@@ -42,34 +55,48 @@ export const AddProduct = (props: Props) => {
 
   const formik = useFormik({
     initialValues: {
-      productName: "",
-      additionInfo: "",
-      barCode: "",
-      mainPrice: 0,
-      quantity: 0,
-      mainCategory: "",
-      secondCategory: "",
-      color: [],
-      size: [],
-      tag: [],
-      createdAt: new Date(),
+      productName: selectedProd ? selectedProd.productName : "",
+      additionInfo: selectedProd ? selectedProd?.additionInfo : "",
+      barCode: selectedProd ? selectedProd?.barCode : "",
+      mainPrice: selectedProd ? selectedProd?.mainPrice : "",
+      quantity: selectedProd ? selectedProd?.quantity : "",
+      mainCategory: selectedProd ? selectedProd?.mainCategory : "",
+      secondCategory: selectedProd ? selectedProd?.secondCategory : "",
+      color: selectedProd ? selectedProd?.color : [],
+      size: selectedProd ? selectedProd?.size : [],
+      tag: selectedProd ? selectedProd?.tag : [],
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      await postProduct(
-        values.productName,
-        values.additionInfo,
-        values.barCode,
-        imageUrl,
-        values.mainPrice,
-        values.quantity,
-        values.mainCategory,
-        values.secondCategory,
-        isColor,
-        isSize,
-        values.tag,
-        values.createdAt
-      );
+      !selectedProd
+        ? await postProduct(
+            values.productName,
+            values.additionInfo,
+            values.barCode,
+            imageUrl,
+            values.mainPrice,
+            values.quantity,
+            values.mainCategory,
+            values.secondCategory,
+            isColor,
+            isSize,
+            values.tag,
+            values.createdAt
+          )
+        : await editProduct({
+            id: selectedProd._id,
+            productName: values.productName,
+            additionInfo: values.additionInfo,
+            barCode: values.barCode,
+            productImage: imageUrl,
+            mainPrice: values.mainPrice,
+            quantity: values.quantity,
+            mainCategory: values.mainCategory,
+            secondCategory: values.secondCategory,
+            color: isColor,
+            size: isSize,
+            tag: values.tag,
+          });
     },
   });
 
@@ -79,6 +106,7 @@ export const AddProduct = (props: Props) => {
         <div
           onClick={() => {
             router.push("/dashboard/product");
+            setSelectedProd(null);
           }}
           className="cursor-pointer pl-4"
         >
@@ -179,17 +207,10 @@ export const AddProduct = (props: Props) => {
             formik.handleSubmit();
           }}
           disabled={
-            !formik.values.productName ||
-            !formik.values.additionInfo ||
-            !formik.values.barCode ||
+            !formik.isValid ||
             imageUrl.length == 0 ||
-            !formik.values.mainPrice ||
-            !formik.values.quantity ||
-            !formik.values.mainCategory ||
-            !formik.values.secondCategory ||
             isColor.length == 0 ||
-            isSize.length == 0 ||
-            formik.values.tag.length == 0
+            isSize.length == 0
           }
           disableElevation
           sx={{
@@ -205,7 +226,7 @@ export const AddProduct = (props: Props) => {
             borderRadius: 2,
           }}
         >
-          Нийтлэх
+          {!selectedProd ? "Нийтлэх" : "Шинэчлэх"}
         </Button>
       </div>
     </div>

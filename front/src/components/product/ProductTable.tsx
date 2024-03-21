@@ -42,7 +42,7 @@ export const ProductTable = () => {
             id={item._id}
             key={index}
             ProductName={item.productName}
-            ProductImage={item.productImage}
+            ProductImage={item.productImage[0]}
             ProductNumber={item.barCode}
             Category={item.mainCategory}
             Price={item.mainPrice}

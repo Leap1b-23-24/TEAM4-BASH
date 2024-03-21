@@ -128,7 +128,7 @@ export const AddProductOne = (props: FormikProps) => {
         <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
 
         <div className="flex items-center gap-3 relative">
-          {imageUrl.map((item, index) => {
+          {imageUrl?.map((item, index) => {
             return (
               <div
                 key={index}

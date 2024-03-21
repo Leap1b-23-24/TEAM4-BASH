@@ -127,7 +127,7 @@ export const AddProductTwo = (props: FormikProps) => {
           <p className="text-sm ">Өнгө</p>
 
           <div className=" flex flex-row gap-6 items-center">
-            {isColor.map((item, index) => {
+            {isColor?.map((item, index) => {
               return (
                 <div className="relative">
                   <p
@@ -185,7 +185,7 @@ export const AddProductTwo = (props: FormikProps) => {
         <div className="flex flex-row gap-6 items-center">
           <p className="text-sm pt-1">Хэмжээ</p>
 
-          {isSize.map((item, index) => {
+          {isSize?.map((item, index) => {
             return (
               <p
                 key={index}

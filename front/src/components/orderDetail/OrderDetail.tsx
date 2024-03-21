@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
 import { useContext } from "react";
 import { DashboardContext } from "../Providers/DashboardProvider";
+import { ProductContext } from "../providers/ProductProvider";
 
 export const OrderDetail = () => {
-  const { deliveryStatus, setDeliveryStatus } = useContext(DashboardContext);
+  const { deliveryStatus, setDeliveryStatus } = useContext(ProductContext);
 
   const orderedProds = [
     {
