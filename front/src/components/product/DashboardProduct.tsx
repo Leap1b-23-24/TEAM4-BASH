@@ -13,7 +13,7 @@ import { useProduct } from "../providers/ProductProvider";
 
 export const DashboardProduct = () => {
   const router = useRouter();
-  const { productList } = useProduct();
+  const { productList, deleteProduct } = useProduct();
 
   return (
     <div className="w-full h-full bg-[#F7F7F8]">

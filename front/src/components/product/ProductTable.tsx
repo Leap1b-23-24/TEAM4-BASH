@@ -1,5 +1,6 @@
 import OneTable from "./ProductTableMini";
 import { useProduct } from "../providers/ProductProvider";
+import { useState } from "react";
 
 const ProductData = [
   "",
@@ -37,6 +38,7 @@ export const ProductTable = () => {
       <main className="w-full h-fit flex flex-col overflow-y-auto divide-y divide-[#D6D8DB]">
         {productList.map((item, index) => (
           <OneTable
+            id={item._id}
             key={index}
             ProductName={item.productName}
             ProductImage={item.productImage}

@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { ProductModel } from "../models/product.model";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const getAllProducts: RequestHandler = async (_req, res) => {
   const products = await ProductModel.find({});
@@ -55,4 +56,33 @@ export const getProduct: RequestHandler = async (_req, res) => {
   const product = await ProductModel.find({});
 
   return res.json(product);
+};
+
+export const deleteProduct: RequestHandler = async (req, res) => {
+  try {
+    // const { authorization } = req.headers;
+
+    // if (!authorization) {
+    //   return res.status(401).json({
+    //     message: "user",
+    //   });
+    // }
+    // const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const { productId } = req.body;
+
+    const productExist = await ProductModel.findOne({ _id: productId });
+
+    if (!productExist) {
+      return res.status(401).json({
+        message: "ss",
+      });
+    }
+
+    const product = await ProductModel.findByIdAndDelete(productId);
+
+    return res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.json(err);
+  }
 };

@@ -1,6 +1,12 @@
+"use client";
+
 import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
+import { useProduct } from "../providers/ProductProvider";
+import { useState } from "react";
+import { Modal } from "@mui/material";
 
 function OneTable({
+  id,
   ProductName,
   ProductImage,
   ProductNumber,
@@ -10,8 +16,11 @@ function OneTable({
   SoldTotal,
   AddDate,
 }: any) {
+  const { deleteProduct } = useProduct();
+  const [remove, setRemove] = useState(false);
+
   return (
-    <section className="flex flex-row items-center py-[16px]">
+    <section id={id} className="flex flex-row items-center py-[16px]">
       <div className="w-[68px] h-fit flex justify-center items-center ">
         <input type="checkbox" className="w-[20px] h-[20px]" />
       </div>
@@ -38,13 +47,46 @@ function OneTable({
       <div className="w-[156.8px] pl-[112px] h-fit flex items-center text-[14px] font-[400] text-[#3F4145]">
         {SoldTotal}
       </div>
-      <div className="pl-[132px] h-fit flex items-center text-[14px] font-[400] text-[#3F4145]">
+      <div className="pl-[132px] h-fit flex items-center text-[14px] font-[400] text-[#3F4145] whitespace-nowrap">
         {AddDate}
       </div>
       <div className="flex gap-6 pl-20">
-        <DeleteOutlineOutlined className="text-[#1C20243D]" />
+        <DeleteOutlineOutlined
+          className="text-[#1C20243D]"
+          onClick={() => {
+            setRemove(true);
+          }}
+        />
         <EditOutlined className="text-[#1C20243D]" />
       </div>
+
+      {remove && (
+        <Modal open>
+          <div className="bg-white rounded-lg w-[384px] absolute top-[40%] left-[42%]">
+            <p className="text-[20px] font-[600] text-[#171717] p-8 text-center">
+              Та бүтээгдэхүүн устгахдаа <br></br> итгэлтэй байна уу?
+            </p>
+            <div className="w-full flex justify-between">
+              <button
+                className="text-[18px] font-[600] border-t border-r border-black w-[50%] py-2 hover:bg-[#121316] hover:text-white"
+                onClick={() => {
+                  deleteProduct(id);
+                }}
+              >
+                Тийм
+              </button>
+              <button
+                className="text-[18px] font-[600] border-t border-black  w-[50%] py-2 hover:bg-[#121316] hover:text-white"
+                onClick={() => {
+                  setRemove(false);
+                }}
+              >
+                Үгүй
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </section>
   );
 }
