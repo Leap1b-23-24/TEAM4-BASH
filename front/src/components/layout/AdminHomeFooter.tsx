@@ -9,7 +9,7 @@ const data = [
 ];
 const label = ["Бидний тухай", "Холбоо барих", "Түгээмэл асуулт хариулт"];
 
-export const Footer = () => {
+export const AdminHomeFooter = () => {
   return (
     <div className="py-24 bg-[#EEEFFB]">
       <Container
