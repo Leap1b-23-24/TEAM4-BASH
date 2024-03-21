@@ -2,15 +2,16 @@ import { Router } from "express";
 import {
   deleteProduct,
   getAllProducts,
+  editProduct,
   getProduct,
   postProduct,
 } from "../controllers/product.controller";
 const productRouter = Router();
 
 productRouter
-  .get("/getAll", getAllProducts)
   .post("/add", postProduct)
   .get("/plus", getProduct)
   .post("/delete", deleteProduct);
+  .post("/editProduct", editProduct);
 
 export default productRouter;
