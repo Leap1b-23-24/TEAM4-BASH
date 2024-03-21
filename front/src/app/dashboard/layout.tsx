@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     <div className="w-full h-full max-w-[1700px] m-auto min-w-[769px]">
       <ProductProvider>
         <Header />
-        <div className="flex h-screen">
+        <div className="flex h-screen text-[black]">
           <AdminSideBar />
           {children}
         </div>
