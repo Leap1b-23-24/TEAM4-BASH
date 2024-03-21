@@ -15,6 +15,7 @@ import {
 import { toast } from "react-toastify";
 
 export type Product = {
+  _id: string;
   productName: string;
   additionInfo: string;
   barCode: string;
@@ -48,6 +49,7 @@ type ProductContextType = {
     tag: string[],
     createAt: Date
   ) => void;
+  deleteProduct: (productId: string) => void;
 
   productList: Product[];
   setProductList: Dispatch<SetStateAction<Product[]>>;
@@ -128,6 +130,28 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const deleteProduct = async (productId: string) => {
+    try {
+      const { data } = await api.post(
+        "/product/delete",
+        {
+          productId,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setRefresh(refresh + 1);
+      toast.success(data.message, {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getProduct();
   }, [refresh]);
@@ -138,6 +162,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         postProduct,
         productList,
         setProductList,
+        deleteProduct,
       }}
     >
       {children}

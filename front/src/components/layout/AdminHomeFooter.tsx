@@ -1,57 +1,79 @@
-"use client";
-import { useRouter } from "next/navigation";
+import { Container } from "@mui/material";
 
-const ancherData = [
-  "Холбоо барих",
-  "Үйлчилгээний нөхцөл",
-  "Хүргэлтийн бүс",
-  "Нууцлалын бодлого",
+const data = [
+  "Хувцас",
+  "Камер, хэрэгсэл",
+  "Ухаалаг утас, таблет",
+  "Чихэвч",
+  "Гэр ахуйн бараа",
 ];
-const FooterLogos = ["./facebook.png", "./instagram.png", "./twitter.png"];
-function Footer() {
-  const router = useRouter();
+const label = ["Бидний тухай", "Холбоо барих", "Түгээмэл асуулт хариулт"];
+
+export const Footer = () => {
   return (
-    <section
-      className="w-full h-fit flex flex-col divide-y divide-[#ffffff20] items-center justify-center py-[50px] px-[380px]"
-      style={{ background: `${"#12A795"}` }}
-    >
-      <header className="w-full h-[212px]  flex flex-col items-center gap-[48px] justify-between pb-[24px]">
-        <div className="flex gap-[5.5px] w-full  h-fit flex-row justify-center items-center cursor-pointer">
-          <img src="./Logo.png" alt="" className="w-[31.27px] h-[26.77px]" />
-          <p className="text-[20px] text-white font-[700]">Ecommerce</p>
-        </div>
-        <div className="flex flex-col w-full h-fit gap-[24px] items-center justify-between">
-          <div className="flex flex-row w-full justify-between h-fit ">
-            {ancherData.map((ancher, index) => (
-              <a
-                href="./"
-                key={index}
-                className="font-[590] text-[16px] text-white text-center"
-              >
-                {ancher}
-              </a>
-            ))}
+    <div className="py-24 bg-[#EEEFFB]">
+      <Container
+        sx={{
+          display: "flex",
+          gap: 24,
+        }}
+      >
+        <div className="flex flex-col gap-6">
+          <p className="text-[38px] font-[800]">eCommerce</p>
+
+          <div className="">
+            <input
+              type="text"
+              placeholder="Email"
+              className="w-[250px] h-[41px] border pl-4 rounded"
+            />
+            <button className="bg-[#FB2E86] py-[8px] px-3 rounded text-[16px] font-[500] text-[#EEEFFB]">
+              Бүртгүүлэх
+            </button>
           </div>
-          <div className="w-fit gap-[18px] h-fit flex flex-row">
-            {FooterLogos.map((logo, index) => (
-              <img
-                src={`${logo}`}
-                alt=""
-                key={index}
-                className="w-[40px] cursor-pointer"
-                onClick={() => {
-                  router.push("./");
-                }}
-              />
-            ))}
+
+          <div className="flex flex-col gap-1">
+            <p className="text-[16px] font-normal text-[#8A8FB9]">Хаяг</p>
+            <p className="text-[16px] font-normal text-[#8A8FB9]">
+              Олимпын гудамж, 1-р хороо, Сүхбаатар дүүрэг, Улаанбаатар хот,
+              Гурван гол - 401 тоот
+            </p>
           </div>
         </div>
-      </header>
-      <footer className="w-full h-[70px] flex flex-col items-center text-white justify-between pt-[24px]">
-        <p>© 2024 Pinecone Ecommerse LLC </p>
-        <p>Зохиогчийн эрх хуулиар хамгаалагдсан.</p>
-      </footer>
-    </section>
+        <div className="flex gap-24">
+          <div className="flex flex-col gap-7">
+            <p className="text-[22px] font-[800]">Ангилал</p>
+            <div className="flex flex-col gap-4  whitespace-nowrap">
+              {data.map((item, index) => {
+                return (
+                  <p
+                    key={index}
+                    className="text-[16px] font-normal text-[#8A8FB9]"
+                  >
+                    {item}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-7">
+            <p className="text-[22px] font-[800]">Бусад</p>
+            <div className="flex flex-col gap-4">
+              {label.map((item, index) => {
+                return (
+                  <p
+                    key={index}
+                    className="text-[16px] font-normal text-[#8A8FB9] whitespace-nowrap"
+                  >
+                    {item}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
   );
-}
-export default Footer;
+};
