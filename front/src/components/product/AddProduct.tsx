@@ -3,7 +3,7 @@
 import { ChevronLeft } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { AddProductTwo } from "./AddProductTwo";
-import { ProductContext, useProduct } from "../providers/ProductProvider";
+import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AddProductOne } from "./AddProductOne";
@@ -15,7 +15,6 @@ import {
   useState,
 } from "react";
 import { Button } from "@mui/material";
-import { DashboardContext } from "../Providers/DashboardProvider";
 
 type Props = {
   productImage: string;
@@ -39,7 +38,7 @@ export const AddProduct = (props: Props) => {
   const { postProduct } = useProduct();
 
   const { productList, editProduct, selectedProd, setSelectedProd } =
-    useContext(ProductContext);
+    useProduct();
 
   const [imageUrl, setImageUrl] = useState<string[]>(
     selectedProd?.productImage ?? []

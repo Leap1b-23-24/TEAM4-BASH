@@ -45,7 +45,7 @@ type SelectedProdProps = {
   tag: string[];
 };
 
-export const ProductContext = createContext<ProductContextType>(
+const ProductContext = createContext<ProductContextType>(
   {} as ProductContextType
 );
 
@@ -176,6 +176,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
   const editProduct = async (params: SelectedProdProps) => {
     try {
       await api.post("/product/editProduct", params, {

@@ -4,16 +4,9 @@ import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
 import { useProduct } from "../providers/ProductProvider";
 import { useState } from "react";
 import { Modal } from "@mui/material";
-import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
 import { useContext } from "react";
-import { DashboardContext } from "../Providers/DashboardProvider";
 import { useRouter } from "next/navigation";
-import OneProductData from "./ProductData";
-import {
-  Product,
-  ProductContext,
-  ProductProvider,
-} from "../providers/ProductProvider";
+import { Product } from "../providers/ProductProvider";
 import { SelectProvider } from "@mui/base";
 
 function OneTable({
@@ -30,8 +23,9 @@ function OneTable({
   const { deleteProduct } = useProduct();
   const [remove, setRemove] = useState(false);
 
-  const { productList, selectedProd, setSelectedProd } =
-    useContext(ProductContext);
+  const { productList, selectedProd, setSelectedProd } = useProduct();
+
+  const router = useRouter();
 
   return (
     <section id={id} className="flex flex-row items-center py-[16px]">
@@ -71,8 +65,7 @@ function OneTable({
             setRemove(true);
           }}
         />
-        <EditOutlined className="text-[#1C20243D]" />
-        <DeleteOutlineOutlined className="text-[#1C20243D]" />
+
         <EditOutlined
           onClick={() => {
             const selected = productList.find(
