@@ -5,14 +5,17 @@ import {
   EmailOutlined,
   ExpandMoreOutlined,
   FavoriteBorderOutlined,
+  InsertEmoticon,
   PersonOutlined,
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
-import { Container } from "@mui/material";
+import { Container, Grid, ListItem } from "@mui/material";
 import { Footer } from "../layout/AdminHomeFooter";
+import { CustomProductDisplay } from "../customs/CustomProductDisplay";
+import { GridViewComp } from "./GridView";
 
 const data = [
   {
@@ -143,22 +146,25 @@ export const AdminHome = () => {
                 })}
               </div>
             </div>
-            <div className="flex flex-col gap-2 items-center w-full">
+            <div className="relative flex flex-col gap-2 items-center w-full">
               <p className="text-[40px] font-[800] text-[#1A0B5B]">
-                Онцлох бүтээгдэхүүн
+                Шинээр нэмэгдсэн
               </p>
-              <div className="grid grid-cols-4 basis-0 grow gap-16 py-6">
-                {productList.map((item, index) => {
-                  return (
-                    <CustomItem
-                      key={index}
-                      image={item.productImage}
-                      label={item.additionInfo}
-                      price={item.mainPrice}
+
+              <Grid container spacing={8}>
+                {productList.slice(0, 8).map((product) => (
+                  <Grid lg={3} sm={4} xs={6} item>
+                    <CustomProductDisplay
+                      productName={product.productName}
+                      productImg={product.productImage}
+                      color={product.color}
+                      mainPrice={product.mainPrice}
+                      disPercent={product.disPercent}
                     />
-                  );
-                })}
-              </div>
+                  </Grid>
+                ))}
+              </Grid>
+              {/* <div className="absolute w-full h-screen bg-red-100">dsd</div> */}
             </div>
           </div>
 
