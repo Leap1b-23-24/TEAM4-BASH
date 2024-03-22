@@ -48,5 +48,4 @@ export const productSchema = new Schema({
   createdAt: Date,
   updatedAt: Date,
 });
-
 export const ProductModel = model("product", productSchema);

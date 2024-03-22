@@ -2,8 +2,14 @@
 
 import { KeyboardArrowRight, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
+import { useContext } from "react";
+import { DashboardContext } from "../Providers/DashboardProvider";
+import { ProductContext } from "../providers/ProductProvider";
 
 export const OrderGeneral = () => {
+  const { deliveryStatus } = useContext(ProductContext);
+
   const label = [
     "Бүгд",
     "Шинэ захиалага",
@@ -15,7 +21,7 @@ export const OrderGeneral = () => {
 
   const data = [
     {
-      id: "#ddd",
+      id: "#1234",
       name: "zoloo",
       gmail: "zolooo sara",
       date: "2023-10-22",
@@ -23,13 +29,23 @@ export const OrderGeneral = () => {
       payment: "1300",
     },
     {
-      id: "#ddd",
+      id: "#12345",
       name: "zoloo",
       gmail: "zolooo sara",
       date: "2023-10-22",
       time: "10:20",
       payment: "1300",
     },
+  ];
+
+  const tableHeader = [
+    "Захиалгын ID дугаар",
+    "Үйлчлүүлэгч",
+    "Огноо",
+    "Цаг",
+    "Төлбөр",
+    "Статус",
+    "Дэлгэрэнгүй",
   ];
 
   const router = useRouter();
@@ -75,70 +91,74 @@ export const OrderGeneral = () => {
           </div>
         </div>
 
-        <div className="border-2 border-[#ECEDF0] rounded-xl overflow-hidden">
+        <div className="border-2 border-[#ECEDF0] rounded-xl">
           <p className="p-6 text-xl bg-white font-bold">Захиалга</p>
+          <table className="w-full">
+            <thead>
+              <tr className="bg-[#f5f5f5] border-y-2 ">
+                {tableHeader.map((item) => (
+                  <th className="py-[12px] px-[24px] text-sm font-semibold text-[#3F4145]">
+                    {item}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-          <div className="py-4 px-6 flex justify-between bg-[#f5f5f5] border-y-2">
-            <div className="flex">
-              <p className="text-sm font-semibold text-[#3F4145]">
-                Захиалгын ID дугаар
-              </p>
-              <p className="text-sm font-semibold text-[#3F4145] pl-24">
-                Үйлчлүүлэгч
-              </p>
-              <p className="text-sm font-semibold text-[#3F4145] pl-40">
-                Огноо
-              </p>
-              <p className="text-sm font-semibold text-[#3F4145] pl-40">Цаг</p>
-              <p className="text-sm font-semibold text-[#3F4145] pl-32">
-                Төлбөр
-              </p>
-              <p className="text-sm font-semibold text-[#3F4145] pl-32">
-                Статус
-              </p>
-            </div>
+            <tbody>
+              {data.map((item, index) => {
+                return (
+                  <tr key={index} className="bg-white border-b-2">
+                    <td className="px-6 py-4 text-[14px] font-semibold text-[#121316]">
+                      {item.id}
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="text-[14px] font-semibold text-[#121316]">
+                        {item.name}
+                      </p>
+                      <p className="text-[14px] font-normal text-[#121316]">
+                        {item.gmail}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
+                      {item.date}
+                    </td>
+                    <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
+                      {item.time}
+                    </td>
+                    <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
+                      {item.payment} ₮
+                    </td>
+                    <td className="px-6 py-4">
+                      <CustomDeliveryStatus
+                        label={
+                          deliveryStatus === "new order"
+                            ? "Шинэ захиалга"
+                            : deliveryStatus === "preparing"
+                            ? "Бэлтгэгдэж байна"
+                            : deliveryStatus === "delivering"
+                            ? "Хүргэлтэнд гарсан"
+                            : deliveryStatus === "delivered"
+                            ? "Хүргэгдсэн"
+                            : deliveryStatus === "cancelled"
+                            ? "Цуцлагдсан"
+                            : ""
+                        }
+                      />
+                    </td>
 
-            <p className="text-sm font-semibold text-[#3F4145]">Дэлгэрэнгүй</p>
-          </div>
-
-          {data.map((item, index) => {
-            return (
-              <div className="bg-white px-6 py-4 flex border-b-2">
-                <p className="text-[14px] font-semibold text-[#121316] pt-2">
-                  {item.id}
-                </p>
-                <div className="pl-52">
-                  <p className="text-[14px] font-semibold text-[#121316]">
-                    {item.name}
-                  </p>
-                  <p className="text-[14px] font-normal text-[#121316]">
-                    {item.gmail}
-                  </p>
-                </div>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[172px]">
-                  {item.date}
-                </p>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[122px]">
-                  {item.time}
-                </p>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[120px]">
-                  {item.payment}
-                </p>
-                <p className="text-[14px] text-[#0A4E22] bg-[#C1E6CF] rounded-2xl px-3 mb-4 mt-2 ml-36">
-                  hurgegdsen
-                </p>
-
-                <div
-                  className="pl-[110px] pt-1 cursor-pointer"
-                  onClick={() => {
-                    router.push("/dashboard/order/detail");
-                  }}
-                >
-                  <KeyboardArrowRight />
-                </div>
-              </div>
-            );
-          })}
+                    <td
+                      className="px-6 py-4 cursor-pointer "
+                      onClick={() => {
+                        router.push("/dashboard/order/detail");
+                      }}
+                    >
+                      <KeyboardArrowRight />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { ProductModel } from "../models/product.model";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-export const getAllProducts: RequestHandler = async (_req, res) => {
+export const getProduct: RequestHandler = async (_req, res) => {
   const products = await ProductModel.find({});
 
   res.json(products);
@@ -52,10 +52,65 @@ export const postProduct: RequestHandler = async (req, res) => {
   });
 };
 
-export const getProduct: RequestHandler = async (_req, res) => {
-  const product = await ProductModel.find({});
+export const editProduct: RequestHandler = async (req, res) => {
+  // const { authorization } = req.headers;
 
-  return res.json(product);
+  // if (!authorization) {
+  //   return res.status(401).json({
+  //     message: "Unauthorized user",
+  //   });
+  // }
+  try {
+    const {
+      id,
+      productName,
+      additionInfo,
+      barCode,
+      productImage,
+      mainPrice,
+      quantity,
+      mainCategory,
+      secondCategory,
+      color,
+      size,
+      tag,
+    } = req.body;
+
+    const product = await ProductModel.findOne({ _id: id });
+
+    if (!product) {
+      return res.json({
+        message: "Product does not exist",
+      });
+    }
+
+    await ProductModel.updateOne(
+      { _id: product._id },
+      {
+        $set: {
+          id,
+          productName,
+          additionInfo,
+          barCode,
+          productImage,
+          mainPrice,
+          quantity,
+          mainCategory,
+          secondCategory,
+          color,
+          size,
+          tag,
+        },
+      }
+    );
+    return res.json({
+      message: "Product successfully edited",
+    });
+  } catch (error) {
+    return res.status(401).json({
+      message: "editProduct errors",
+    });
+  }
 };
 
 export const deleteProduct: RequestHandler = async (req, res) => {
