@@ -19,12 +19,12 @@ export type Product = {
   productName: string;
   additionInfo: string;
   barCode: string;
-  productImage: string;
+  productImage: string[];
   mainPrice: number;
   quantity: number;
   mainCategory: string;
   secondCategory: string;
-  color: string;
+  color: string[];
   size: string;
   tag: string[];
   createdAt: Date;

@@ -1,4 +1,4 @@
-import { AdminHome } from "@/src/components/admin/AdminHome";
+import { AdminHome } from "@/src/components/home/AdminHome";
 
 export default function Page() {
   return (
