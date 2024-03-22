@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const validationSchema = yup.object({
   email: yup.string().email().required(),
-  name: yup.string().required(),
+  password: yup.string().required(),
 });
 
 export const Login = () => {
@@ -18,11 +18,11 @@ export const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
-      name: "",
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      login(values.email, values.name);
+      login(values.email, values.password);
     },
   });
 
@@ -56,13 +56,15 @@ export const Login = () => {
 
               <CustomInput
                 type="text"
-                placeholder="Нэр"
-                name="name"
-                value={formik.values.name}
+                placeholder="Password"
+                name="password"
+                value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
               />
               <p className="flex justify-end text-sm text-[#3C4043]">
                 Нууц үгээ мартсан уу?

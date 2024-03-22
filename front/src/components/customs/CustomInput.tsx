@@ -9,7 +9,7 @@ export const CustomInput = (props: CustomInputProps) => {
     <TextField
       {...rest}
       sx={{
-        background: "#F7F7F8",
+        background: size === "small" ? "#FFF" : "#F7F7F8",
         width: "full",
       }}
       inputProps={{

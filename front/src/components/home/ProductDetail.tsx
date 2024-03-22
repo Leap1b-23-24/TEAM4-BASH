@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  FacebookOutlined,
-  FavoriteBorder,
-  GridViewRounded,
-  ListRounded,
-} from "@mui/icons-material";
+import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
 import { Card, Container } from "@mui/material";
-import { CustomShopList } from "../customs/CustomShopList";
 
-const data = ["Home", "Pages", "Product Details"];
+const data = ["Home", "Product Details"];
 
 export const ProductDetail = () => {
   return (

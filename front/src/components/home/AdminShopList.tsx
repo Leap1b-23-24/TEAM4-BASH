@@ -1,10 +1,15 @@
+"use client";
+
 import { GridViewRounded, ListRounded } from "@mui/icons-material";
 import { Container } from "@mui/material";
 import { CustomShopList } from "../customs/CustomShopList";
+import { useProduct } from "../providers/ProductProvider";
 
-const data = ["Home", "Pages", "Shop List"];
+const data = ["Home", "Shop List"];
 
 export const AdminShopList = () => {
+  const { productList } = useProduct();
+
   return (
     <div>
       <div className="bg-[#F6F5FF]">
@@ -68,27 +73,18 @@ export const AdminShopList = () => {
           </div>
 
           <div className="flex flex-col gap-8 py-10">
-            <CustomShopList
-              image="/bu.png"
-              label="Product Name"
-              price={26.0}
-              sell={52.0}
-              additionInfo="Addition info && zahialgiin talaar nemelt medeelel"
-            />
-            <CustomShopList
-              image="/bu.png"
-              label="Product Name"
-              price={26.0}
-              sell={52.0}
-              additionInfo="Addition info && zahialgiin talaar nemelt medeelel"
-            />
-            <CustomShopList
-              image="/bu.png"
-              label="Product Name"
-              price={26.0}
-              sell={52.0}
-              additionInfo="Addition info && zahialgiin talaar nemelt medeelel"
-            />
+            {productList.map((item, index) => {
+              return (
+                <CustomShopList
+                  key={index}
+                  image={item.productImage}
+                  label={item.productName}
+                  price={item.mainPrice}
+                  color={item.color}
+                  additionInfo={item.additionInfo}
+                />
+              );
+            })}
           </div>
         </Container>
       </div>

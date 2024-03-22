@@ -25,9 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ProductProvider>
-            <AdminHomeHeader />
             {children}
-            <AdminHomeFooter />
             <ToastContainer />
           </ProductProvider>
         </AuthProvider>

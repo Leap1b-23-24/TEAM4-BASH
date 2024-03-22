@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CallOutlined,
   EmailOutlined,
@@ -8,8 +10,21 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { Container } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const page = [
+  "Home",
+  "Shop List",
+  "Shop Left Sidebar",
+  "Product Detail",
+  "Shopping Cart",
+];
 
 export const AdminHomeHeader = () => {
+  const [isSide, setIsSide] = useState(false);
+  const router = useRouter();
+
   return (
     <div className="w-full h-full">
       <div className="bg-[#7E33E0] py-4">
@@ -58,15 +73,51 @@ export const AdminHomeHeader = () => {
           }}
         >
           <div className="flex gap-16 items-center">
-            <p className="font-[700] text-[34px] text-[#0D0E43]">Ecommerce</p>
+            <p className="font-[700] text-[32px] text-[#0D0E43]">Ecommerce</p>
 
             <div className="flex gap-8">
-              <div className="flex hover:text-[#FB2E86]">
-                <p className="text-[16px] font-normal">Нүүр</p>
-                <ExpandMoreOutlined />
+              <div className="relative">
+                <div
+                  className="flex hover:text-[#FB2E86]"
+                  onClick={() => {
+                    setIsSide(true);
+                  }}
+                >
+                  <p className="text-[14px] font-normal">Нүүр</p>
+                  <ExpandMoreOutlined />
+                </div>
+
+                {isSide && (
+                  <div className="absolute top-10 right- border rounded bg-white">
+                    {page.map((item, index) => {
+                      return (
+                        <p
+                          key={index}
+                          className="whitespace-nowrap border-b-2 py-2 pr-8 pl-4 hover:text-[#FB2E86]"
+                          onClick={() => {
+                            if (item === "Home") {
+                              router.push("/home");
+                            } else if (item === "Shop List") {
+                              router.push("/home/shop");
+                            } else if (item === "Shop Left Sidebar") {
+                              router.push("/");
+                            } else if (item === "Product Detail") {
+                              router.push("/home/detail");
+                            } else if (item === "Shopping Cart") {
+                              router.push("/");
+                            }
+                            setIsSide(false);
+                          }}
+                        >
+                          {item}
+                        </p>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              <p className="text-[16px] font-normal hover:text-[#FB2E86]">
+              <p className="text-[14px] font-normal hover:text-[#FB2E86]">
                 Ангилал
               </p>
             </div>

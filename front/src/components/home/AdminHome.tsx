@@ -1,5 +1,4 @@
 "use client";
-<<<<<<< HEAD:front/src/components/home/AdminHome.tsx
 
 import {
   CallOutlined,
@@ -17,11 +16,9 @@ import { Container, Grid, ListItem } from "@mui/material";
 import { Footer } from "../layout/AdminHomeFooter";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
 import { GridViewComp } from "./GridView";
-=======
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";
->>>>>>> 3bf9dd1 (shop list):front/src/components/admin/AdminHome.tsx
 
 const data = [
   {
