@@ -10,15 +10,14 @@ import {
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { CustomItem } from "../customs/CustomHome";
-import { useProduct } from "../providers/ProductProvider";
-import { Container, Grid, ListItem } from "@mui/material";
-import { Footer } from "../layout/AdminHomeFooter";
+import { Grid, ListItem } from "@mui/material";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
 import { GridViewComp } from "./GridView";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const data = [
   {
@@ -83,11 +82,12 @@ export const AdminHome = () => {
                       productImg={product.productImage}
                       color={product.color}
                       mainPrice={product.mainPrice}
-                      disPercent={product.disPercent}
+                      // disPercent={product.disPercent}
                     />
                   </Grid>
                 ))}
               </Grid>
+
               {/* <div className="absolute w-full h-screen bg-red-100">dsd</div> */}
             </div>
           </div>

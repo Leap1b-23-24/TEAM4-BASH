@@ -7,13 +7,7 @@ import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AddProductOne } from "./AddProductOne";
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@mui/material";
 
 type Props = {
@@ -57,8 +51,8 @@ export const AddProduct = (props: Props) => {
       productName: selectedProd ? selectedProd.productName : "",
       additionInfo: selectedProd ? selectedProd?.additionInfo : "",
       barCode: selectedProd ? selectedProd?.barCode : "",
-      mainPrice: selectedProd ? selectedProd?.mainPrice : "",
-      quantity: selectedProd ? selectedProd?.quantity : "",
+      mainPrice: selectedProd ? selectedProd?.mainPrice : 0,
+      quantity: selectedProd ? selectedProd?.quantity : 0,
       mainCategory: selectedProd ? selectedProd?.mainCategory : "",
       secondCategory: selectedProd ? selectedProd?.secondCategory : "",
       color: selectedProd ? selectedProd?.color : [],

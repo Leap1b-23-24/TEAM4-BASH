@@ -127,7 +127,7 @@ export const AddProductOne = (props: FormikProps) => {
       <div className="w-full rounded-xl p-6 gap-3 flex flex-col bg-white">
         <p className="font-[600] text-[18px]">Бүтээгдэхүүний зураг</p>
 
-        <div className="flex items-center gap-3 relative">
+        {/* <div className="flex items-center gap-3 relative">
           {imageUrl?.map((item, index) => {
             return (
               <div
@@ -150,11 +150,11 @@ export const AddProductOne = (props: FormikProps) => {
               +
             </button>
 
-            <div className="absolute top-4 right-1 opacity-0">
+            <div className="absolute top-4 right-1 opacity-1">
               <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="w-full p-6 rounded-xl flex gap-4 bg-white">

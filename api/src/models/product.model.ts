@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
 export const productSchema = new Schema({
+  merchId: String,
   productName: {
     type: String,
     require: true,
@@ -44,6 +45,18 @@ export const productSchema = new Schema({
   tag: {
     type: Array,
     require: true,
+  },
+  productReactionCount: {
+    type: Number,
+    require: false,
+  },
+  productSoldQnty: {
+    type: Number,
+    require: false,
+  },
+  salePercent: {
+    type: Number,
+    require: false,
   },
   createdAt: Date,
   updatedAt: Date,

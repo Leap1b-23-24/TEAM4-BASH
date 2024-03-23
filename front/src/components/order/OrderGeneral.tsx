@@ -4,11 +4,10 @@ import { KeyboardArrowRight, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
 import { useContext } from "react";
-import { DashboardContext } from "../Providers/DashboardProvider";
-import { ProductContext } from "../providers/ProductProvider";
+import { useProduct } from "../providers/ProductProvider";
 
 export const OrderGeneral = () => {
-  const { deliveryStatus } = useContext(ProductContext);
+  const { deliveryStatus } = useProduct();
 
   const label = [
     "Бүгд",

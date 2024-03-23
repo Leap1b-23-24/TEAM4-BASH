@@ -6,9 +6,10 @@ import {
 import { Box, Card, Modal } from "@mui/material";
 import { useState } from "react";
 import { useProduct } from "../providers/ProductProvider";
+import Image from "next/image";
 
 type CustomProps = {
-  image: string;
+  image: string[];
   label: string;
   price: number;
 };
@@ -16,7 +17,6 @@ type CustomProps = {
 export const CustomItem = (props: CustomProps) => {
   const { image, label, price } = props;
   const [photo, setPhoto] = useState(false);
-  const { productList } = useProduct();
 
   return (
     <Card>

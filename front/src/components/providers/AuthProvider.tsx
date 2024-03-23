@@ -3,19 +3,37 @@
 import { api } from "@/src/common";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+type User = {
+  name: string;
+  email: string;
+  password: string;
+  userImage: string;
+};
 
 type AuthContextType = {
   isLogged: Boolean;
   signUp: (email: string, name: string, password: string) => void;
   login: (email: string, password: string) => void;
+
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
 };
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   const login = async (email: string, password: string) => {
@@ -24,13 +42,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         email,
         password,
       });
-
       const { token } = data;
-
       localStorage.setItem("token", token);
-
       setIsLogged(true);
-      router.push("/home");
+      router.push("/dashboard");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {
@@ -70,12 +85,32 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getUser = async () => {
+    try {
+      const { data } = await api.get("/auth/user", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         isLogged,
         signUp,
         login,
+        user,
+        setUser,
       }}
     >
       {children}
