@@ -1,9 +1,9 @@
-import { Login } from "@/src/components/auto/MerchantLogin";
+import { SignUp } from "@/src/components/auto/MerchantSignUp";
 
 export default function Page() {
   return (
     <div className="max-w-[1500px] flex justify-center items-center m-auto">
-      <Login />
+      <SignUp />
     </div>
   );
 }

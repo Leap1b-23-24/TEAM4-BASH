@@ -5,6 +5,7 @@ import { CustomInput } from "../customs/CustomInput";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const data = ["Home", "Pages", "My Account"];
 
@@ -16,6 +17,7 @@ const validationSchema = yup.object({
 
 export const UserSignUp = () => {
   const { signUp } = useAuth();
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -135,7 +137,12 @@ export const UserSignUp = () => {
               Бүртгүүлэх
             </button>
 
-            <p className="text-[#9096B2] font-[400] text-[15px] flex justify-center">
+            <p
+              className="text-[#9096B2] font-[400] text-[15px] flex justify-center"
+              onClick={() => {
+                router.push("/home/auto/login");
+              }}
+            >
               Нэвтрэх хэсэг
             </p>
           </Card>

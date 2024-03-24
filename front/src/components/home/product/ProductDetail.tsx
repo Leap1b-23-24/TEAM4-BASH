@@ -2,10 +2,17 @@
 
 import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
 import { Card, Container } from "@mui/material";
+import { DetailHead } from "./DetailHead";
+import { AdditionInfo } from "./AdditionInfo";
+import { Unelgee } from "./Unelgee";
+import { useProduct } from "../../providers/ProductProvider";
+import { AllUnelgee } from "./AllUnelgee";
 
 const data = ["Home", "Product Details"];
 
 export const ProductDetail = () => {
+  const { productList } = useProduct();
+
   return (
     <div>
       <div className="bg-[#F6F5FF]">
@@ -88,6 +95,13 @@ export const ProductDetail = () => {
             </div>
           </Card>
         </Container>
+
+        <div className="py-10 bg-[#F9F8FE]">
+          <Container sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <Unelgee />
+            <AllUnelgee />
+          </Container>
+        </div>
       </div>
     </div>
   );

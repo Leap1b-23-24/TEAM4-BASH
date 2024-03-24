@@ -2,7 +2,7 @@
 
 import { api } from "@/src/common";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Dispatch,
   PropsWithChildren,
@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   const login = async (email: string, password: string) => {
     try {
@@ -45,7 +46,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
       localStorage.setItem("token", token);
       setIsLogged(true);
-      router.push("/dashboard");
+
+      if (pathname == "/auto/login") {
+        router.push("/dashboard");
+      }
+
+      if (pathname == "/home/auto/login") {
+        router.push("/home");
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {
@@ -74,7 +82,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         position: "top-center",
       });
 
-      router.push("/auto/login");
+      if (pathname == "/home/auto/signup") {
+        router.push("/home/auto/login");
+      }
+
+      if (pathname == "/auto/sign") {
+        router.push("/auto/login");
+      }
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message ?? err.message, {

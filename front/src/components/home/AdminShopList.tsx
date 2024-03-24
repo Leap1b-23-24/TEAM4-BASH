@@ -4,6 +4,7 @@ import { GridViewRounded, ListRounded } from "@mui/icons-material";
 import { Container } from "@mui/material";
 import { CustomShopList } from "../customs/CustomShopList";
 import { useProduct } from "../providers/ProductProvider";
+import { CustomRate } from "../customs/CustomRate";
 
 const data = ["Home", "Shop List"];
 
@@ -72,19 +73,22 @@ export const AdminShopList = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-8 py-10">
-            {productList.map((item, index) => {
-              return (
-                <CustomShopList
-                  key={index}
-                  image={item.productImage}
-                  label={item.productName}
-                  price={item.mainPrice}
-                  color={item.color}
-                  additionInfo={item.additionInfo}
-                />
-              );
-            })}
+          <div className="flex gap-40">
+            <CustomRate />
+            <div className="flex flex-col gap-8 py-10">
+              {productList.map((item, index) => {
+                return (
+                  <CustomShopList
+                    key={index}
+                    image={item.productImage}
+                    label={item.productName}
+                    price={item.mainPrice}
+                    color={item.color}
+                    additionInfo={item.additionInfo}
+                  />
+                );
+              })}
+            </div>
           </div>
         </Container>
       </div>

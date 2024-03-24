@@ -16,8 +16,6 @@ import { GridViewComp } from "./GridView";
 import { CustomItem } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const data = [
   {
@@ -46,8 +44,8 @@ export const AdminHome = () => {
   const { productList } = useProduct();
 
   return (
-    <div className="w-full h-full">
-      <div className="flex flex-col justify-center bg-white">
+    <div className="w-full h-full bg-white">
+      <div className="flex flex-col justify-center bg-white w-full">
         <img src="promotional.png" className="rounded-xl h-[700px]" />
 
         <Container sx={{ py: 8 }}>
