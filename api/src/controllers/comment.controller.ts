@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
 import { CommentModel } from "../models";
-import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const postComment: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;

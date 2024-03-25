@@ -101,7 +101,7 @@ export const AdminHome = () => {
                     key={index}
                     className="border rounded-md flex flex-col items-center py-12 px-4 text-center "
                   >
-                    <img src={item.img} className="w-[60px]" />
+                    <img src={item.img} />
                     <p className="text-[#151875] text-[22px] font-[800] pt-6">
                       {item.label}
                     </p>

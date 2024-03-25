@@ -36,7 +36,7 @@ export const postProduct: RequestHandler = async (req, res) => {
       });
     }
 
-    const product = await ProductModel.create({
+    await ProductModel.create({
       merchId: id,
       productName,
       additionInfo,
@@ -79,7 +79,7 @@ export const getProduct: RequestHandler = async (req, res) => {
   }
 };
 
-export const getAllProduct: RequestHandler = async (req, res) => {
+export const getAllProduct: RequestHandler = async (_req, res) => {
   try {
     const allProduct = await ProductModel.find({});
 
@@ -152,17 +152,15 @@ export const editProduct: RequestHandler = async (req, res) => {
 };
 
 export const deleteProduct: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "newtersenii daraa delete hiinu",
+    });
+  }
+
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "newtersenii daraa delete hiinu",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
-
     const { productId } = req.body;
 
     const productExist = await ProductModel.findOne({

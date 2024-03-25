@@ -38,7 +38,7 @@ export const signUp: RequestHandler = async (req, res) => {
       });
     }
 
-    const newUser = await UserModel.create({
+    await UserModel.create({
       email,
       name,
       password,

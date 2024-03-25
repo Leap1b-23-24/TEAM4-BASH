@@ -2,3 +2,4 @@ export * from "./product.model";
 export * from "./user.model";
 export * from "./category.model";
 export * from "./comment.model";
+export * from "./star.model";

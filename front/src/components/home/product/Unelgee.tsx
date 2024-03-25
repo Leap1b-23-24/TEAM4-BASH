@@ -1,4 +1,4 @@
-import { Button, Card, TextField } from "@mui/material";
+import { Button, Card, Rating, Stack, TextField } from "@mui/material";
 import { DetailHead } from "./DetailHead";
 import { CustomInputSt } from "../../auto/CustomInputSt";
 import { useData } from "../../providers/DataProvider";
@@ -36,6 +36,12 @@ export const Unelgee = () => {
 
         <Card>
           <div className="px-6 py-10 flex flex-col gap-8">
+            <Stack
+              spacing={1}
+              sx={{ borderBottom: 1, pb: 2, borderColor: "#BFC6E0" }}
+            >
+              <Rating />
+            </Stack>
             <CustomInputSt
               type="text"
               placeholder="Сэтгэгдэл бичих"

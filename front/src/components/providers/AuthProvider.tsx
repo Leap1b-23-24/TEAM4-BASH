@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [allUser, setAllUser] = useState<User[]>([]);
+  const [refresh, setRefresh] = useState(1);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       const { token } = data;
       localStorage.setItem("token", token);
+
       setIsLogged(true);
 
       if (pathname == "/auto/login") {
@@ -113,6 +115,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         },
       });
 
+      setRefresh(refresh + 1);
       setUser(data);
     } catch (err) {
       console.log(err);
@@ -130,9 +133,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogged(true);
+    }
+  }, [refresh]);
+
+  useEffect(() => {
     getUser();
     getAllUser();
-  }, []);
+  }, [refresh]);
 
   return (
     <AuthContext.Provider

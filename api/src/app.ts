@@ -5,6 +5,7 @@ import productRouter from "./routers/product.router";
 import authRouter from "./routers/auth.router";
 import categoryRouter from "./routers/category.router";
 import commentRouter from "./routers/comment.router";
+import starRouter from "./routers/star.router";
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use("/product", productRouter);
 app.use("/auth", authRouter);
 app.use("/category", categoryRouter);
 app.use("/comment", commentRouter);
+app.use("/review", starRouter);
 
 export default app;

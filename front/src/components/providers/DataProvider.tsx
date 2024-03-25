@@ -23,6 +23,18 @@ export type Comment = {
   createdAt: Date;
 };
 
+export type Review = {
+  _id: string;
+  productId: string;
+  userId: string;
+  star1: number;
+  star2: number;
+  star3: number;
+  star4: number;
+  star5: number;
+  createdAt: Date;
+};
+
 type DataContextType = {
   postComment: (comment: string, productId: string, userId: string) => void;
 
@@ -31,12 +43,24 @@ type DataContextType = {
 
   allComment: Comment[];
   setAllComment: Dispatch<SetStateAction<Comment[]>>;
+
+  starReview: (
+    star1: number,
+    star2: number,
+    star3: number,
+    star4: number,
+    star5: number
+  ) => void;
+
+  star: Review[];
+  setStar: Dispatch<SetStateAction<Review[]>>;
 };
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [comment, setComment] = useState<Comment[]>([]);
   const [refresh, setRefresh] = useState(1);
   const [allComment, setAllComment] = useState<Comment[]>([]);
+  const [star, setStar] = useState<Review[]>([]);
 
   const postComment = async (
     comment: string,
@@ -93,6 +117,48 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const starReview = async (
+    star1: number,
+    star2: number,
+    star3: number,
+    star4: number,
+    star5: number
+  ) => {
+    try {
+      const { data } = await api.post(
+        "/review/post",
+        {
+          star1,
+          star2,
+          star3,
+          star4,
+          star5,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getReview = async () => {
+    try {
+      const { data } = await api.get("/review/get", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setStar(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getComment();
     getAllComment();
@@ -106,6 +172,9 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         setComment,
         allComment,
         setAllComment,
+        starReview,
+        star,
+        setStar,
       }}
     >
       {children}
