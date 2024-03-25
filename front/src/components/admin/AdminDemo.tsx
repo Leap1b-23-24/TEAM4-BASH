@@ -213,7 +213,7 @@ export const AdminDemo = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-10">
-                <div className="h-[580px]  w-[385px] flex flex-col overflow-scroll relative overflow-hidden gap-5	">
+                <div className="h-[600px]  w-[385px] flex flex-col overflow-scroll relative overflow-hidden gap-5	">
                   {productList.map((item, index) => {
                     return (
                       <AdminScroll
@@ -229,7 +229,7 @@ export const AdminDemo = () => {
                 <div className="w-[100%] h-[243px] border bg-[#F4F4FC] flex flex-col justify-center gap-5 px-8 ">
                   <div className="border-b-[2px] text-[18px]  flex flex-row gap-40 py-2 ">
                     <p className="text-[18px] text-[#1D3178]">Нийлбэр:</p>
-                    <p className="text-[18px] font-bold text-[#151875]">
+                    <p className="text-[18px] font-bold text-[#151875] ">
                       {productList.reduce(
                         (currentValue, total) =>
                           currentValue + Number(total.mainPrice),
