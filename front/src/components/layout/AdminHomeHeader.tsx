@@ -51,7 +51,7 @@ export const AdminHomeHeader = () => {
           <div className="flex gap-6">
             <div className="flex gap-1 cursor-pointer">
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
-                Нэвтрэх
+                {user?.name}
               </p>
               <PersonOutlined sx={{ color: "#FFF", width: 20 }} />
             </div>

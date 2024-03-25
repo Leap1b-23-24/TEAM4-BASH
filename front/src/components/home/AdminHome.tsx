@@ -13,7 +13,7 @@ import {
 import { Grid, ListItem } from "@mui/material";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
 import { GridViewComp } from "./GridView";
-import { CustomItem } from "../customs/CustomHome";
+import { CustomHome } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";
 
@@ -57,8 +57,9 @@ export const AdminHome = () => {
               <div className="grid grid-cols-4 basis-0 grow gap-16 py-6">
                 {allProduct.map((item, index) => {
                   return (
-                    <CustomItem
+                    <CustomHome
                       key={index}
+                      id={item._id}
                       image={item.productImage}
                       label={item.additionInfo}
                       price={item.mainPrice}

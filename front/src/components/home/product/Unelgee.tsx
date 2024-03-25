@@ -4,38 +4,26 @@ import { CustomInputSt } from "../../auto/CustomInputSt";
 import { useData } from "../../providers/DataProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useAuth } from "../../providers/AuthProvider";
+import { useProduct } from "../../providers/ProductProvider";
 
 const validationSchema = yup.object({
-  // star1: yup.string().required(),
-  // star2: yup.string().required(),
-  // star3: yup.string().required(),
-  // star4: yup.string().required(),
-  // star5: yup.string().required(),
   comment: yup.string().required(),
 });
 
 export const Unelgee = () => {
-  const { postReview } = useData();
+  const { postComment } = useData();
+  const { detail } = useProduct();
+  const { user } = useAuth();
+  console.log(user);
 
   const formik = useFormik({
     initialValues: {
-      // star1: "",
-      // star2: "",
-      // star3: "",
-      // star4: "",
-      // star5: "",
       comment: "",
     },
     validationSchema: validationSchema,
     onSubmit: (value) => {
-      postReview(
-        // value.star1,
-        // value.star2,
-        // value.star3,
-        // value.star4,
-        // value.star5,
-        value.comment
-      );
+      postComment(value.comment, detail?._id || "", user?._id || "");
     },
   });
 
@@ -69,17 +57,6 @@ export const Unelgee = () => {
               >
                 Үнэлэх
               </button>
-
-              {/* <Button
-                onClick={() => {
-                  formik.handleSubmit();
-                }}
-                sx={{ border: 2 }}
-                disabled={!formik.values.comment}
-                disableElevation
-              >
-                Үнэлэх
-              </Button> */}
             </div>
           </div>
         </Card>

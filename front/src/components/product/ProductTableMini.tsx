@@ -4,10 +4,8 @@ import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
 import { useProduct } from "../providers/ProductProvider";
 import { useState } from "react";
 import { Modal } from "@mui/material";
-import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { Product } from "../providers/ProductProvider";
-import { SelectProvider } from "@mui/base";
 
 function OneTable({
   id,
@@ -20,10 +18,9 @@ function OneTable({
   SoldTotal,
   AddDate,
 }: any) {
-  const { deleteProduct } = useProduct();
   const [remove, setRemove] = useState(false);
 
-  const { productList, selectedProd, setSelectedProd } = useProduct();
+  const { productList, setSelectedProd, deleteProduct } = useProduct();
 
   const router = useRouter();
 

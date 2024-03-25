@@ -15,52 +15,48 @@ import { toast } from "react-toastify";
 
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
-export type Review = {
+export type Comment = {
   _id: string;
-  // star1: string;
-  // star2: string;
-  // star3: string;
-  // star4: string;
-  // star5: string;
+  productId: string;
+  userId: string;
   comment: string;
   createdAt: Date;
 };
 
 type DataContextType = {
-  postReview: (
-    // star1: string,
-    // star2: string,
-    // star3: string,
-    // star4: string,
-    // star5: string,
-    comment: string
-  ) => void;
+  postComment: (comment: string, productId: string, userId: string) => void;
 
-  star: Review[];
-  setStar: Dispatch<SetStateAction<Review[]>>;
+  comment: Comment[];
+  setComment: Dispatch<SetStateAction<Comment[]>>;
+
+  allComment: Comment[];
+  setAllComment: Dispatch<SetStateAction<Comment[]>>;
 };
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
-  const [star, setStar] = useState<Review[]>([]);
+  const [comment, setComment] = useState<Comment[]>([]);
   const [refresh, setRefresh] = useState(1);
+  const [allComment, setAllComment] = useState<Comment[]>([]);
 
-  const postReview = async (
-    // star1: string,
-    // star2: string,
-    // star3: string,
-    // star4: string,
-    // star5: string,
-    comment: string
+  const postComment = async (
+    comment: string,
+    productId: string,
+    userId: string
   ) => {
     try {
-      const { data } = await api.post("/review/rate", {
-        // star1,
-        // star2,
-        // star3,
-        // star4,
-        // star5,
-        comment,
-      });
+      const { data } = await api.post(
+        "/comment/rate",
+        {
+          comment,
+          productId,
+          userId,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
       toast.success(data.message, {
         position: "top-center",
@@ -77,26 +73,39 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const getReview = async () => {
+  const getComment = async () => {
     try {
-      const { data } = await api.get("/review/get");
+      const { data } = await api.get("/comment/get");
 
-      setStar(data);
+      setComment(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllComment = async () => {
+    try {
+      const { data } = await api.get("/comment/all");
+
+      setAllComment(data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getReview();
+    getComment();
+    getAllComment();
   }, [refresh]);
 
   return (
     <DataContext.Provider
       value={{
-        postReview,
-        star,
-        setStar,
+        postComment,
+        comment,
+        setComment,
+        allComment,
+        setAllComment,
       }}
     >
       {children}

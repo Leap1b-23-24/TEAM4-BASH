@@ -15,7 +15,9 @@ import {
 import { toast } from "react-toastify";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
 type User = {
+  _id?: string;
   name: string;
   email: string;
   password: string;
@@ -29,11 +31,15 @@ type AuthContextType = {
 
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
+
+  allUser: User[];
+  setAllUser: Dispatch<SetStateAction<User[]>>;
 };
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [allUser, setAllUser] = useState<User[]>([]);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -113,8 +119,19 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getAllUser = async () => {
+    try {
+      const { data } = await api.get("/auth/all");
+
+      setAllUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getUser();
+    getAllUser();
   }, []);
 
   return (
@@ -125,6 +142,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         login,
         user,
         setUser,
+        allUser,
+        setAllUser,
       }}
     >
       {children}
