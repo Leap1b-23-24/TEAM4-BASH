@@ -17,9 +17,11 @@ import {
 } from "@mui/material";
 import { AdminScroll } from "./AdminScroll";
 import { useProduct } from "../providers/ProductProvider";
+import { useState } from "react";
 
 export const AdminDemo = () => {
   const { productList } = useProduct();
+
   return (
     <div className="w-[full] h-[full] bg-[white]  ">
       <div className="bg-[#7E33E0] py-4">
@@ -228,13 +230,23 @@ export const AdminDemo = () => {
                   <div className="border-b-[2px] text-[18px]  flex flex-row gap-40 py-2 ">
                     <p className="text-[18px] text-[#1D3178]">Нийлбэр:</p>
                     <p className="text-[18px] font-bold text-[#151875]">
-                      75000₮
+                      {productList.reduce(
+                        (currentValue, total) =>
+                          currentValue + Number(total.mainPrice),
+                        0
+                      )}
+                      ₮
                     </p>
                   </div>
                   <div className="border-b-[2px] text-[18px]  text-[#151875] flex flex-row gap-[140px] py-2  ">
                     <p className="text-[18px] text-[#1D3178]">Төлөх дүн:</p>
                     <p className="text-[20px] font-bold text-[#151875]">
-                      75000₮
+                      {productList.reduce(
+                        (currentValue, total) =>
+                          currentValue + Number(total.mainPrice),
+                        0
+                      )}
+                      ₮
                     </p>
                   </div>
                   <button className="bg-[#19D16F] w-[323px] h-[40px] text-[white] rounded">
