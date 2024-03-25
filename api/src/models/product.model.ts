@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 export const productSchema = new Schema({
-  merchId: String,
+  merchId: mongoose.Schema.Types.ObjectId,
   productName: {
     type: String,
     require: true,

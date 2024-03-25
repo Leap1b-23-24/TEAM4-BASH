@@ -1,3 +1,5 @@
+"use client";
+
 import { api } from "@/src/common";
 import { AxiosError } from "axios";
 import {
@@ -51,22 +53,14 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     comment: string
   ) => {
     try {
-      const { data } = await api.post(
-        "/review/rate",
-        {
-          // star1,
-          // star2,
-          // star3,
-          // star4,
-          // star5,
-          comment,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const { data } = await api.post("/review/rate", {
+        // star1,
+        // star2,
+        // star3,
+        // star4,
+        // star5,
+        comment,
+      });
 
       toast.success(data.message, {
         position: "top-center",
@@ -85,11 +79,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
 
   const getReview = async () => {
     try {
-      const { data } = await api.get("/review/get", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const { data } = await api.get("/review/get");
 
       setStar(data);
     } catch (err) {

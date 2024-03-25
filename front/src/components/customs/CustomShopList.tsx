@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 
 type ShopListProps = {
-  image: string;
+  image: string[];
   label: string;
   price: number;
   color: string[];
@@ -27,7 +27,7 @@ export const CustomShopList = (props: ShopListProps) => {
         }}
       >
         <img
-          src={image}
+          src={image[0]}
           className="w-[270px] h-[270px] object-contain border rounded-md"
         />
         <div className="flex flex-col justify-between gap-3 py-6">

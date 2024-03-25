@@ -4,16 +4,6 @@ import { ReviewModel } from "../models";
 
 export const postReview: RequestHandler = async (req, res) => {
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
-
     const { start1, start2, start3, start4, start5, comment } = req.body;
 
     const review = await ReviewModel.create({
@@ -37,16 +27,6 @@ export const postReview: RequestHandler = async (req, res) => {
 
 export const getReview: RequestHandler = async (req, res) => {
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
-
     const rate = await ReviewModel.find({});
 
     return res.json(rate);

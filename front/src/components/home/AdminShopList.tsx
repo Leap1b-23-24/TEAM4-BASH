@@ -9,7 +9,7 @@ import { CustomRate } from "../customs/CustomRate";
 const data = ["Home", "Shop List"];
 
 export const AdminShopList = () => {
-  const { productList } = useProduct();
+  const { allProduct } = useProduct();
 
   return (
     <div>
@@ -76,7 +76,7 @@ export const AdminShopList = () => {
           <div className="flex gap-40">
             <CustomRate />
             <div className="flex flex-col gap-8 py-10">
-              {productList.map((item, index) => {
+              {allProduct.map((item, index) => {
                 return (
                   <CustomShopList
                     key={index}

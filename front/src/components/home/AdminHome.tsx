@@ -41,11 +41,11 @@ const data = [
 ];
 
 export const AdminHome = () => {
-  const { productList } = useProduct();
+  const { allProduct } = useProduct();
 
   return (
     <div className="w-full h-full bg-white">
-      <div className="flex flex-col justify-center bg-white w-full">
+      <div className="flex flex-col justify-center bg-white">
         <img src="promotional.png" className="rounded-xl h-[700px]" />
 
         <Container sx={{ py: 8 }}>
@@ -55,7 +55,7 @@ export const AdminHome = () => {
                 Онцлох бүтээгдэхүүн
               </p>
               <div className="grid grid-cols-4 basis-0 grow gap-16 py-6">
-                {productList.map((item, index) => {
+                {allProduct.map((item, index) => {
                   return (
                     <CustomItem
                       key={index}
@@ -73,7 +73,7 @@ export const AdminHome = () => {
               </p>
 
               <Grid container spacing={8}>
-                {productList.slice(0, 8).map((product) => (
+                {allProduct.slice(0, 8).map((product) => (
                   <Grid lg={3} sm={4} xs={6} item>
                     <CustomProductDisplay
                       productName={product.productName}

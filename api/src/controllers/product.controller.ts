@@ -69,9 +69,21 @@ export const getProduct: RequestHandler = async (req, res) => {
       return res.status(401).json("Unauthorized");
     }
 
-    const products = await ProductModel.find({});
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const products = await ProductModel.find({ merchId: id });
 
     res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getAllProduct: RequestHandler = async (req, res) => {
+  try {
+    const allProduct = await ProductModel.find({});
+
+    return res.json(allProduct);
   } catch (err) {
     console.log(err);
   }

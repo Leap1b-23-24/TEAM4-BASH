@@ -89,6 +89,9 @@ type ProductContextType = {
 
   categoryList: Category[];
   setCategoryList: Dispatch<SetStateAction<Category[]>>;
+
+  allProduct: Product[];
+  setAllProduct: Dispatch<SetStateAction<Product[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -96,6 +99,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [refresh, setRefresh] = useState(1);
   const [selectedProd, setSelectedProd] = useState<Product | null>(null);
+  const [allProduct, setAllProduct] = useState<Product[]>([]);
   const [deliveryStatus, setDeliveryStatus] = useState("");
 
   const router = useRouter();
@@ -256,9 +260,20 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getAllProduct = async () => {
+    try {
+      const { data } = await api.get("/product/allPro");
+
+      setAllProduct(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getProduct();
     getCategory();
+    getAllProduct();
   }, [refresh]);
 
   return (
@@ -279,6 +294,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         postCategory,
         categoryList,
         setCategoryList,
+        allProduct,
+        setAllProduct,
       }}
     >
       {children}

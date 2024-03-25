@@ -3,10 +3,10 @@ import { useProduct } from "../providers/ProductProvider";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
 
 export const GridViewComp = () => {
-  const { productList } = useProduct();
+  const { allProduct } = useProduct();
   return (
     <Grid container spacing={8}>
-      {productList.slice(0, 12).map((product) => (
+      {allProduct.slice(0, 12).map((product) => (
         <Grid lg={3} sm={4} xs={6} item>
           <CustomProductDisplay
             productName={product.productName}

@@ -1,26 +1,19 @@
 "use client";
 
-import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
+import { FavoriteBorder } from "@mui/icons-material";
 import { Card, Container } from "@mui/material";
-import { DetailHead } from "./DetailHead";
-import { AdditionInfo } from "./AdditionInfo";
-import { Unelgee } from "./Unelgee";
-import { useProduct } from "../../providers/ProductProvider";
 import { AllUnelgee } from "./AllUnelgee";
-import { ItemDetail } from "./Detail";
-
-const data = ["Home", "Product Details"];
 
 type DetailProps = {
   productName: string;
   productStar: string;
-  productPrice: string;
+  productPrice: number;
   productColor: string[];
   productInfo: string;
   productImage: string[];
 };
 
-export const ProductDetail = (props: DetailProps) => {
+export const ItemDetail = (props: DetailProps) => {
   const {
     productName,
     productStar,
@@ -30,32 +23,10 @@ export const ProductDetail = (props: DetailProps) => {
     productImage,
   } = props;
 
-  const { productList } = useProduct();
-
   return (
     <div>
-      <div className="bg-[#F6F5FF]">
-        <Container sx={{ py: 10 }}>
-          <p className="text-[36px] font-[800] text-[#101750]">
-            Product Details
-          </p>
-          <div className="flex gap-2">
-            {data.map((item, index) => {
-              return (
-                <p
-                  key={index}
-                  className="text-[16px] font-[500] hover:text-[#FB2E86] "
-                >
-                  {item}
-                </p>
-              );
-            })}
-          </div>
-        </Container>
-      </div>
-
       <div className="bg-white">
-        {/* <Container sx={{ py: 10 }}>
+        <Container sx={{ py: 10 }}>
           <Card sx={{ p: 2, display: "flex", width: "full", gap: 6 }}>
             <div className="flex gap-4">
               <div className="flex flex-col gap-2">
@@ -103,22 +74,7 @@ export const ProductDetail = (props: DetailProps) => {
               </div>
             </div>
           </Card>
-        </Container> */}
-        <ItemDetail
-          productName=""
-          productStar=""
-          productPrice={0}
-          productColor={productColor}
-          productInfo=""
-          productImage={productImage}
-        />
-
-        <div className="py-10 bg-[#F9F8FE]">
-          <Container sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <Unelgee />
-            <AllUnelgee />
-          </Container>
-        </div>
+        </Container>
       </div>
     </div>
   );

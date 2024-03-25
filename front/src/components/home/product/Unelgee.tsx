@@ -60,7 +60,7 @@ export const Unelgee = () => {
             />
 
             <div className="flex justify-end">
-              {/* <button
+              <button
                 type="submit"
                 className="bg-[#FB2E86] py-2 px-5 rounded text-white text-[14px]"
                 onClick={() => {
@@ -68,19 +68,18 @@ export const Unelgee = () => {
                 }}
               >
                 Үнэлэх
-              </button> */}
+              </button>
 
-              <Button
+              {/* <Button
                 onClick={() => {
                   formik.handleSubmit();
-                  // alert();
                 }}
                 sx={{ border: 2 }}
                 disabled={!formik.values.comment}
                 disableElevation
               >
                 Үнэлэх
-              </Button>
+              </Button> */}
             </div>
           </div>
         </Card>
