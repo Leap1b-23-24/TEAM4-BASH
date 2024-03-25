@@ -6,7 +6,7 @@ export default function OrderCompleted() {
       <div className="flex bg-[#F6F5FF] h-[100px] w-full min-w-[1300px] items-center px-80 ">
         <div className="flex flex-row gap-1">
           <p className="text-base">Home</p>
-          <p className=" text-base text-[#FB2E86]">Order Complete</p>
+          <p className=" text-base text-[#FB2E86]">. Order Complete</p>
         </div>
       </div>
 
