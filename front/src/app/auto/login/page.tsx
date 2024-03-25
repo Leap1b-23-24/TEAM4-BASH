@@ -1,4 +1,4 @@
-import { Login } from "@/src/components/auto/Login";
+import { Login } from "@/src/components/auto/MerchantLogin";
 
 export default function Page() {
   return (

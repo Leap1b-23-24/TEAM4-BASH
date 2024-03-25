@@ -2,64 +2,102 @@ import { RequestHandler } from "express";
 import { ProductModel } from "../models/product.model";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-export const getProduct: RequestHandler = async (_req, res) => {
-  const products = await ProductModel.find({});
+export const postProduct: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
 
-  res.json(products);
+    if (!authorization) {
+      return res.status(401).json({
+        message: "Burtgelgui hereglegch bna",
+      });
+    }
+
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const {
+      productName,
+      additionInfo,
+      barCode,
+      productImage,
+      mainPrice,
+      quantity,
+      mainCategory,
+      secondCategory,
+      color,
+      size,
+      tag,
+    } = req.body;
+
+    const findProduct = await ProductModel.findOne({ productName });
+
+    if (findProduct) {
+      return res.status(401).json({
+        message: "This product has been added",
+      });
+    }
+
+    const product = await ProductModel.create({
+      merchId: id,
+      productName,
+      additionInfo,
+      barCode,
+      productImage,
+      mainPrice,
+      quantity,
+      mainCategory,
+      secondCategory,
+      color,
+      size,
+      tag,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    return res.json({
+      message: "Шинэ бүтээгдэхүүн үүслээ",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const postProduct: RequestHandler = async (req, res) => {
-  const {
-    productName,
-    additionInfo,
-    barCode,
-    productImage,
-    mainPrice,
-    quantity,
-    mainCategory,
-    secondCategory,
-    color,
-    size,
-    tag,
-  } = req.body;
+export const getProduct: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
 
-  const findProduct = await ProductModel.findOne({ productName });
+    if (!authorization) {
+      return res.status(401).json("Unauthorized");
+    }
 
-  if (findProduct) {
-    return res.status(401).json({
-      message: "This product has been added",
-    });
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const products = await ProductModel.find({ merchId: id });
+
+    res.json(products);
+  } catch (err) {
+    console.log(err);
   }
+};
 
-  const product = await ProductModel.create({
-    productName,
-    additionInfo,
-    barCode,
-    productImage,
-    mainPrice,
-    quantity,
-    mainCategory,
-    secondCategory,
-    color,
-    size,
-    tag,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
+export const getAllProduct: RequestHandler = async (req, res) => {
+  try {
+    const allProduct = await ProductModel.find({});
 
-  return res.json({
-    message: "Шинэ бүтээгдэхүүн үүслээ",
-  });
+    return res.json(allProduct);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const editProduct: RequestHandler = async (req, res) => {
-  // const { authorization } = req.headers;
+  const { authorization } = req.headers;
 
-  // if (!authorization) {
-  //   return res.status(401).json({
-  //     message: "Unauthorized user",
-  //   });
-  // }
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Unauthorized user",
+    });
+  }
+
   try {
     const {
       id,
@@ -115,18 +153,19 @@ export const editProduct: RequestHandler = async (req, res) => {
 
 export const deleteProduct: RequestHandler = async (req, res) => {
   try {
-    // const { authorization } = req.headers;
+    const { authorization } = req.headers;
 
-    // if (!authorization) {
-    //   return res.status(401).json({
-    //     message: "user",
-    //   });
-    // }
-    // const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+    if (!authorization) {
+      return res.status(401).json({
+        message: "newtersenii daraa delete hiinu",
+      });
+    }
+
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
 
     const { productId } = req.body;
 
-    const productExist = await ProductModel.findOne({ _id: productId });
+    const productExist = await ProductModel.findOne({ merchId: productId });
 
     if (!productExist) {
       return res.status(401).json({

@@ -10,24 +10,17 @@ import {
 import { useRouter } from "next/navigation";
 import ProductTable from "./ProductTable";
 import { useProduct } from "../providers/ProductProvider";
-import { useContext } from "react";
+import { ProductHead } from "./ProductHead";
 
 export const DashboardProduct = () => {
   const router = useRouter();
-  const { productList, deleteProduct } = useProduct();
+  const { productList } = useProduct();
 
   return (
-    <div className="w-full h-full bg-[#F7F7F8]">
-      <div className="flex">
-        <p className="py-6 px-8 text-[14px] text-[#3F4145] hover:text-[black] border-b-2 hover:border-black border-[#ECEDF0]">
-          Бүтээгдэхүүн
-        </p>
-        <p className="py-6 px-8 text-sm text-[#3F4145] hover:text-[black] border-b-2 hover:border-black border-[#ECEDF0]">
-          Ангилал
-        </p>
-      </div>
+    <div className="w-fit h-fit bg-[#F7F7F8]">
+      <ProductHead />
 
-      <div className="p-8 flex flex-col gap-6">
+      <div className="p-6 flex flex-col gap-6">
         <button
           className="py-3 rounded-xl w-[280px] text-[16px] text-white bg-black"
           onClick={() => {

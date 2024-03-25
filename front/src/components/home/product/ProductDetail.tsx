@@ -2,10 +2,36 @@
 
 import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
 import { Card, Container } from "@mui/material";
+import { DetailHead } from "./DetailHead";
+import { AdditionInfo } from "./AdditionInfo";
+import { Unelgee } from "./Unelgee";
+import { useProduct } from "../../providers/ProductProvider";
+import { AllUnelgee } from "./AllUnelgee";
+import { ItemDetail } from "./Detail";
 
 const data = ["Home", "Product Details"];
 
-export const ProductDetail = () => {
+type DetailProps = {
+  productName: string;
+  productStar: string;
+  productPrice: string;
+  productColor: string[];
+  productInfo: string;
+  productImage: string[];
+};
+
+export const ProductDetail = (props: DetailProps) => {
+  const {
+    productName,
+    productStar,
+    productPrice,
+    productColor,
+    productInfo,
+    productImage,
+  } = props;
+
+  const { productList } = useProduct();
+
   return (
     <div>
       <div className="bg-[#F6F5FF]">
@@ -29,7 +55,7 @@ export const ProductDetail = () => {
       </div>
 
       <div className="bg-white">
-        <Container sx={{ py: 10 }}>
+        {/* <Container sx={{ py: 10 }}>
           <Card sx={{ p: 2, display: "flex", width: "full", gap: 6 }}>
             <div className="flex gap-4">
               <div className="flex flex-col gap-2">
@@ -51,20 +77,21 @@ export const ProductDetail = () => {
 
             <div className="flex flex-col gap-3 justify-center">
               <p className="text-[#0D134E] text-[36px] font-[800]">
-                Product Name
+                {productName}
               </p>
               <div className="flex gap-3">
-                <p className="text-[#111C85] text-[16px] font-[800]">$32.00</p>
-                <p className="text-[#FF2AAA] text-[16px] font-[800]">$52.00</p>
+                <p className="text-[#111C85] text-[16px] font-[800]">
+                  {productPrice}
+                </p>
               </div>
 
               <div className="flex gap-1">
-                <p className="bg-[#E60584] w-3 h-3 rounded-[50%]"></p>
-                <p className="bg-[#DE9034] w-3 h-3 rounded-[50%]"></p>
-                <p className="bg-[#111C85] w-3 h-3 rounded-[50%]"></p>
+                <p className="bg-[#E60584] w-3 h-3 rounded-[50%]">
+                  {productColor}
+                </p>
               </div>
               <p className="font-[400] text-[#9295AA] text-[18px]">
-                Addition info && zahialgiin talaar nemelt medeelel
+                {productInfo}
               </p>
 
               <div className="flex gap-5">
@@ -74,20 +101,24 @@ export const ProductDetail = () => {
 
                 <FavoriteBorder />
               </div>
-              <p className="text-[#151875] text-[16px] font-[800]">
-                Categories:
-              </p>
-
-              <p className="text-[#151875] text-[16px] font-[800]">Tags</p>
-              <div className="flex gap-5 items-center">
-                <p className="text-[#151875] text-[16px] font-[800]">Share</p>
-                <FacebookOutlined className="text-[#151875] w-4 h-4" />
-                <FacebookOutlined className="text-[#E60584] w-4 h-4" />
-                <FacebookOutlined className="text-[#151875] w-4 h-4" />
-              </div>
             </div>
           </Card>
-        </Container>
+        </Container> */}
+        <ItemDetail
+          productName=""
+          productStar=""
+          productPrice={0}
+          productColor={productColor}
+          productInfo=""
+          productImage={productImage}
+        />
+
+        <div className="py-10 bg-[#F9F8FE]">
+          <Container sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <Unelgee />
+            <AllUnelgee />
+          </Container>
+        </div>
       </div>
     </div>
   );

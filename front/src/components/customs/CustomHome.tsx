@@ -3,12 +3,13 @@ import {
   ShoppingCartOutlined,
   ZoomInOutlined,
 } from "@mui/icons-material";
-import { Box, Card, Modal } from "@mui/material";
+import { Card } from "@mui/material";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useProduct } from "../providers/ProductProvider";
 
 type CustomProps = {
-  image: string;
+  image: string[];
   label: string;
   price: number;
 };
@@ -16,6 +17,7 @@ type CustomProps = {
 export const CustomItem = (props: CustomProps) => {
   const { image, label, price } = props;
   const [photo, setPhoto] = useState(false);
+  const router = useRouter();
   const { productList } = useProduct();
 
   return (
@@ -24,20 +26,41 @@ export const CustomItem = (props: CustomProps) => {
         <div className="w-[250px]">
           <div className="relative group flex w-full justify-center">
             <img
-              src={image}
+              src={image[0]}
               className="h-[240px] object-cover mix-blend-multiply"
               onClick={() => {
                 setPhoto(true);
               }}
             />
-            <button className="group-hover:opacity-[1] opacity-0 absolute bottom-3 left-18 text-[12px] text-white py-[6px] rounded px-3 bg-[#08D15F] font-[500] font-sans">
+            <button
+              className="group-hover:opacity-[1] opacity-0 absolute bottom-3 left-18 text-[12px] text-white py-[6px] rounded px-3 bg-[#08D15F] font-[500] font-sans"
+              onClick={() => {
+                router.push("/home/detail");
+              }}
+            >
               View Details
             </button>
           </div>
 
-          <Modal open={photo}>
+          {/* <div>
+            {productList.map((item, index) => {
+              return (
+                <ItemDetail
+                  key={index}
+                  productName={item.productName}
+                  productStar=""
+                  productPrice={item.mainPrice}
+                  productColor={item.color}
+                  productInfo={item.additionInfo}
+                  productImage={item.productImage}
+                />
+              );
+            })}
+          </div> */}
+
+          {/* <Modal open={photo}>
             <Box></Box>
-          </Modal>
+          </Modal> */}
 
           <div className="p-5 flex flex-col gap-6 items-center group-hover:bg-[#2F1AC4]">
             <p className="text-[18px] font-bold text-[#FB2E86] group-hover:text-white line-clamp-1">

@@ -27,7 +27,7 @@ export const AdminSideBar = () => {
           return (
             <div
               key={index}
-              className="flex gap-4 py-3 pr-12 pl-6 hover:bg-[#e6e6e8] cursor-pointer items-center"
+              className="flex gap-4 py-3 pr-8 pl-6 hover:bg-[#e6e6e8] cursor-pointer items-center"
               onClick={() => {
                 if (item.label == "Хяналтын самбар") {
                   router.push("/dashboard/");

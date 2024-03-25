@@ -12,20 +12,22 @@ const data = ["Home", "Pages", "My Account"];
 const validationSchema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().required(),
+  passAgain: yup.string().required(),
 });
 
-export const UserLogin = () => {
-  const { login } = useAuth();
+export const UserSignUp = () => {
+  const { signUp } = useAuth();
   const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      passAgain: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      login(values.email, values.password);
+      signUp(values.email, values.password, values.passAgain);
     },
   });
 
@@ -33,7 +35,7 @@ export const UserLogin = () => {
     <div>
       <div className="bg-[#F6F5FF]">
         <Container sx={{ py: 4 }}>
-          <p className="text-[36px] font-[800] text-[#101750]">Нэвтрэх</p>
+          <p className="text-[36px] font-[800] text-[#101750]">Бүртгүүлэх</p>
           <div className="flex gap-2">
             {data.map((item, index) => {
               return (
@@ -73,9 +75,9 @@ export const UserLogin = () => {
             }}
           >
             <div className="flex flex-col items-center gap-3">
-              <p className="text-[30px] font-[800] text-[#000]">Нэвтрэх</p>
+              <p className="text-[30px] font-[800] text-[#000]">Бүртгүүлэх</p>
               <p className="text-[15px] font-[400] text-[#9096B2]">
-                Доорх мэдээллийн оруулж нэвтэрнэ үү
+                Доорх мэдээллийг бөглөнө үү
               </p>
             </div>
 
@@ -106,6 +108,20 @@ export const UserLogin = () => {
                 helperText={formik.touched.password && formik.errors.password}
               />
 
+              <CustomInput
+                type="text"
+                placeholder="Нууц үг давтах"
+                name="passAgain"
+                size="small"
+                value={formik.values.passAgain}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.passAgain && Boolean(formik.errors.passAgain)
+                }
+                helperText={formik.touched.passAgain && formik.errors.passAgain}
+              />
+
               <p className="text-[15px] text-[#9096B2] font-[400] text-center">
                 Нууц үгээ мартсан
               </p>
@@ -118,16 +134,16 @@ export const UserLogin = () => {
                 formik.handleSubmit();
               }}
             >
-              Нэвтрэх
+              Бүртгүүлэх
             </button>
 
             <p
               className="text-[#9096B2] font-[400] text-[15px] flex justify-center"
               onClick={() => {
-                router.push("/home/auto/signup");
+                router.push("/home/auto/login");
               }}
             >
-              Шинээр бүртгүүлэх
+              Нэвтрэх хэсэг
             </p>
           </Card>
           <p className="text-[#9096B2] font-[400] text-[14px] flex justify-center hover:border-b border-[#9096B2]">

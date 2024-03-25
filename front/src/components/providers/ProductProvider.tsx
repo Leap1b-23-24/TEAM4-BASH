@@ -30,6 +30,11 @@ export type Product = {
   createdAt: Date;
 };
 
+export type Category = {
+  _id: string;
+  category: string;
+};
+
 type SelectedProdProps = {
   id: string;
   productName: string;
@@ -64,27 +69,38 @@ type ProductContextType = {
     tag: string[],
     createAt: Date
   ) => void;
+  postCategory: (category: string) => void;
   deleteProduct: (productId: string) => void;
 
   productList: Product[];
   setProductList: Dispatch<SetStateAction<Product[]>>;
+
   refresh: number;
   setRefresh: Dispatch<SetStateAction<number>>;
+
   getProduct: () => void;
   editProduct: (params: SelectedProdProps) => void;
+
   selectedProd: Product | null;
   setSelectedProd: Dispatch<SetStateAction<Product | null>>;
+
   deliveryStatus: string;
   setDeliveryStatus: Dispatch<SetStateAction<string>>;
+
+  categoryList: Category[];
+  setCategoryList: Dispatch<SetStateAction<Category[]>>;
+
+  allProduct: Product[];
+  setAllProduct: Dispatch<SetStateAction<Product[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [productList, setProductList] = useState<Product[]>([]);
+  const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [refresh, setRefresh] = useState(1);
   const [selectedProd, setSelectedProd] = useState<Product | null>(null);
+  const [allProduct, setAllProduct] = useState<Product[]>([]);
   const [deliveryStatus, setDeliveryStatus] = useState("");
-
-  console.log(refresh);
 
   const router = useRouter();
 
@@ -178,12 +194,17 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
     }
   };
+
   const editProduct = async (params: SelectedProdProps) => {
     try {
-      await api.post("/product/editProduct", params, {
+      const { data } = await api.post("/product/editProduct", params, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+      });
+
+      toast.success(data.message, {
+        position: "top-center",
       });
 
       router.push("/dashboard/product");
@@ -196,8 +217,63 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const postCategory = async (category: string) => {
+    try {
+      const { data } = await api.post(
+        "/category/add",
+        {
+          category,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("secret"),
+          },
+        }
+      );
+
+      toast.success(data.message, {
+        position: "top-center",
+      });
+
+      setRefresh(refresh + 1);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message ?? error.message, {
+          hideProgressBar: true,
+          position: "top-center",
+        });
+      }
+    }
+  };
+
+  const getCategory = async () => {
+    try {
+      const { data } = await api.get("/category/get", {
+        headers: {
+          Authorization: localStorage.getItem("secret"),
+        },
+      });
+
+      setCategoryList(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllProduct = async () => {
+    try {
+      const { data } = await api.get("/product/allPro");
+
+      setAllProduct(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getProduct();
+    getCategory();
+    getAllProduct();
   }, [refresh]);
 
   return (
@@ -215,6 +291,11 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setSelectedProd,
         deliveryStatus,
         setDeliveryStatus,
+        postCategory,
+        categoryList,
+        setCategoryList,
+        allProduct,
+        setAllProduct,
       }}
     >
       {children}

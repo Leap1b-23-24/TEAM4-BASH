@@ -4,13 +4,10 @@ import { OrderDetailOrderedProd } from "./OrderDetailOrderedProd";
 import { OrderDetailDeliveryPayment } from "./OrderDetailDeliveryPayment";
 import { ChevronLeft, Dashboard } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
-import { useContext } from "react";
-import { DashboardContext } from "../Providers/DashboardProvider";
-import { ProductContext } from "../providers/ProductProvider";
+import { useProduct } from "../providers/ProductProvider";
 
 export const OrderDetail = () => {
-  const { deliveryStatus, setDeliveryStatus } = useContext(ProductContext);
+  const { deliveryStatus, setDeliveryStatus } = useProduct();
 
   const orderedProds = [
     {

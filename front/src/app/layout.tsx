@@ -5,8 +5,7 @@ import { ProductProvider } from "../components/providers/ProductProvider";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "../components/providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
-import { AdminHomeHeader } from "../components/layout/AdminHomeHeader";
-import { AdminHomeFooter } from "../components/layout/AdminHomeFooter";
+import { DataProvider } from "../components/providers/DataProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ProductProvider>
-            {children}
+            <DataProvider>{children}</DataProvider>
             <ToastContainer />
           </ProductProvider>
         </AuthProvider>

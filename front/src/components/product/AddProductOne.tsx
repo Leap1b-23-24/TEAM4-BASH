@@ -150,7 +150,7 @@ export const AddProductOne = (props: FormikProps) => {
               +
             </button>
 
-            <div className="absolute top-4 right-1 opacity-0">
+            <div className="absolute top-4 right-1 opacity-1">
               <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
             </div>
           </div>

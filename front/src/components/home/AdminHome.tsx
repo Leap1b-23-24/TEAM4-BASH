@@ -10,10 +10,7 @@ import {
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { CustomItem } from "../customs/CustomHome";
-import { useProduct } from "../providers/ProductProvider";
-import { Container, Grid, ListItem } from "@mui/material";
-import { Footer } from "../layout/AdminHomeFooter";
+import { Grid, ListItem } from "@mui/material";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
 import { GridViewComp } from "./GridView";
 import { CustomItem } from "../customs/CustomHome";
@@ -44,10 +41,10 @@ const data = [
 ];
 
 export const AdminHome = () => {
-  const { productList } = useProduct();
+  const { allProduct } = useProduct();
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-white">
       <div className="flex flex-col justify-center bg-white">
         <img src="promotional.png" className="rounded-xl h-[700px]" />
 
@@ -58,7 +55,7 @@ export const AdminHome = () => {
                 Онцлох бүтээгдэхүүн
               </p>
               <div className="grid grid-cols-4 basis-0 grow gap-16 py-6">
-                {productList.map((item, index) => {
+                {allProduct.map((item, index) => {
                   return (
                     <CustomItem
                       key={index}
@@ -76,18 +73,19 @@ export const AdminHome = () => {
               </p>
 
               <Grid container spacing={8}>
-                {productList.slice(0, 8).map((product) => (
+                {allProduct.slice(0, 8).map((product) => (
                   <Grid lg={3} sm={4} xs={6} item>
                     <CustomProductDisplay
                       productName={product.productName}
                       productImg={product.productImage}
                       color={product.color}
                       mainPrice={product.mainPrice}
-                      disPercent={product.disPercent}
+                      // disPercent={product.disPercent}
                     />
                   </Grid>
                 ))}
               </Grid>
+
               {/* <div className="absolute w-full h-screen bg-red-100">dsd</div> */}
             </div>
           </div>

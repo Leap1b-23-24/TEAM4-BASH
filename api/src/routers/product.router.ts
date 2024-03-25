@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   deleteProduct,
   editProduct,
+  getAllProduct,
   getProduct,
   postProduct,
 } from "../controllers/product.controller";
@@ -11,6 +12,7 @@ productRouter
   .post("/add", postProduct)
   .get("/plus", getProduct)
   .post("/delete", deleteProduct)
-  .post("/editProduct", editProduct);
+  .post("/editProduct", editProduct)
+  .get("/allPro", getAllProduct);
 
 export default productRouter;

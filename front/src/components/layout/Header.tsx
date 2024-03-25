@@ -1,13 +1,17 @@
+"use client";
+
 import {
   NotificationsNoneOutlined,
-  PersonOutline,
   PersonOutlineOutlined,
 } from "@mui/icons-material";
 import Image from "next/image";
+import { useAuth } from "../providers/AuthProvider";
 
 export const Header = () => {
+  const { user, isLogged } = useAuth();
+
   return (
-    <div className="flex bg-black w-full justify-center py-3">
+    <div className="flex bg-black w-screen justify-center py-3">
       <div className="justify-between flex px-10 w-[1700px]">
         <Image
           alt="logo"
@@ -21,7 +25,9 @@ export const Header = () => {
           <NotificationsNoneOutlined className="text-white" />
           <div className="flex gap-6 items-center">
             <PersonOutlineOutlined className="text-white" />
-            <p className="text-white text-[14px] font-normal">Username</p>
+            <p className="text-white text-[14px] font-normal">
+              {isLogged ? user?.name : "Username"}
+            </p>
           </div>
         </div>
       </div>

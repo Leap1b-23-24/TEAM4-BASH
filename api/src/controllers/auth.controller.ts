@@ -1,43 +1,71 @@
 import { RequestHandler } from "express";
 import { UserModel } from "../models";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const login: RequestHandler = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await UserModel.findOne({ email: email, password: password });
+    const user = await UserModel.findOne({ email: email, password: password });
 
-  if (!user) {
-    return res.status(401).json({
-      message: "User not found",
+    if (!user) {
+      return res.status(401).json({
+        message: "User not found",
+      });
+    }
+
+    const id = user._id;
+
+    const token = jwt.sign({ id }, "secret-key");
+
+    res.json({
+      token,
     });
+  } catch (err) {
+    console.log(err);
   }
-
-  const id = user._id;
-
-  const token = jwt.sign({ id }, "secret-key");
-
-  res.json({
-    token,
-  });
 };
 
 export const signUp: RequestHandler = async (req, res) => {
-  const { email, name, password } = req.body;
+  try {
+    const { email, name, password } = req.body;
 
-  const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
-  if (user) {
-    return res.status(401).json({
-      message: "User exist",
+    if (user) {
+      return res.status(401).json({
+        message: "User exist",
+      });
+    }
+
+    const newUser = await UserModel.create({
+      email,
+      name,
+      password,
     });
+
+    return res.json({ message: "New user successfully created" });
+  } catch (error) {
+    console.log(error);
   }
+};
 
-  const newUser = await UserModel.create({
-    email,
-    name,
-    password,
-  });
+export const getUser: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
 
-  return res.json({ message: "New user successfully created" });
+    if (!authorization) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const user = await UserModel.findOne({ merchId: id });
+
+    return res.json(user);
+  } catch (err) {
+    console.log(err);
+  }
 };
