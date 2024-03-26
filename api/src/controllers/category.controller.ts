@@ -3,13 +3,13 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { CategoryModel } from "../models";
 
 export const postCategory: RequestHandler = async (req, res) => {
-  const { authorization } = req.headers;
+  // const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
+  // if (!authorization) {
+  //   return res.status(401).json({
+  //     message: "Unauthorized",
+  //   });
+  // }
 
   try {
     const { category } = req.body;

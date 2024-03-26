@@ -13,8 +13,6 @@ const data = ["Home", "Shop List"];
 export const AdminShopList = () => {
   const { list, setList } = useProduct();
 
-  console.log(list);
-
   return (
     <div>
       <div className="bg-[#F6F5FF]">
@@ -47,7 +45,7 @@ export const AdminShopList = () => {
               </p>
             </div>
 
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center px-4">
               <div className="flex gap-2">
                 <p className="text-[#3F509E] text-[16px] font-[400]">
                   Per Page:
@@ -76,14 +74,12 @@ export const AdminShopList = () => {
                   }}
                 />
                 <ListRounded
-                  sx={{ width: 22, height: 24, cursor: "pointer", mt: 0.2 }}
+                  sx={{ width: 28, height: 36, cursor: "pointer", mt: 0.2 }}
                   onClick={() => {
                     setList("listView");
                   }}
                 />
               </div>
-
-              <input type="text" className="border" />
             </div>
           </div>
 

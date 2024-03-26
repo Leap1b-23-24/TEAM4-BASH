@@ -41,7 +41,6 @@ export const getAllComment: RequestHandler = async (req, res) => {
   try {
     const { productId } = req.body;
 
-    // return res.json(productId);
     const allComment = await CommentModel.find({
       productId,
     }).populate("userId");

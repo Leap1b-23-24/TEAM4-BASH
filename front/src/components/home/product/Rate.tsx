@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 
 type AllUnelgeeProps = {
-  productId: string;
+  productId?: string;
 };
 
 export type Comment = {
@@ -76,6 +76,8 @@ export const Unelgee = (props: AllUnelgeeProps) => {
     }
   };
 
+  console.log(allComment);
+
   useEffect(() => {
     getAllComment(productId);
     getReview();
@@ -110,7 +112,7 @@ export const Unelgee = (props: AllUnelgeeProps) => {
               name="rating"
               value={star}
               onChange={(event, newValue) => {
-                setStar(newValue);
+                setStar(newValue || 0);
               }}
             />
           </Stack>
@@ -127,22 +129,17 @@ export const Unelgee = (props: AllUnelgeeProps) => {
           />
 
           <div className="flex justify-end">
-            {/* <button
-              type="submit"
-              className="bg-[#FB2E86] py-2 px-5 rounded text-white text-[14px]"
-              disabled={!formik.values.comment || !star}
-              onClick={() => {
-                formik.handleSubmit();
-              }}
-            >
-              Үнэлэх
-            </button> */}
-
             <Button
               disableElevation
               disabled={!formik.values.comment || !star}
               onClick={() => {
                 formik.handleSubmit();
+              }}
+              sx={{
+                border: 1,
+                px: 2,
+                fontSize: 12,
+                backgroundColor: "primary",
               }}
             >
               Үнэлэх
@@ -158,6 +155,9 @@ export const Unelgee = (props: AllUnelgeeProps) => {
           {allComment.map((item, index) => {
             return (
               <div key={index} className="flex flex-col gap-4 py-4">
+                <Stack>
+                  <Rating name="rating" />
+                </Stack>
                 <p className="text-[18px] font-[800] text-[#1D3178]">
                   {item.userId.name}
                 </p>

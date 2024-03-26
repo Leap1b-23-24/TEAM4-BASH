@@ -1,18 +1,7 @@
 "use client";
 
-import {
-  CallOutlined,
-  EmailOutlined,
-  ExpandMoreOutlined,
-  FavoriteBorderOutlined,
-  InsertEmoticon,
-  PersonOutlined,
-  Search,
-  ShoppingCartOutlined,
-} from "@mui/icons-material";
-import { Grid, ListItem } from "@mui/material";
+import { Grid } from "@mui/material";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
-import { GridViewComp } from "./GridView";
 import { CustomHome } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";

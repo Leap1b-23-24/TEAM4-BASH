@@ -5,14 +5,8 @@ export const categorySchema = new Schema({
     type: String,
     require: false,
   },
-  createdAt: {
-    type: Date,
-    require: true,
-  },
-  updatedAt: {
-    type: Date,
-    require: true,
-  },
+  createdAt: Date,
+  updatedAt: Date,
 });
 
 export const CategoryModel = model("category", categorySchema);

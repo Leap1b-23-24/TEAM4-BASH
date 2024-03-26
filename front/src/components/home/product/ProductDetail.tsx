@@ -5,25 +5,30 @@ import { AdditionInfo } from "./AdditionInfo";
 import { Unelgee } from "./Rate";
 import { useProduct } from "../../providers/ProductProvider";
 import { ItemDetail } from "./Detail";
-import { useData } from "../../providers/DataProvider";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const data = ["Home", "Product Details"];
 
 type DetailProps = {
-  productName: string;
-  productStar: string;
-  productPrice: string;
-  productColor: string[];
-  productInfo: string;
-  productImage: string[];
+  productName?: string;
+  productStar?: string;
+  productPrice?: string;
+  productColor?: string[];
+  productInfo?: string;
+  productImage?: string[];
 };
 
 export const ProductDetail = (props: DetailProps) => {
   const { detail } = useProduct();
+  const router = useRouter();
 
   const [rate, setRate] = useState("info");
   const [isActive, setIsActive] = useState(true);
+
+  if (!detail) {
+    router.push("/home");
+  }
 
   return (
     <div>
