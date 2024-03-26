@@ -1,13 +1,12 @@
 "use client";
 
-import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
-import { Card, Container } from "@mui/material";
-import { DetailHead } from "./DetailHead";
+import { Container } from "@mui/material";
 import { AdditionInfo } from "./AdditionInfo";
-import { Unelgee } from "./Unelgee";
+import { Unelgee } from "./Rate";
 import { useProduct } from "../../providers/ProductProvider";
-import { AllUnelgee } from "./AllUnelgee";
 import { ItemDetail } from "./Detail";
+import { useData } from "../../providers/DataProvider";
+import { useState } from "react";
 
 const data = ["Home", "Product Details"];
 
@@ -22,6 +21,9 @@ type DetailProps = {
 
 export const ProductDetail = (props: DetailProps) => {
   const { detail } = useProduct();
+
+  const [rate, setRate] = useState("info");
+  const [isActive, setIsActive] = useState(true);
 
   return (
     <div>
@@ -57,8 +59,39 @@ export const ProductDetail = (props: DetailProps) => {
 
         <div className="py-10 bg-[#F9F8FE]">
           <Container sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <Unelgee />
-            <AllUnelgee productId={detail?._id} />
+            <div className="flex gap-6">
+              <p
+                className={`text-[#151875] text-[24px] font-[800]`}
+                style={{
+                  borderBottom: isActive ? "1px solid #151875" : "none",
+                }}
+                onClick={() => {
+                  setRate("info");
+                  setIsActive(true);
+                }}
+              >
+                Нэмэлт мэдээлэл
+              </p>
+
+              <p
+                className="text-[#151875] text-[24px] font-[800] hover:border-b-2 border-[#151875]"
+                style={{
+                  borderBottom: isActive ? "none" : "1px solid #151875",
+                }}
+                onClick={() => {
+                  setRate("rate");
+                  setIsActive(false);
+                }}
+              >
+                Үнэлгээ
+              </p>
+            </div>
+
+            {rate == "info" ? (
+              <AdditionInfo />
+            ) : (
+              <Unelgee productId={detail?._id} />
+            )}
           </Container>
         </div>
       </div>

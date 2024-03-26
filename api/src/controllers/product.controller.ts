@@ -181,3 +181,38 @@ export const deleteProduct: RequestHandler = async (req, res) => {
     res.json(err);
   }
 };
+
+export const starReview: RequestHandler = async (req, res) => {
+  try {
+    const { star, productId } = req.body;
+
+    const product = await ProductModel.findOne({ _id: productId });
+
+    if (!product) {
+      return res.status(401).json({
+        message: "Not found",
+      });
+    }
+
+    const count = Number(product.starCount ?? 0);
+    const avgStar = Number(product.star ?? 0);
+
+    const resultStar = (avgStar * count + star) / (count + 1);
+
+    await ProductModel.updateOne(
+      {
+        _id: productId,
+      },
+      {
+        $set: {
+          starCount: count + 1,
+          star: resultStar,
+        },
+      }
+    );
+
+    return res.json({ message: "Accept your rate" });
+  } catch (err) {
+    console.log(err);
+  }
+};

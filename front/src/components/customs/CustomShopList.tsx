@@ -42,7 +42,7 @@ export const CustomShopList = (props: ShopListProps) => {
                       key={index}
                       className="w-3 h-3 rounded-[50%]"
                       style={{ background: item }}
-                    ></p>
+                    />
                   );
                 })}
               </div>

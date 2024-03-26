@@ -1,15 +1,19 @@
 "use client";
 
-import { GridViewRounded, ListRounded } from "@mui/icons-material";
+import { GridView, GridViewRounded, ListRounded } from "@mui/icons-material";
 import { Container } from "@mui/material";
 import { CustomShopList } from "../customs/CustomShopList";
 import { useProduct } from "../providers/ProductProvider";
 import { CustomRate } from "../customs/CustomRate";
+import { ListView } from "./ListView";
+import { GridViewComp } from "./GridView";
 
 const data = ["Home", "Shop List"];
 
 export const AdminShopList = () => {
-  const { allProduct } = useProduct();
+  const { list, setList } = useProduct();
+
+  console.log(list);
 
   return (
     <div>
@@ -63,32 +67,30 @@ export const AdminShopList = () => {
                 </select>
               </div>
 
-              <div className="flex items-center">
-                <p className="text-[#3F509E] text-[16px] font-[400]">View:</p>
-                <GridViewRounded className="w-3 h-3" />
-                <ListRounded className="w-4 h-4" />
+              <div className="flex items-center gap-1">
+                <p className="text-[#3F509E] text-[17px] font-[400]">View:</p>
+                <GridViewRounded
+                  sx={{ width: 18, height: 20, cursor: "pointer", mt: 0.3 }}
+                  onClick={() => {
+                    setList("gridView");
+                  }}
+                />
+                <ListRounded
+                  sx={{ width: 22, height: 24, cursor: "pointer", mt: 0.2 }}
+                  onClick={() => {
+                    setList("listView");
+                  }}
+                />
               </div>
 
               <input type="text" className="border" />
             </div>
           </div>
 
-          <div className="flex gap-40">
+          <div className="flex gap-32">
             <CustomRate />
-            <div className="flex flex-col gap-8 py-10">
-              {allProduct.map((item, index) => {
-                return (
-                  <CustomShopList
-                    key={index}
-                    image={item.productImage}
-                    label={item.productName}
-                    price={item.mainPrice}
-                    color={item.color}
-                    additionInfo={item.additionInfo}
-                  />
-                );
-              })}
-            </div>
+
+            {list == "listView" ? <ListView /> : <GridViewComp />}
           </div>
         </Container>
       </div>

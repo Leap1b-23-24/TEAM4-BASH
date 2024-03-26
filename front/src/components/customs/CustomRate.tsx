@@ -4,14 +4,6 @@ import { Search, StarBorderRounded } from "@mui/icons-material";
 import { Checkbox, Rating, Stack } from "@mui/material";
 import { useProduct } from "../providers/ProductProvider";
 
-// const icons = [
-//   { icon: <StarBorderRounded /> },
-//   { icon: <StarBorderRounded /> },
-//   { icon: <StarBorderRounded /> },
-//   { icon: <StarBorderRounded /> },
-//   { icon: <StarBorderRounded /> },
-// ];
-
 export const CustomRate = () => {
   const { productList } = useProduct();
 
@@ -32,13 +24,6 @@ export const CustomRate = () => {
           />
 
           <div className="flex items-center gap-1">
-            {/* {icons.map((item, index) => {
-              return (
-                <p key={index} className="">
-                  {item.icon}
-                </p>
-              );
-            })} */}
             <Stack spacing={1}>
               <Rating />
             </Stack>

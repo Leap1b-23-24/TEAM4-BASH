@@ -331,13 +331,10 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setCategoryList,
         allProduct,
         setAllProduct,
-<<<<<<< HEAD
         toCart,
         setToCart,
-=======
         detail,
         setDetail,
->>>>>>> 4f7a5ba (unelgee)
       }}
     >
       {children}

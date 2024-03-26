@@ -39,9 +39,14 @@ export const getComment: RequestHandler = async (req, res) => {
 
 export const getAllComment: RequestHandler = async (req, res) => {
   try {
-    const allComment = await CommentModel.find({});
+    const { productId } = req.body;
 
-    return res.json(allComment);
+    // return res.json(productId);
+    const allComment = await CommentModel.find({
+      productId,
+    }).populate("userId");
+
+    return res.json({ allComment, message: "comments sent" });
   } catch (err) {
     console.log(err);
   }

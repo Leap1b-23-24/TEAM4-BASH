@@ -1,8 +1,15 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 export const commentSchema = new Schema({
-  userId: String,
-  productId: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "product",
+  },
+  star: Number,
   comment: String,
   createdAt: Date,
   updatedAt: Date,

@@ -6,6 +6,6 @@ const commentRouter = Router();
 commentRouter
   .post("/rate", postComment)
   .get("/get", getComment)
-  .get("/all", getAllComment);
+  .post("/all", getAllComment);
 
 export default commentRouter;

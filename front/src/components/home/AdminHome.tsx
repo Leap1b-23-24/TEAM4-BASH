@@ -16,6 +16,7 @@ import { GridViewComp } from "./GridView";
 import { CustomHome } from "../customs/CustomHome";
 import { useProduct } from "../providers/ProductProvider";
 import { Container } from "@mui/material";
+import { useState } from "react";
 
 const data = [
   {
@@ -42,6 +43,7 @@ const data = [
 
 export const AdminHome = () => {
   const { allProduct } = useProduct();
+  const [step, setStep] = useState(-50);
 
   return (
     <div className="w-full h-full bg-white">
@@ -50,11 +52,13 @@ export const AdminHome = () => {
 
         <Container sx={{ py: 8 }}>
           <div className="flex flex-col py-24 gap-10">
-            <div className="flex flex-col gap-2 items-center w-full">
+            <div className="flex flex-col gap-2 overflow-hidden items-center w-full">
               <p className="text-[40px] font-[800] text-[#1A0B5B]">
                 Онцлох бүтээгдэхүүн
               </p>
-              <div className="grid grid-cols-4 basis-0 grow gap-16 py-6">
+              <div
+                className={`flex relative w-[200%] justify-start basis-0 grow gap-10 py-6 left-[${step}%]`}
+              >
                 {allProduct.map((item, index) => {
                   return (
                     <CustomHome
@@ -67,7 +71,19 @@ export const AdminHome = () => {
                   );
                 })}
               </div>
+
+              <p
+                className="w-5 h-2 rounded-xl bg-blue-300"
+                onClick={() => {
+                  if (step == 50) {
+                    setStep(-50);
+                  } else {
+                    setStep(50);
+                  }
+                }}
+              />
             </div>
+
             <div className="relative flex flex-col gap-2 items-center w-full">
               <p className="text-[40px] font-[800] text-[#1A0B5B]">
                 Шинээр нэмэгдсэн

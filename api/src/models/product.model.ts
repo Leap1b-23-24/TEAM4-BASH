@@ -2,6 +2,16 @@ import mongoose, { Schema, model } from "mongoose";
 
 export const productSchema = new Schema({
   merchId: mongoose.Schema.Types.ObjectId,
+
+  star: {
+    type: Number,
+    require: false,
+  },
+  starCount: {
+    type: Number,
+    require: true,
+    default: 0,
+  },
   productName: {
     type: String,
     require: true,

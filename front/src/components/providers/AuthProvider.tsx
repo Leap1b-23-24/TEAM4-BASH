@@ -115,7 +115,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         },
       });
 
-      setRefresh(refresh + 1);
       setUser(data);
     } catch (err) {
       console.log(err);

@@ -23,7 +23,7 @@ export const CustomHome = (props: CustomProps) => {
   return (
     <Card>
       <div id={id} className="relative group">
-        <div className="w-[250px]">
+        <div className="w-[270px]">
           <div className="relative group flex w-full justify-center">
             <img
               src={image[0]}
