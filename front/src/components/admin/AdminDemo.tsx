@@ -249,7 +249,7 @@ export const AdminDemo = () => {
                       ₮
                     </p>
                   </div>
-                  <button className="bg-[#19D16F] w-[323px] h-[40px] text-[white] rounded">
+                  <button className="bg-[#19D16F] w-[323px] h-[40px] text-[white] rounded ">
                     Худалдан авах
                   </button>
                 </div>

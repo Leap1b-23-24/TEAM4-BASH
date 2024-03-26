@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@mui/material";
+
 export default function OrderCompleted() {
   return (
     <div className="flex flex-col text-[black] w-[full] h-[fit] bg-[white] gap-20 pb-40  items-center justufy-items-center">
@@ -31,9 +33,10 @@ export default function OrderCompleted() {
             completed within 3-6 hours. You will receive an email confirmation
             when your order is completed.
           </p>
-          <button className="bg-[#FF1788] w-[208px] h-[59px] rounded text-[white]">
+          <button className="bg-[#FF1788] w-[208px] h-[59px] rounded text-[white] hover-bg-[#FF1788]">
             Үргэлжлүүлэх
           </button>
+          <Button variant="contained">Contained</Button>
         </div>
         <img src="/Group.png" className="pt-80"></img>
       </div>
