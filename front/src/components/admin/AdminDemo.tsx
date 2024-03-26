@@ -17,7 +17,6 @@ import {
 } from "@mui/material";
 import { AdminScroll } from "./AdminScroll";
 import { useProduct } from "../providers/ProductProvider";
-import { useState } from "react";
 
 export const AdminDemo = () => {
   const { productList } = useProduct();
