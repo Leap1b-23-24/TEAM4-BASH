@@ -15,6 +15,8 @@ export const ListView = () => {
             price={item.mainPrice}
             color={item.color}
             additionInfo={item.additionInfo}
+            star={item.star}
+            starCount={item.starCount}
           />
         );
       })}

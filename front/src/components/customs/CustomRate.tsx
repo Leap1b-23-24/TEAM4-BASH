@@ -9,11 +9,15 @@ const rate = [5, 4, 3, 2, 1];
 export const CustomRate = () => {
   const { productList, allProduct } = useProduct();
 
-  const count1 = allProduct.filter((item) => item.star == 1);
-  const count2 = allProduct.filter((item) => item.star == 2);
-  const count3 = allProduct.filter((item) => item.star == 3);
-  const count4 = allProduct.filter((item) => item.star == 4);
-  const count5 = allProduct.filter((item) => item.star == 5);
+  const counts = [
+    allProduct.filter((item) => Math.round(item.star) == 5),
+    allProduct.filter((item) => Math.round(item.star) == 4),
+    allProduct.filter((item) => Math.round(item.star) == 3),
+    allProduct.filter((item) => Math.round(item.star) == 2),
+    allProduct.filter((item) => Math.round(item.star) == 1),
+  ];
+
+  console.log(allProduct);
 
   return (
     <div className="py-16 flex flex-col">
@@ -22,7 +26,7 @@ export const CustomRate = () => {
         <div className="flex items-center gap-2">
           <div className=" items-center gap-1">
             <Stack spacing={1}>
-              {rate.map((item) => (
+              {rate.map((item, index) => (
                 <div className="flex items-center gap-3">
                   <Checkbox
                     sx={{
@@ -34,14 +38,10 @@ export const CustomRate = () => {
                       height: 4,
                     }}
                   />
-                  <div className="flex">
+                  <div className="flex gap-1">
                     <Rating value={item} readOnly />
                     <p className="text-[12px] font-[800] pt-1">
-                      ({item == 5 ? count5.length : ""}
-                      {item == 4 ? count4.length : ""}
-                      {item == 3 ? count3.length : ""}
-                      {item == 2 ? count2.length : ""}
-                      {item == 1 ? count1.length : ""})
+                      ({counts[index].length})
                     </p>
                   </div>
                 </div>

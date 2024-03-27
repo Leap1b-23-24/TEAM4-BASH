@@ -1,4 +1,4 @@
-import { Card, Modal } from "@mui/material";
+import { Card, Modal, Rating, Stack } from "@mui/material";
 import {
   FavoriteBorder,
   ShoppingCartOutlined,
@@ -6,6 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ZoomModal } from "./ZoomModal";
+import { useProduct } from "../providers/ProductProvider";
 
 type ShopListProps = {
   image: string[];
@@ -13,11 +14,14 @@ type ShopListProps = {
   price: number;
   color: string[];
   additionInfo: string;
+  star: number;
+  starCount: number;
 };
 
 export const CustomShopList = (props: ShopListProps) => {
-  const { label, price, color, additionInfo, image } = props;
+  const { label, price, color, additionInfo, image, star, starCount } = props;
   const [openImage, setOpenImage] = useState(false);
+  const { allProduct } = useProduct();
 
   return (
     <div className="w-full">
@@ -52,7 +56,15 @@ export const CustomShopList = (props: ShopListProps) => {
               </div>
             </div>
 
-            <p className="text-[#111C85] text-[16px] font-[800]">${price}</p>
+            <div className="flex gap-3">
+              <p className="text-[#111C85] text-[16px] font-[800]">${price}</p>
+              <div className="flex items-center">
+                <Rating readOnly value={star} />
+                <p className="text-[#5A5C7E] text-[14px] pt-[3px]">
+                  ({starCount})
+                </p>
+              </div>
+            </div>
 
             <p className="font-[400] text-[#9295AA] text-[18px]">
               {additionInfo}
