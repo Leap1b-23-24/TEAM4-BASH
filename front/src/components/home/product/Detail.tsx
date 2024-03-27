@@ -6,11 +6,12 @@ import { useState } from "react";
 
 type DetailProps = {
   productName: string | undefined;
-  productStar: string;
+  productStar: number | undefined;
   productPrice: number | undefined;
   productColor?: string[] | undefined;
   productInfo: string | undefined;
   productImage?: string[];
+  starCount: number | undefined;
 };
 
 export const ItemDetail = (props: DetailProps) => {
@@ -21,6 +22,7 @@ export const ItemDetail = (props: DetailProps) => {
     productColor,
     productInfo,
     productImage,
+    starCount,
   } = props;
 
   const [favorite, setfavorite] = useState(false);
@@ -47,9 +49,12 @@ export const ItemDetail = (props: DetailProps) => {
                 <p className="text-[#111C85] text-[36px] font-[800]">
                   {productName}
                 </p>
-                <Stack>
-                  <Rating name="rating" />
-                </Stack>
+                <div className="flex">
+                  <Rating name="rating" value={productStar} />
+                  <p className="text-[#5A5C7E] text-[14px] pt-[3px]">
+                    ({starCount})
+                  </p>
+                </div>
                 <div className="flex gap-3">
                   <p className="text-[#151875] text-[30px] font-[400] font-sans">
                     {productPrice}$

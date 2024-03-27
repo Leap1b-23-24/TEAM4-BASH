@@ -55,11 +55,12 @@ export const ProductDetail = (props: DetailProps) => {
       <div className="bg-white">
         <ItemDetail
           productName={detail?.productName}
-          productStar=""
+          productStar={detail?.star}
           productPrice={detail?.mainPrice}
           productColor={detail?.color}
           productInfo={detail?.additionInfo}
           productImage={detail?.productImage}
+          starCount={detail?.starCount}
         />
 
         <div className="py-10 bg-[#F9F8FE]">
