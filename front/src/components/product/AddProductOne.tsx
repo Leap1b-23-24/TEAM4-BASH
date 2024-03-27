@@ -139,7 +139,7 @@ export const AddProductOne = (props: FormikProps) => {
             );
           })}
 
-          {imageUrl.length == 0 && (
+          {!imageUrl && (
             <div className="absolute ml-[52px]">
               <AddPhotoAlternateOutlined />
             </div>
@@ -150,7 +150,7 @@ export const AddProductOne = (props: FormikProps) => {
               +
             </button>
 
-            <div className="absolute top-4 right-1 opacity-1">
+            <div className="absolute top-4 right-6 opacity-0">
               <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
             </div>
           </div>

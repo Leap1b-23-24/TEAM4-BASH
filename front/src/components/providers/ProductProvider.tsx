@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 
 export type Product = {
   _id: string;
+  star: number;
+  starCount: number;
   productName: string;
   additionInfo: string;
   barCode: string;
@@ -38,6 +40,8 @@ export type Category = {
 
 type SelectedProdProps = {
   id: string;
+  star: number;
+  starCount: number;
   productName: string;
   additionInfo: string;
   barCode: string;
@@ -104,6 +108,8 @@ type ProductContextType = {
 
   fromLocalStorage: ToCartProps[];
   setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
+  detail: Product | null;
+  setDetail: Dispatch<SetStateAction<Product | null>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -115,6 +121,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [deliveryStatus, setDeliveryStatus] = useState("");
   const [toCart, setToCart] = useState<ToCartProps[]>([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [detail, setDetail] = useState<Product | null>(null);
 
   const router = useRouter();
 
@@ -330,6 +337,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setAllProduct,
         toCart,
         setToCart,
+        detail,
+        setDetail,
       }}
     >
       {children}

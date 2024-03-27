@@ -1,5 +1,5 @@
 import { ProductDetail } from "@/src/components/home/product/ProductDetail";
 
-export default function ProductDetailPage() {
+export default function Page() {
   return <ProductDetail />;
 }

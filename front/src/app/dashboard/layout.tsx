@@ -1,4 +1,3 @@
-import { DashboardProvider } from "@/src/components/Providers/DashboardProvider";
 import { AdminSideBar } from "@/src/components/admin/AdminSideBar";
 import { Header } from "@/src/components/layout/Header";
 import { ProductProvider } from "@/src/components/providers/ProductProvider";

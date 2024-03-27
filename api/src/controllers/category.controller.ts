@@ -1,19 +1,16 @@
 import { RequestHandler } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { CategoryModel } from "../models";
 
 export const postCategory: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret") as JwtPayload;
-
     const { category } = req.body;
 
     const findCategory = await CategoryModel.findOne({ category });
@@ -24,10 +21,9 @@ export const postCategory: RequestHandler = async (req, res) => {
       });
     }
 
-    const createCat = await CategoryModel.create({
+    await CategoryModel.create({
       category,
       createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     return res.json({ message: "Шинэ ангилал амжилттай үүслээ." });
@@ -37,17 +33,15 @@ export const postCategory: RequestHandler = async (req, res) => {
 };
 
 export const getCategory: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret") as JwtPayload;
-
     const findCategory = await CategoryModel.find({});
 
     return res.json(findCategory);

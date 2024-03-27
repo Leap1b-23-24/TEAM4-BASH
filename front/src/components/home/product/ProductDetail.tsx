@@ -1,36 +1,34 @@
 "use client";
 
-import { FacebookOutlined, FavoriteBorder } from "@mui/icons-material";
-import { Card, Container } from "@mui/material";
-import { DetailHead } from "./DetailHead";
+import { Container } from "@mui/material";
 import { AdditionInfo } from "./AdditionInfo";
-import { Unelgee } from "./Unelgee";
+import { Unelgee } from "./Rate";
 import { useProduct } from "../../providers/ProductProvider";
-import { AllUnelgee } from "./AllUnelgee";
 import { ItemDetail } from "./Detail";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const data = ["Home", "Product Details"];
 
 type DetailProps = {
-  productName: string;
-  productStar: string;
-  productPrice: string;
-  productColor: string[];
-  productInfo: string;
-  productImage: string[];
+  productName?: string;
+  productStar?: string;
+  productPrice?: string;
+  productColor?: string[];
+  productInfo?: string;
+  productImage?: string[];
 };
 
 export const ProductDetail = (props: DetailProps) => {
-  const {
-    productName,
-    productStar,
-    productPrice,
-    productColor,
-    productInfo,
-    productImage,
-  } = props;
+  const { detail } = useProduct();
+  const router = useRouter();
 
-  const { productList } = useProduct();
+  const [rate, setRate] = useState("info");
+  const [isActive, setIsActive] = useState(true);
+
+  if (!detail) {
+    router.push("/home");
+  }
 
   return (
     <div>
@@ -55,68 +53,51 @@ export const ProductDetail = (props: DetailProps) => {
       </div>
 
       <div className="bg-white">
-        {/* <Container sx={{ py: 10 }}>
-          <Card sx={{ p: 2, display: "flex", width: "full", gap: 6 }}>
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-2">
-                <img
-                  src="/bu.png"
-                  className="w-[151px] h-[155px] object-cover"
-                />
-                <img
-                  src="/bu.png"
-                  className="w-[151px] h-[155px] object-cover"
-                />
-                <img
-                  src="/bu.png"
-                  className="w-[151px] h-[155px] object-cover"
-                />
-              </div>
-              <img src="/bagg.png" className="w-[375px] object-cover" />
-            </div>
-
-            <div className="flex flex-col gap-3 justify-center">
-              <p className="text-[#0D134E] text-[36px] font-[800]">
-                {productName}
-              </p>
-              <div className="flex gap-3">
-                <p className="text-[#111C85] text-[16px] font-[800]">
-                  {productPrice}
-                </p>
-              </div>
-
-              <div className="flex gap-1">
-                <p className="bg-[#E60584] w-3 h-3 rounded-[50%]">
-                  {productColor}
-                </p>
-              </div>
-              <p className="font-[400] text-[#9295AA] text-[18px]">
-                {productInfo}
-              </p>
-
-              <div className="flex gap-5">
-                <p className="text-[#151875] text-[16px] font-[800]">
-                  Add To cart
-                </p>
-
-                <FavoriteBorder />
-              </div>
-            </div>
-          </Card>
-        </Container> */}
         <ItemDetail
-          productName=""
-          productStar=""
-          productPrice={0}
-          productColor={productColor}
-          productInfo=""
-          productImage={productImage}
+          productName={detail?.productName}
+          productStar={detail?.star}
+          productPrice={detail?.mainPrice}
+          productColor={detail?.color}
+          productInfo={detail?.additionInfo}
+          productImage={detail?.productImage}
+          starCount={detail?.starCount}
         />
 
         <div className="py-10 bg-[#F9F8FE]">
           <Container sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <Unelgee />
-            <AllUnelgee />
+            <div className="flex gap-6">
+              <p
+                className={`text-[#151875] text-[24px] font-[800]`}
+                style={{
+                  borderBottom: isActive ? "1px solid #151875" : "none",
+                }}
+                onClick={() => {
+                  setRate("info");
+                  setIsActive(true);
+                }}
+              >
+                Нэмэлт мэдээлэл
+              </p>
+
+              <p
+                className="text-[#151875] text-[24px] font-[800] hover:border-b-2 border-[#151875]"
+                style={{
+                  borderBottom: isActive ? "none" : "1px solid #151875",
+                }}
+                onClick={() => {
+                  setRate("rate");
+                  setIsActive(false);
+                }}
+              >
+                Үнэлгээ
+              </p>
+            </div>
+
+            {rate == "info" ? (
+              <AdditionInfo />
+            ) : (
+              <Unelgee productId={detail?._id} />
+            )}
           </Container>
         </div>
       </div>

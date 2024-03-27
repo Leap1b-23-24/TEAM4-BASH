@@ -38,7 +38,7 @@ export const signUp: RequestHandler = async (req, res) => {
       });
     }
 
-    const newUser = await UserModel.create({
+    await UserModel.create({
       email,
       name,
       password,
@@ -62,9 +62,19 @@ export const getUser: RequestHandler = async (req, res) => {
 
     const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
 
-    const user = await UserModel.findOne({ merchId: id });
+    const user = await UserModel.findOne({ _id: id });
 
     return res.json(user);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getAllUser: RequestHandler = async (req, res) => {
+  try {
+    const allUser = await UserModel.find({});
+
+    return res.json(allUser);
   } catch (err) {
     console.log(err);
   }

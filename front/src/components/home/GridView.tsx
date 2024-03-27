@@ -1,13 +1,14 @@
 import { Grid } from "@mui/material";
 import { useProduct } from "../providers/ProductProvider";
 import { CustomProductDisplay } from "../customs/CustomProductDisplay";
+import { CustomRate } from "../customs/CustomRate";
 
 export const GridViewComp = () => {
   const { allProduct } = useProduct();
   return (
-    <Grid container spacing={8}>
+    <Grid container spacing={2} sx={{ mt: 0 }}>
       {allProduct.slice(0, 12).map((product) => (
-        <Grid lg={3} sm={4} xs={6} item>
+        <Grid lg={4} sm={6} xs={12} item>
           <CustomProductDisplay
             productName={product.productName}
             productImg={product.productImage}

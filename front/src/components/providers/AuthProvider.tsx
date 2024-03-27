@@ -15,7 +15,9 @@ import {
 import { toast } from "react-toastify";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
 type User = {
+  _id?: string;
   name: string;
   email: string;
   password: string;
@@ -29,11 +31,16 @@ type AuthContextType = {
 
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
+
+  allUser: User[];
+  setAllUser: Dispatch<SetStateAction<User[]>>;
 };
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [allUser, setAllUser] = useState<User[]>([]);
+  const [refresh, setRefresh] = useState(1);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -45,6 +52,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       const { token } = data;
       localStorage.setItem("token", token);
+
       setIsLogged(true);
 
       if (pathname == "/auto/login") {
@@ -113,9 +121,26 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getAllUser = async () => {
+    try {
+      const { data } = await api.get("/auth/all");
+
+      setAllUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogged(true);
+    }
+  }, [refresh]);
+
   useEffect(() => {
     getUser();
-  }, []);
+    getAllUser();
+  }, [refresh]);
 
   return (
     <AuthContext.Provider
@@ -125,6 +150,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         login,
         user,
         setUser,
+        allUser,
+        setAllUser,
       }}
     >
       {children}

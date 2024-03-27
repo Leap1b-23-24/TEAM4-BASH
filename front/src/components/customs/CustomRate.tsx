@@ -1,45 +1,52 @@
 "use client";
 
 import { Search, StarBorderRounded } from "@mui/icons-material";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Rating, Stack, Typography } from "@mui/material";
 import { useProduct } from "../providers/ProductProvider";
 
-const icons = [
-  { icon: <StarBorderRounded /> },
-  { icon: <StarBorderRounded /> },
-  { icon: <StarBorderRounded /> },
-  { icon: <StarBorderRounded /> },
-  { icon: <StarBorderRounded /> },
-];
+const rate = [5, 4, 3, 2, 1];
 
 export const CustomRate = () => {
-  const { productList } = useProduct();
+  const { productList, allProduct } = useProduct();
+
+  const counts = [
+    allProduct.filter((item) => Math.round(item.star) == 5),
+    allProduct.filter((item) => Math.round(item.star) == 4),
+    allProduct.filter((item) => Math.round(item.star) == 3),
+    allProduct.filter((item) => Math.round(item.star) == 2),
+    allProduct.filter((item) => Math.round(item.star) == 1),
+  ];
+
+  console.log(allProduct);
 
   return (
     <div className="py-16 flex flex-col">
       <div>
         <p className="text-[#151875] text-[20px] font-[800]">Үнэлгээ</p>
         <div className="flex items-center gap-2">
-          <Checkbox
-            sx={{
-              color: "#FFF6DA",
-              "&.Mui-checked": {
-                color: "#FFCC2E",
-              },
-              width: 4,
-              height: 4,
-            }}
-          />
-
-          <div className="flex items-center gap-1">
-            {icons.map((item, index) => {
-              return (
-                <p key={index} className="">
-                  {item.icon}
-                </p>
-              );
-            })}
-            <p className="text-[#000000] text-[12px] font-[800] pt-1">(237)</p>
+          <div className=" items-center gap-1">
+            <Stack spacing={1}>
+              {rate.map((item, index) => (
+                <div className="flex items-center gap-3">
+                  <Checkbox
+                    sx={{
+                      color: "#FFF6DA",
+                      "&.Mui-checked": {
+                        color: "#FFCC2E",
+                      },
+                      width: 4,
+                      height: 4,
+                    }}
+                  />
+                  <div className="flex gap-1">
+                    <Rating value={item} readOnly />
+                    <p className="text-[12px] font-[800] pt-1">
+                      ({counts[index].length})
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </Stack>
           </div>
         </div>
       </div>

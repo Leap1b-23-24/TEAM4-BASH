@@ -1,9 +1,12 @@
-import { Card } from "@mui/material";
+import { Card, Modal, Rating, Stack } from "@mui/material";
 import {
   FavoriteBorder,
   ShoppingCartOutlined,
   ZoomInRounded,
 } from "@mui/icons-material";
+import { Dispatch, SetStateAction, useState } from "react";
+import { ZoomModal } from "./ZoomModal";
+import { useProduct } from "../providers/ProductProvider";
 
 type ShopListProps = {
   image: string[];
@@ -11,10 +14,15 @@ type ShopListProps = {
   price: number;
   color: string[];
   additionInfo: string;
+  star: number;
+  starCount: number;
 };
 
 export const CustomShopList = (props: ShopListProps) => {
-  const { label, price, color, additionInfo, image } = props;
+  const { label, price, color, additionInfo, image, star, starCount } = props;
+  const [openImage, setOpenImage] = useState(false);
+  const { allProduct } = useProduct();
+
   return (
     <div className="w-full">
       <Card
@@ -42,30 +50,47 @@ export const CustomShopList = (props: ShopListProps) => {
                       key={index}
                       className="w-3 h-3 rounded-[50%]"
                       style={{ background: item }}
-                    ></p>
+                    />
                   );
                 })}
               </div>
             </div>
 
-            <p className="text-[#111C85] text-[16px] font-[800]">${price}</p>
+            <div className="flex gap-3">
+              <p className="text-[#111C85] text-[16px] font-[800]">${price}</p>
+              <div className="flex items-center">
+                <Rating readOnly value={star} />
+                <p className="text-[#5A5C7E] text-[14px] pt-[3px]">
+                  ({starCount})
+                </p>
+              </div>
+            </div>
 
             <p className="font-[400] text-[#9295AA] text-[18px]">
               {additionInfo}
             </p>
           </div>
 
-          <div className="flex gap-6 pt-2">
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
+          <div className="flex gap-5 pt-2">
+            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
               <ShoppingCartOutlined className="text-[#535399]" />
             </div>
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#f7f3f2]  rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
               <FavoriteBorder className="text-[#535399]" />
             </div>
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
-              <ZoomInRounded className="text-[#535399]" />
+            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
+              <ZoomInRounded
+                className="text-[#535399]"
+                onClick={() => {
+                  setOpenImage(true);
+                }}
+              />
             </div>
           </div>
+
+          {openImage && (
+            <ZoomModal image={image} handleClose={setOpenImage} label={label} />
+          )}
         </div>
       </Card>
     </div>

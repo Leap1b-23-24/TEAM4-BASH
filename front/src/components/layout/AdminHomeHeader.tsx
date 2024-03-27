@@ -15,19 +15,21 @@ import { Badge, Container, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProduct } from "../providers/ProductProvider";
-
-const page = [
-  "Home",
-  "Shop List",
-  "Shop Left Sidebar",
-  "Product Detail",
-  "Shopping Cart",
-];
+import { useAuth } from "../providers/AuthProvider";
 
 export const AdminHomeHeader = () => {
   const [isSide, setIsSide] = useState(false);
   const { toCart, fromLocalStorage, refresh, setRefresh } = useProduct();
+import { Container } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+
+export const AdminHomeHeader = () => {
+  const pathname = usePathname();
+  const { user, isLogged } = useAuth();
+
   const router = useRouter();
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <div className="w-full h-full">
@@ -51,7 +53,7 @@ export const AdminHomeHeader = () => {
           <div className="flex gap-6">
             <div className="flex gap-1 cursor-pointer">
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
-                Нэвтрэх
+                {user?.name}
               </p>
               <PersonOutlined sx={{ color: "#FFF", width: 20 }} />
             </div>
@@ -90,48 +92,26 @@ export const AdminHomeHeader = () => {
             </p>
 
             <div className="flex gap-8">
-              <div className="relative">
-                <div
-                  className="flex hover:text-[#FB2E86]"
-                  onClick={() => {
-                    setIsSide((prev) => !prev);
-                  }}
-                >
-                  <p className="text-[14px] font-normal cursor-pointer">Нүүр</p>
-                  <ExpandMoreOutlined />
-                </div>
-
-                {isSide && (
-                  <div className="absolute top-10 right- border rounded bg-white">
-                    {page.map((item, index) => {
-                      return (
-                        <p
-                          key={index}
-                          className="cursor-pointer whitespace-nowrap border-b-2 py-2 pr-8 pl-4 hover:text-[#FB2E86]"
-                          onClick={() => {
-                            if (item === "Home") {
-                              router.push("/home");
-                            } else if (item === "Shop List") {
-                              router.push("/home/shop");
-                            } else if (item === "Shop Left Sidebar") {
-                              router.push("/");
-                            } else if (item === "Product Detail") {
-                              router.push("/home/detail");
-                            } else if (item === "Shopping Cart") {
-                              router.push("/home/orderInCartPage");
-                            }
-                            setIsSide(false);
-                          }}
-                        >
-                          {item}
-                        </p>
-                      );
-                    })}
-                  </div>
-                )}
+              <div
+                className="flex"
+                onClick={() => {
+                  router.push("/home");
+                }}
+                style={{ color: pathname === "/home" ? "#FB2E86" : "inherit" }}
+              >
+                <p className="text-[14px] font-normal">Нүүр</p>
+                <ExpandMoreOutlined />
               </div>
 
-              <p className="text-[14px] font-normal hover:text-[#FB2E86] cursor-pointer">
+              <p
+                className="text-[14px] font-normal "
+                onClick={() => {
+                  router.push("/home/shop");
+                }}
+                style={{
+                  color: pathname === "/home/shop" ? "#FB2E86" : "inherit",
+                }}
+              >
                 Ангилал
               </p>
             </div>
@@ -140,7 +120,8 @@ export const AdminHomeHeader = () => {
           <div className="flex">
             <input
               type="text"
-              className="border-2 border-[#E7E6EF] width-[315px] h-8"
+              placeholder="Хайх..."
+              className="border-2 border-[#E7E6EF] width-[315px] h-8 pl-4 rounded"
             />
             <div>
               <Search

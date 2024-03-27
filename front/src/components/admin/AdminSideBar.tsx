@@ -7,18 +7,31 @@ import {
   Sell,
   Settings,
 } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const AdminSideBar = () => {
   const data = [
-    { icons: <GridViewRounded />, label: "Хяналтын самбар" },
-    { icons: <ContentPasteRounded />, label: "Захиалга" },
-    { icons: <Sell />, label: "Орлого" },
-    { icons: <ListAlt />, label: "Бүтээгдэхүүн" },
-    { icons: <Settings />, label: "Тохиргоо" },
+    {
+      icons: <GridViewRounded />,
+      label: "Хяналтын самбар",
+      pathname: "/dashboard",
+    },
+    {
+      icons: <ContentPasteRounded />,
+      label: "Захиалга",
+      pathname: "/dashboard/order",
+    },
+    { icons: <Sell />, label: "Орлого", pathname: "/dashboard/income" },
+    {
+      icons: <ListAlt />,
+      label: "Бүтээгдэхүүн",
+      pathname: "/dashboard/product",
+    },
+    { icons: <Settings />, label: "Тохиргоо", pathname: "/dashboard/settings" },
   ];
 
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="flex">
@@ -27,19 +40,13 @@ export const AdminSideBar = () => {
           return (
             <div
               key={index}
-              className="flex gap-4 py-3 pr-8 pl-6 hover:bg-[#e6e6e8] cursor-pointer items-center"
+              className="flex gap-4 py-3 pr-8 pl-6 cursor-pointer items-center"
               onClick={() => {
-                if (item.label == "Хяналтын самбар") {
-                  router.push("/dashboard/");
-                } else if (item.label == "Захиалга") {
-                  router.push("/dashboard/order");
-                } else if (item.label == "Орлого") {
-                  router.push("/dashboard/income");
-                } else if (item.label == "Бүтээгдэхүүн") {
-                  router.push("/dashboard/product");
-                } else if (item.label == "Тохиргоо") {
-                  router.push("/dashboard/settings");
-                }
+                router.push(item.pathname);
+              }}
+              style={{
+                backgroundColor:
+                  pathname == item.pathname ? "#e6e6e8" : "inherit",
               }}
             >
               <div className="">{item.icons}</div>

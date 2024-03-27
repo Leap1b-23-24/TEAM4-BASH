@@ -36,7 +36,7 @@ export const postProduct: RequestHandler = async (req, res) => {
       });
     }
 
-    const product = await ProductModel.create({
+    await ProductModel.create({
       merchId: id,
       productName,
       additionInfo,
@@ -79,7 +79,7 @@ export const getProduct: RequestHandler = async (req, res) => {
   }
 };
 
-export const getAllProduct: RequestHandler = async (req, res) => {
+export const getAllProduct: RequestHandler = async (_req, res) => {
   try {
     const allProduct = await ProductModel.find({});
 
@@ -152,17 +152,15 @@ export const editProduct: RequestHandler = async (req, res) => {
 };
 
 export const deleteProduct: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "newtersenii daraa delete hiinu",
+    });
+  }
+
   try {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(401).json({
-        message: "newtersenii daraa delete hiinu",
-      });
-    }
-
-    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
-
     const { productId } = req.body;
 
     const productExist = await ProductModel.findOne({
@@ -181,5 +179,40 @@ export const deleteProduct: RequestHandler = async (req, res) => {
     return res.json({ message: "Product deleted" });
   } catch (err) {
     res.json(err);
+  }
+};
+
+export const starReview: RequestHandler = async (req, res) => {
+  try {
+    const { star, productId } = req.body;
+
+    const product = await ProductModel.findOne({ _id: productId });
+
+    if (!product) {
+      return res.status(401).json({
+        message: "Not found",
+      });
+    }
+
+    const count = Number(product.starCount ?? 0);
+    const avgStar = Number(product.star ?? 0);
+
+    const resultStar = (avgStar * count + star) / (count + 1);
+
+    await ProductModel.updateOne(
+      {
+        _id: productId,
+      },
+      {
+        $set: {
+          starCount: count + 1,
+          star: resultStar,
+        },
+      }
+    );
+
+    return res.json({ message: "Accept your rate" });
+  } catch (err) {
+    console.log(err);
   }
 };
