@@ -1,6 +1,7 @@
 "use client";
 
 import { api } from "@/src/common";
+import { setRef } from "@mui/material";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import {
@@ -50,6 +51,11 @@ type SelectedProdProps = {
   tag: string[];
 };
 
+type ToCartProps = {
+  sel: Product;
+  count: number;
+};
+
 const ProductContext = createContext<ProductContextType>(
   {} as ProductContextType
 );
@@ -92,6 +98,12 @@ type ProductContextType = {
 
   allProduct: Product[];
   setAllProduct: Dispatch<SetStateAction<Product[]>>;
+
+  toCart: Product[];
+  setToCart: Dispatch<SetStateAction<Product[]>>;
+
+  fromLocalStorage: ToCartProps[];
+  setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -101,6 +113,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [selectedProd, setSelectedProd] = useState<Product | null>(null);
   const [allProduct, setAllProduct] = useState<Product[]>([]);
   const [deliveryStatus, setDeliveryStatus] = useState("");
+  const [toCart, setToCart] = useState<ToCartProps[]>([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const router = useRouter();
 
@@ -271,10 +285,28 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
+    const rawData = localStorage.getItem("productInCart");
+    if (!rawData) {
+      setIsSaved(true);
+      return;
+    }
+    setToCart(JSON.parse(rawData));
+
+    setIsSaved(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isSaved) return;
+    localStorage.setItem("productInCart", JSON.stringify(toCart));
+  }, [toCart]);
+
+  useEffect(() => {
     getProduct();
     getCategory();
     getAllProduct();
   }, [refresh]);
+
+  console.log("toCart", toCart);
 
   return (
     <ProductContext.Provider
@@ -296,6 +328,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setCategoryList,
         allProduct,
         setAllProduct,
+        toCart,
+        setToCart,
       }}
     >
       {children}

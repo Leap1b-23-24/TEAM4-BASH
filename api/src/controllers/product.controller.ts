@@ -165,7 +165,10 @@ export const deleteProduct: RequestHandler = async (req, res) => {
 
     const { productId } = req.body;
 
-    const productExist = await ProductModel.findOne({ merchId: productId });
+    const productExist = await ProductModel.findOne({
+      _id: productId,
+      merchId: id,
+    });
 
     if (!productExist) {
       return res.status(401).json({
@@ -173,7 +176,7 @@ export const deleteProduct: RequestHandler = async (req, res) => {
       });
     }
 
-    const product = await ProductModel.findByIdAndDelete(productId);
+    await ProductModel.deleteOne({ _id: productId });
 
     return res.json({ message: "Product deleted" });
   } catch (err) {

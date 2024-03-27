@@ -1,5 +1,6 @@
 "use client";
 
+import EmotionStyledBase from "@emotion/styled/base";
 import {
   CallOutlined,
   EmailOutlined,
@@ -8,10 +9,12 @@ import {
   PersonOutlined,
   Search,
   ShoppingCartOutlined,
+  Toc,
 } from "@mui/icons-material";
-import { Container } from "@mui/material";
+import { Badge, Container, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useProduct } from "../providers/ProductProvider";
 
 const page = [
   "Home",
@@ -23,6 +26,7 @@ const page = [
 
 export const AdminHomeHeader = () => {
   const [isSide, setIsSide] = useState(false);
+  const { toCart, fromLocalStorage, refresh, setRefresh } = useProduct();
   const router = useRouter();
 
   return (
@@ -45,21 +49,26 @@ export const AdminHomeHeader = () => {
           </div>
 
           <div className="flex gap-6">
-            <div className="flex gap-1">
+            <div className="flex gap-1 cursor-pointer">
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
                 Нэвтрэх
               </p>
               <PersonOutlined sx={{ color: "#FFF", width: 20 }} />
             </div>
 
-            <div className="flex gap-1">
+            <div className="flex gap-1 cursor-pointer">
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
                 Хадгалах
               </p>
               <FavoriteBorderOutlined sx={{ color: "#FFF", width: 16 }} />
             </div>
 
-            <ShoppingCartOutlined sx={{ color: "#FFF", width: 19 }} />
+            <Badge badgeContent={toCart.length}>
+              <ShoppingCartOutlined
+                onClick={() => router.push("/home/orderInCartPage")}
+                sx={{ color: "#FFF", width: 19, cursor: "pointer" }}
+              />
+            </Badge>
           </div>
         </Container>
       </div>
@@ -73,17 +82,22 @@ export const AdminHomeHeader = () => {
           }}
         >
           <div className="flex gap-16 items-center">
-            <p className="font-[700] text-[32px] text-[#0D0E43]">Ecommerce</p>
+            <p
+              onClick={() => router.push("/home")}
+              className="font-[700] text-[32px] text-[#0D0E43] cursor-pointer"
+            >
+              Ecommerce
+            </p>
 
             <div className="flex gap-8">
               <div className="relative">
                 <div
                   className="flex hover:text-[#FB2E86]"
                   onClick={() => {
-                    setIsSide(true);
+                    setIsSide((prev) => !prev);
                   }}
                 >
-                  <p className="text-[14px] font-normal">Нүүр</p>
+                  <p className="text-[14px] font-normal cursor-pointer">Нүүр</p>
                   <ExpandMoreOutlined />
                 </div>
 
@@ -93,7 +107,7 @@ export const AdminHomeHeader = () => {
                       return (
                         <p
                           key={index}
-                          className="whitespace-nowrap border-b-2 py-2 pr-8 pl-4 hover:text-[#FB2E86]"
+                          className="cursor-pointer whitespace-nowrap border-b-2 py-2 pr-8 pl-4 hover:text-[#FB2E86]"
                           onClick={() => {
                             if (item === "Home") {
                               router.push("/home");
@@ -104,7 +118,7 @@ export const AdminHomeHeader = () => {
                             } else if (item === "Product Detail") {
                               router.push("/home/detail");
                             } else if (item === "Shopping Cart") {
-                              router.push("/");
+                              router.push("/home/orderInCartPage");
                             }
                             setIsSide(false);
                           }}
@@ -117,7 +131,7 @@ export const AdminHomeHeader = () => {
                 )}
               </div>
 
-              <p className="text-[14px] font-normal hover:text-[#FB2E86]">
+              <p className="text-[14px] font-normal hover:text-[#FB2E86] cursor-pointer">
                 Ангилал
               </p>
             </div>

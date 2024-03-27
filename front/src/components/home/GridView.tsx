@@ -13,7 +13,7 @@ export const GridViewComp = () => {
             productImg={product.productImage}
             color={product.color}
             mainPrice={product.mainPrice}
-            disPercent={product.disPercent}
+            // disPercent={product.disPercent}
           />
         </Grid>
       ))}
