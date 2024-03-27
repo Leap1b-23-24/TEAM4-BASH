@@ -1,5 +1,4 @@
 import { AdminHome } from "@/src/components/home/AdminHome";
-import { ProductImageDetailModal } from "@/src/components/home/product/ProductImageDetailModal";
 
 export default function Page() {
   return (
