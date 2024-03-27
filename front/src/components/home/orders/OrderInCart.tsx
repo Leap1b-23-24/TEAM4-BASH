@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useProduct } from "../../providers/ProductProvider";
 import { Cancel } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type CompProps = {
   id: string;
@@ -17,6 +17,8 @@ type CompProps = {
 export const Comp = (props: CompProps) => {
   const { id, productImage, productName, color, price, count } = props;
   const { toCart, setToCart } = useProduct();
+  const router = useRouter();
+
   return (
     <tr className="border-b-[#E1E1E4] border-b-[1px]">
       <td id={id} className="flex items-center gap-1 py-[10px]">
@@ -171,6 +173,7 @@ export const OrderInCart = () => {
             disableElevation
             className="py-[15px] bg-[#19D16F] w-full normal-case mt-[50px] font-extrabold text-[16px] leading-[19.6px] text-[#FFFFFF]"
             variant="contained"
+            onClick={() => {}}
           >
             Худалдан авах
           </Button>

@@ -108,6 +108,7 @@ type ProductContextType = {
 
   fromLocalStorage: ToCartProps[];
   setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
+
   detail: Product | null;
   setDetail: Dispatch<SetStateAction<Product | null>>;
 };
