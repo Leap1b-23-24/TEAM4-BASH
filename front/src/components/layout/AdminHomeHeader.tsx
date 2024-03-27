@@ -15,10 +15,19 @@ import { Badge, Container, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProduct } from "../providers/ProductProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 export const AdminHomeHeader = () => {
   const [isSide, setIsSide] = useState(false);
   const { toCart, fromLocalStorage, refresh, setRefresh } = useProduct();
+import { Container } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+
+export const AdminHomeHeader = () => {
+  const pathname = usePathname();
+  const { user, isLogged } = useAuth();
+
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
 
@@ -87,9 +96,8 @@ export const AdminHomeHeader = () => {
                 className="flex"
                 onClick={() => {
                   router.push("/home");
-                  setIsActive(true);
                 }}
-                style={{ color: isActive ? "#FB2E86" : "none" }}
+                style={{ color: pathname === "/home" ? "#FB2E86" : "inherit" }}
               >
                 <p className="text-[14px] font-normal">Нүүр</p>
                 <ExpandMoreOutlined />
@@ -99,9 +107,10 @@ export const AdminHomeHeader = () => {
                 className="text-[14px] font-normal "
                 onClick={() => {
                   router.push("/home/shop");
-                  setIsActive(false);
                 }}
-                style={{ color: isActive ? "none" : "#FB2E86" }}
+                style={{
+                  color: pathname === "/home/shop" ? "#FB2E86" : "inherit",
+                }}
               >
                 Ангилал
               </p>

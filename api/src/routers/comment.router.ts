@@ -1,11 +1,8 @@
 import { Router } from "express";
-import { getAllComment, getComment, postComment } from "../controllers";
+import { getAllComment, postComment } from "../controllers";
 
 const commentRouter = Router();
 
-commentRouter
-  .post("/rate", postComment)
-  .get("/get", getComment)
-  .post("/all", getAllComment);
+commentRouter.post("/rate", postComment).post("/all", getAllComment);
 
 export default commentRouter;

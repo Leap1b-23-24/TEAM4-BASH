@@ -11,27 +11,18 @@ export const postComment: RequestHandler = async (req, res) => {
   }
 
   try {
-    const { comment, productId, userId } = req.body;
+    const { comment, productId, userId, star } = req.body;
 
     await CommentModel.create({
       comment,
       productId,
       userId,
+      star,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     return res.json({ message: "Accepted your rate" });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getComment: RequestHandler = async (req, res) => {
-  try {
-    const rate = await CommentModel.find({});
-
-    return res.json(rate);
   } catch (error) {
     console.log(error);
   }
@@ -45,7 +36,7 @@ export const getAllComment: RequestHandler = async (req, res) => {
       productId,
     }).populate("userId");
 
-    return res.json({ allComment, message: "comments sent" });
+    return res.json(allComment);
   } catch (err) {
     console.log(err);
   }

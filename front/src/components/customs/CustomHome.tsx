@@ -7,6 +7,7 @@ import { Card } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Product, useProduct } from "../providers/ProductProvider";
+import { ZoomModal } from "./ZoomModal";
 
 type CustomProps = {
   image: string[];
@@ -17,6 +18,7 @@ type CustomProps = {
 
 export const CustomHome = (props: CustomProps) => {
   const { image, label, price, id } = props;
+  const [openImage, setOpenImage] = useState(false);
   const router = useRouter();
   const { setDetail, allProduct } = useProduct();
 
@@ -60,9 +62,18 @@ export const CustomHome = (props: CustomProps) => {
             </div>
 
             <FavoriteBorder className="text-[#1389FF]" />
-            <ZoomInOutlined className="text-[#1389FF]" />
+            <ZoomInOutlined
+              className="text-[#1389FF]"
+              onClick={() => {
+                setOpenImage(true);
+              }}
+            />
           </div>
         </div>
+
+        {openImage && (
+          <ZoomModal image={image} handleClose={setOpenImage} label={label} />
+        )}
       </div>
     </Card>
   );

@@ -1,9 +1,11 @@
-import { Card } from "@mui/material";
+import { Card, Modal } from "@mui/material";
 import {
   FavoriteBorder,
   ShoppingCartOutlined,
   ZoomInRounded,
 } from "@mui/icons-material";
+import { Dispatch, SetStateAction, useState } from "react";
+import { ZoomModal } from "./ZoomModal";
 
 type ShopListProps = {
   image: string[];
@@ -15,6 +17,8 @@ type ShopListProps = {
 
 export const CustomShopList = (props: ShopListProps) => {
   const { label, price, color, additionInfo, image } = props;
+  const [openImage, setOpenImage] = useState(false);
+
   return (
     <div className="w-full">
       <Card
@@ -55,17 +59,26 @@ export const CustomShopList = (props: ShopListProps) => {
             </p>
           </div>
 
-          <div className="flex gap-6 pt-2">
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
+          <div className="flex gap-5 pt-2">
+            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
               <ShoppingCartOutlined className="text-[#535399]" />
             </div>
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#f7f3f2]  rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
               <FavoriteBorder className="text-[#535399]" />
             </div>
-            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center">
-              <ZoomInRounded className="text-[#535399]" />
+            <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
+              <ZoomInRounded
+                className="text-[#535399]"
+                onClick={() => {
+                  setOpenImage(true);
+                }}
+              />
             </div>
           </div>
+
+          {openImage && (
+            <ZoomModal image={image} handleClose={setOpenImage} label={label} />
+          )}
         </div>
       </Card>
     </div>

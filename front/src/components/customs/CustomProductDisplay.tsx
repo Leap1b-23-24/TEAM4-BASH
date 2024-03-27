@@ -5,6 +5,9 @@ import {
 } from "@mui/icons-material";
 import Image from "next/image";
 import { Product, useProduct } from "../providers/ProductProvider";
+import { Dispatch, SetStateAction, useState } from "react";
+import { ZoomModal } from "./ZoomModal";
+import { Modal } from "@mui/material";
 
 type CustomProductDisplayProps = {
   id: string;
@@ -13,12 +16,14 @@ type CustomProductDisplayProps = {
   color: string[];
   mainPrice: number;
   disPercent?: number | undefined;
+  setOpenImage?: Dispatch<SetStateAction<boolean>>;
 };
 
 export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
   const { id, productName, productImg, color, mainPrice, disPercent } = props;
   const { allProduct, toCart, setToCart } = useProduct();
   // const disPrice = mainPrice * (1 - disPercent / 100);
+  const [openImage, setOpenImage] = useState(false);
 
   const icons = [
     {
@@ -36,6 +41,13 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
     {
       icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
       action: () => {},
+      action: () => {},
+    },
+    {
+      icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
+      action: () => {
+        setOpenImage(true);
+      },
     },
     {
       icon: <FavoriteBorderOutlined className="w-[19px] h-[19px]" />,
@@ -54,19 +66,29 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
           className="mix-blend-multiply"
         />
         <div className="group-hover:block hidden absolute bottom-[5px] left-[5px] text-[#151875] flex flex-col">
-          {icons.map((item, index) => (
+          {icons.map((item) => (
             <div
-              onClick={item.action}
-              key={index}
               className="w-[30px] h-[30px] hover:bg-white rounded-full flex justify-center items-center"
+              onClick={item.action}
             >
               {item.icon}
             </div>
           ))}
+
+          {openImage && (
+            <ZoomModal
+              image={productImg}
+              handleClose={setOpenImage}
+              label={productName}
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-col items-center gap-[8px]">
-        <p className="text-[18px] leading-[18px] font-bold text-[#151875] line-clamp-1">
+        <p
+          className="text-[18px] leading-[18px] font-bold text-[#151875] line-clamp-1"
+          onClick={() => [setOpenImage(true)]}
+        >
           {productName}
         </p>
         <div className="flex gap-[5px] justify-center">
@@ -80,7 +102,7 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
         <div className="flex gap-[10px]">
           {disPercent && (
             <p className={`text-[#151875]`}>
-              {Intl.NumberFormat().format(disPrice)} ₮
+              {/* {Intl.NumberFormat().format(disPrice)} ₮ */}
             </p>
           )}
           <p

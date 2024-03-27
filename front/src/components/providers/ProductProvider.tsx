@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 
 export type Product = {
   _id: string;
+  star: number;
+  starCount: number;
   productName: string;
   additionInfo: string;
   barCode: string;
@@ -38,6 +40,8 @@ export type Category = {
 
 type SelectedProdProps = {
   id: string;
+  star: number;
+  starCount: number;
   productName: string;
   additionInfo: string;
   barCode: string;

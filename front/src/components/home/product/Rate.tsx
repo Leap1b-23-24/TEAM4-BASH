@@ -1,6 +1,5 @@
 import { Button, Card, Rating, Stack } from "@mui/material";
 import { CustomInputSt } from "../../auto/CustomInputSt";
-import { useData } from "../../providers/DataProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../../providers/AuthProvider";
@@ -8,6 +7,7 @@ import { useProduct } from "../../providers/ProductProvider";
 import { useEffect, useState } from "react";
 import { api } from "@/src/common";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 const validationSchema = yup.object({
   comment: yup.string().required(),
@@ -17,35 +17,84 @@ type AllUnelgeeProps = {
   productId?: string;
 };
 
+type User = {
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  userImage: string;
+};
+
 export type Comment = {
   _id: string;
-  productId: string;
-  userId: object;
+  productId: string | undefined;
+  userId: User;
   comment: string;
   createdAt: Date;
+  star: number;
 };
 
 export const Unelgee = (props: AllUnelgeeProps) => {
-  const { postComment } = useData();
+  const [allComment, setAllComment] = useState<Comment[]>([]);
+  const [star, setStar] = useState<number | null>(0);
+  const [refresh, setRefresh] = useState(1);
   const { detail } = useProduct();
   const { user } = useAuth();
   const { productId } = props;
-  const [allComment, setAllComment] = useState<Comment[]>([]);
-  const [star, setStar] = useState<number | null>(0);
 
-  const getAllComment = async (productId: string) => {
+  const postComment = async (
+    comment: string,
+    productId: string,
+    userId: string,
+    star: number | null
+  ) => {
+    try {
+      const { data } = await api.post(
+        "/comment/rate",
+        {
+          comment,
+          productId,
+          userId,
+          star,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      toast.success(data.message, {
+        position: "top-center",
+      });
+
+      setRefresh(refresh + 1);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message ?? error.message, {
+          hideProgressBar: true,
+          position: "top-center",
+        });
+      }
+    }
+  };
+
+  const getAllComment = async (productId: string | undefined) => {
     try {
       const { data } = await api.post("/comment/all", { productId });
 
-      setAllComment(allComment);
+      setAllComment(data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const starReview = async (star: number, productId: string) => {
+  const starReview = async (
+    star: number | null,
+    productId: string | undefined
+  ) => {
     try {
-      const { data } = await api.post(
+      await api.post(
         "/product/star",
         {
           star,
@@ -76,12 +125,10 @@ export const Unelgee = (props: AllUnelgeeProps) => {
     }
   };
 
-  console.log(allComment);
-
   useEffect(() => {
     getAllComment(productId);
     getReview();
-  }, []);
+  }, [refresh]);
 
   const formik = useFormik({
     initialValues: {
@@ -89,7 +136,13 @@ export const Unelgee = (props: AllUnelgeeProps) => {
     },
     validationSchema: validationSchema,
     onSubmit: async (value) => {
-      await postComment(value.comment, detail?._id || "", user?._id || "");
+      await postComment(
+        value.comment,
+        detail?._id || "",
+        user?._id || "",
+        star
+      );
+      await starReview(star, productId);
       await getAllComment(productId);
     },
   });
@@ -112,7 +165,7 @@ export const Unelgee = (props: AllUnelgeeProps) => {
               name="rating"
               value={star}
               onChange={(event, newValue) => {
-                setStar(newValue || 0);
+                setStar(newValue);
               }}
             />
           </Stack>
@@ -156,7 +209,7 @@ export const Unelgee = (props: AllUnelgeeProps) => {
             return (
               <div key={index} className="flex flex-col gap-4 py-4">
                 <Stack>
-                  <Rating name="rating" />
+                  <Rating name="rating" value={item.star} readOnly />
                 </Stack>
                 <p className="text-[18px] font-[800] text-[#1D3178]">
                   {item.userId.name}

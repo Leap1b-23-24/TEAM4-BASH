@@ -5,10 +5,7 @@ export const commentSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "product",
-  },
+  productId: String,
   star: Number,
   comment: String,
   createdAt: Date,

@@ -1,9 +1,9 @@
-import { CustomRate } from "../customs/CustomRate";
 import { CustomShopList } from "../customs/CustomShopList";
 import { useProduct } from "../providers/ProductProvider";
 
 export const ListView = () => {
   const { allProduct } = useProduct();
+
   return (
     <div className="flex flex-col gap-8 py-4">
       {allProduct.map((item, index) => {

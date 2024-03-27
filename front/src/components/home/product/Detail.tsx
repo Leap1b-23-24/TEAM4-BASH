@@ -1,7 +1,8 @@
 "use client";
 
 import { FavoriteBorder } from "@mui/icons-material";
-import { Card, Container } from "@mui/material";
+import { Card, Container, Rating, Stack } from "@mui/material";
+import { useState } from "react";
 
 type DetailProps = {
   productName: string | undefined;
@@ -21,6 +22,8 @@ export const ItemDetail = (props: DetailProps) => {
     productInfo,
     productImage,
   } = props;
+
+  const [favorite, setfavorite] = useState(false);
 
   return (
     <div>
@@ -44,6 +47,9 @@ export const ItemDetail = (props: DetailProps) => {
                 <p className="text-[#111C85] text-[36px] font-[800]">
                   {productName}
                 </p>
+                <Stack>
+                  <Rating name="rating" />
+                </Stack>
                 <div className="flex gap-3">
                   <p className="text-[#151875] text-[30px] font-[400] font-sans">
                     {productPrice}$
@@ -71,7 +77,15 @@ export const ItemDetail = (props: DetailProps) => {
                   Add To cart
                 </p>
 
-                <FavoriteBorder />
+                <div
+                  onClick={() => {
+                    setfavorite(true);
+                  }}
+                >
+                  <FavoriteBorder
+                    style={{ color: favorite ? "red" : "none" }}
+                  />
+                </div>
               </div>
             </div>
           </Card>
