@@ -17,7 +17,7 @@ export const DashboardProduct = () => {
   const { productList } = useProduct();
 
   return (
-    <div className="w-fit h-fit bg-[#F7F7F8]">
+    <div className="w-full h-full bg-[#F7F7F8]">
       <ProductHead />
 
       <div className="p-6 flex flex-col gap-6">

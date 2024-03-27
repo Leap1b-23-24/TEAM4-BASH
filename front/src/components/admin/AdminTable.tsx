@@ -67,7 +67,7 @@ export const AdminTable = () => {
                   <Image
                     width={40}
                     height={40}
-                    src={item.productImage}
+                    src={item.productImage[0]}
                     alt="product image"
                   ></Image>
                   <div className="basis-0 grow flex flex-col gap-[4px]">

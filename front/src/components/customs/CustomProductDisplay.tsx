@@ -4,8 +4,10 @@ import {
   ZoomInOutlined,
 } from "@mui/icons-material";
 import Image from "next/image";
+import { Product, useProduct } from "../providers/ProductProvider";
 
 type CustomProductDisplayProps = {
+  id: string;
   productName: string;
   productImg: string[];
   color: string[];
@@ -13,17 +15,36 @@ type CustomProductDisplayProps = {
   disPercent?: number | undefined;
 };
 
-const icons = [
-  <ShoppingCartOutlined className="w-[19px] h-[19px]" />,
-  <ZoomInOutlined className="w-[19px] h-[19px]" />,
-  <FavoriteBorderOutlined className="w-[19px] h-[19px]" />,
-];
-
 export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
-  const { productName, productImg, color, mainPrice, disPercent } = props;
-  const disPrice = mainPrice * (1 - disPercent / 100);
+  const { id, productName, productImg, color, mainPrice, disPercent } = props;
+  const { allProduct, toCart, setToCart } = useProduct();
+  // const disPrice = mainPrice * (1 - disPercent / 100);
+
+  const icons = [
+    {
+      icon: <ShoppingCartOutlined className="w-[19px] h-[19px]" />,
+      action: () => {
+        const sel = allProduct.find((item) => item._id === id) as Product;
+
+        const current = toCart.find((item) => item.sel._id === sel._id);
+
+        if (!current) {
+          setToCart((prev) => [...prev, { sel, count: 1 }]);
+        }
+      },
+    },
+    {
+      icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
+      action: () => {},
+    },
+    {
+      icon: <FavoriteBorderOutlined className="w-[19px] h-[19px]" />,
+      action: () => {},
+    },
+  ];
+
   return (
-    <div className="w-[100%] h-[360px] flex flex-col gap-[15px]">
+    <div id={id} className="w-[100%] h-[360px] flex flex-col gap-[15px]">
       <div className="group cursor-pointer relative hover hover:bg-[#EBF4F3] bg-[#F6F7FB] h-[280px] flex jurstify-center items-center">
         <Image
           src={productImg[0]}
@@ -33,9 +54,13 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
           className="mix-blend-multiply"
         />
         <div className="group-hover:block hidden absolute bottom-[5px] left-[5px] text-[#151875] flex flex-col">
-          {icons.map((icon) => (
-            <div className="w-[30px] h-[30px] hover:bg-white rounded-full flex justify-center items-center">
-              {icon}
+          {icons.map((item, index) => (
+            <div
+              onClick={item.action}
+              key={index}
+              className="w-[30px] h-[30px] hover:bg-white rounded-full flex justify-center items-center"
+            >
+              {item.icon}
             </div>
           ))}
         </div>

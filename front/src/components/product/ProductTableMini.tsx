@@ -60,7 +60,7 @@ function OneTable({
       </div>
       <div className="flex gap-6 pl-20">
         <DeleteOutlineOutlined
-          className="text-[#1C20243D]"
+          className="text-[#1C20243D] cursor-pointer"
           onClick={() => {
             setRemove(true);
           }}
@@ -86,7 +86,7 @@ function OneTable({
             </p>
             <div className="w-full flex justify-between">
               <button
-                className="text-[18px] font-[600] border-t border-r border-black w-[50%] py-2 hover:bg-[#121316] hover:text-white"
+                className="cursor-pointer text-[18px] font-[600] border-t border-r border-black w-[50%] py-2 hover:rounded-bl-lg hover:bg-[#121316] hover:text-white"
                 onClick={() => {
                   deleteProduct(id);
                 }}
@@ -94,7 +94,7 @@ function OneTable({
                 Тийм
               </button>
               <button
-                className="text-[18px] font-[600] border-t border-black  w-[50%] py-2 hover:bg-[#121316] hover:text-white"
+                className="cursor-pointer text-[18px] font-[600] border-t border-black  w-[50%] py-2 hover:hover:rounded-br-lg hover:bg-[#121316] hover:text-white"
                 onClick={() => {
                   setRemove(false);
                 }}

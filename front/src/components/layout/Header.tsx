@@ -11,7 +11,7 @@ export const Header = () => {
   const { user, isLogged } = useAuth();
 
   return (
-    <div className="flex bg-black w-screen justify-center py-3">
+    <div className="flex bg-black w-full justify-center py-3">
       <div className="justify-between flex px-10 w-[1700px]">
         <Image
           alt="logo"

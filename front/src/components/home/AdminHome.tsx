@@ -76,6 +76,7 @@ export const AdminHome = () => {
                 {allProduct.slice(0, 8).map((product) => (
                   <Grid lg={3} sm={4} xs={6} item>
                     <CustomProductDisplay
+                      id={product._id}
                       productName={product.productName}
                       productImg={product.productImage}
                       color={product.color}
@@ -85,8 +86,6 @@ export const AdminHome = () => {
                   </Grid>
                 ))}
               </Grid>
-
-              {/* <div className="absolute w-full h-screen bg-red-100">dsd</div> */}
             </div>
           </div>
 
