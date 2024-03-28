@@ -10,7 +10,7 @@ import { ZoomModal } from "./ZoomModal";
 import { Modal } from "@mui/material";
 
 type CustomProductDisplayProps = {
-  id: string;
+  id?: string;
   productName: string;
   productImg: string[];
   color: string[];
@@ -37,11 +37,6 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
           setToCart((prev) => [...prev, { sel, count: 1 }]);
         }
       },
-    },
-    {
-      icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
-      action: () => {},
-      action: () => {},
     },
     {
       icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,

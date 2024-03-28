@@ -165,7 +165,7 @@ export const deleteProduct: RequestHandler = async (req, res) => {
 
     const productExist = await ProductModel.findOne({
       _id: productId,
-      merchId: id,
+      // merchId: id,
     });
 
     if (!productExist) {

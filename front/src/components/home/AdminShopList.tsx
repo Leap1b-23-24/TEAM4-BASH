@@ -1,18 +1,16 @@
 "use client";
 
-import { GridView, GridViewRounded, ListRounded } from "@mui/icons-material";
+import { GridViewRounded, ListRounded } from "@mui/icons-material";
 import { Container } from "@mui/material";
-import { CustomShopList } from "../customs/CustomShopList";
-import { useProduct } from "../providers/ProductProvider";
 import { CustomRate } from "../customs/CustomRate";
 import { ListView } from "./ListView";
 import { GridViewComp } from "./GridView";
+import { useState } from "react";
 
 const data = ["Home", "Shop List"];
 
 export const AdminShopList = () => {
-  const { list, setList } = useProduct();
-
+  const [list, setList] = useState("list");
   return (
     <div>
       <div className="bg-[#F6F5FF]">

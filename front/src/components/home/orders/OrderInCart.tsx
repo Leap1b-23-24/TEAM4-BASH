@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useProduct } from "../../providers/ProductProvider";
 import { Cancel } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../providers/AuthProvider";
 
 type CompProps = {
   id: string;
@@ -17,6 +18,7 @@ type CompProps = {
 export const Comp = (props: CompProps) => {
   const { id, productImage, productName, color, price, count } = props;
   const { toCart, setToCart } = useProduct();
+
   return (
     <tr className="border-b-[#E1E1E4] border-b-[1px]">
       <td id={id} className="flex items-center gap-1 py-[10px]">
@@ -108,6 +110,8 @@ export const Comp = (props: CompProps) => {
 
 export const OrderInCart = () => {
   const { allProduct, toCart, setToCart } = useProduct();
+  const { user } = useAuth();
+  const router = useRouter();
 
   const tableHeader = ["Бүтээгдэхүүн", "Үнэ", "Тоо ширхэг", "Нийт"];
 
@@ -171,6 +175,13 @@ export const OrderInCart = () => {
             disableElevation
             className="py-[15px] bg-[#19D16F] w-full normal-case mt-[50px] font-extrabold text-[16px] leading-[19.6px] text-[#FFFFFF]"
             variant="contained"
+            onClick={() => {
+              if (!user) {
+                router.push("/home/auto/login");
+              } else {
+                router.push("/home/demo");
+              }
+            }}
           >
             Худалдан авах
           </Button>

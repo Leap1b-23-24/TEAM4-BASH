@@ -16,7 +16,7 @@ import {
 import { toast } from "react-toastify";
 
 export type Product = {
-  _id: string;
+  merchId: string;
   star: number;
   starCount: number;
   productName: string;
@@ -36,6 +36,19 @@ export type Product = {
 export type Category = {
   _id: string;
   category: string;
+};
+
+export type Address = {
+  deliveryAdd: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    info: string;
+    city: string;
+  };
+  toCart: Product[];
+  sumPaid: number;
 };
 
 type SelectedProdProps = {
@@ -79,6 +92,9 @@ type ProductContextType = {
     tag: string[],
     createAt: Date
   ) => void;
+
+  postAddress: (params: Address) => void;
+
   postCategory: (category: string) => void;
   deleteProduct: (productId: string) => void;
 
@@ -108,8 +124,12 @@ type ProductContextType = {
 
   fromLocalStorage: ToCartProps[];
   setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
+
   detail: Product | null;
   setDetail: Dispatch<SetStateAction<Product | null>>;
+
+  address: Address[];
+  setAddress: Dispatch<SetStateAction<Address[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -122,6 +142,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [toCart, setToCart] = useState<ToCartProps[]>([]);
   const [isSaved, setIsSaved] = useState(false);
   const [detail, setDetail] = useState<Product | null>(null);
+  const [address, setAddress] = useState<Address[]>([]);
 
   const router = useRouter();
 
@@ -291,6 +312,43 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const postAddress = async (params: Address) => {
+    try {
+      const { data } = await api.post("/address/post", params, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      toast.success(data.message, {
+        position: "top-center",
+      });
+
+      router.push("/home/complete");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message ?? error.message, {
+          hideProgressBar: true,
+          position: "top-center",
+        });
+      }
+    }
+  };
+
+  const getAddress = async () => {
+    try {
+      const { data } = await api.get("/address/get", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setAddress(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const rawData = localStorage.getItem("productInCart");
     if (!rawData) {
@@ -311,9 +369,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     getProduct();
     getCategory();
     getAllProduct();
+    getAddress();
   }, [refresh]);
-
-  console.log("toCart", toCart);
 
   return (
     <ProductContext.Provider
@@ -339,6 +396,9 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setToCart,
         detail,
         setDetail,
+        postAddress,
+        address,
+        setAddress,
       }}
     >
       {children}
