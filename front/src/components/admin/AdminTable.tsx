@@ -4,34 +4,8 @@ import Image from "next/image";
 import { useProduct } from "../providers/ProductProvider";
 
 export const AdminTable = () => {
-  const topProds = [
-    {
-      no: "1",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "2",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-    {
-      no: "3",
-      img: "/prodImg.png",
-      name: "WOMEN'S HORSEBIT MULE",
-      serial: "#12345678",
-      amount: "200",
-      price: "12,000",
-    },
-  ];
-
-  const { productList } = useProduct();
+  const { address } = useProduct();
+  console.log(address);
 
   const tableHead = ["№", "Бүтээгдэхүүн", "Зарагдсан", "Үнэ"];
   return (
@@ -60,7 +34,7 @@ export const AdminTable = () => {
             </tr>
           </thead>
           <tbody>
-            {productList.map((item, index) => (
+            {address.map((item, index) => (
               <tr key={index} className="border-b-[1px] border-[#ECEDF0]">
                 <td className="py-[16px] px-[24px]">1</td>
                 <td className="flex gap-[12px] p-[16px]">

@@ -1,6 +1,5 @@
 "use client";
 
-import EmotionStyledBase from "@emotion/styled/base";
 import {
   CallOutlined,
   EmailOutlined,
@@ -9,18 +8,16 @@ import {
   PersonOutlined,
   Search,
   ShoppingCartOutlined,
-  Toc,
 } from "@mui/icons-material";
 import { Badge, Container, IconButton } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useProduct } from "../providers/ProductProvider";
 import { useAuth } from "../providers/AuthProvider";
 
 export const AdminHomeHeader = () => {
   const pathname = usePathname();
   const { user, isLogged } = useAuth();
-  const [isSide, setIsSide] = useState(false);
   const { toCart, fromLocalStorage, refresh, setRefresh } = useProduct();
 
   const router = useRouter();
