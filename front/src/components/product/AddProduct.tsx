@@ -29,9 +29,7 @@ const validationSchema = yup.object({
 });
 
 export const AddProduct = (props: Props) => {
-  const { postProduct } = useProduct();
-
-  const { productList, editProduct, selectedProd, setSelectedProd } =
+  const { postProduct, editProduct, selectedProd, setSelectedProd } =
     useProduct();
 
   const [imageUrl, setImageUrl] = useState<string[]>(
@@ -73,11 +71,10 @@ export const AddProduct = (props: Props) => {
             values.secondCategory,
             isColor,
             isSize,
-            values.tag,
-            values.createdAt
+            values.tag
           )
         : await editProduct({
-            id: selectedProd._id,
+            _id: selectedProd._id,
             productName: values.productName,
             additionInfo: values.additionInfo,
             barCode: values.barCode,
@@ -89,6 +86,9 @@ export const AddProduct = (props: Props) => {
             color: isColor,
             size: isSize,
             tag: values.tag,
+            merchId: "",
+            star: 0,
+            starCount: 0,
           });
     },
   });

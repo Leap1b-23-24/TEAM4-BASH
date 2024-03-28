@@ -5,6 +5,8 @@ import { ProductProvider } from "../components/providers/ProductProvider";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "../components/providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
+import { AdminHomeHeader } from "../components/layout/AdminHomeHeader";
+import { AdminHomeFooter } from "../components/layout/AdminHomeFooter";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { api } from "@/src/common";
-import { setRef } from "@mui/material";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import {
@@ -16,6 +15,7 @@ import {
 import { toast } from "react-toastify";
 
 export type Product = {
+  _id?: string;
   merchId: string;
   star: number;
   starCount: number;
@@ -28,9 +28,8 @@ export type Product = {
   mainCategory: string;
   secondCategory: string;
   color: string[];
-  size: string;
+  size: string[];
   tag: string[];
-  createdAt: Date;
 };
 
 export type Category = {
@@ -47,25 +46,8 @@ export type Address = {
     info: string;
     city: string;
   };
-  toCart: Product[];
+  toCart: ToCartProps[];
   sumPaid: number;
-};
-
-type SelectedProdProps = {
-  id: string;
-  star: number;
-  starCount: number;
-  productName: string;
-  additionInfo: string;
-  barCode: string;
-  productImage: string[];
-  mainPrice: number | string;
-  quantity: number | string;
-  mainCategory: string;
-  secondCategory: string;
-  color: string[];
-  size: string[];
-  tag: string[];
 };
 
 type ToCartProps = {
@@ -89,8 +71,7 @@ type ProductContextType = {
     secondCategory: string,
     color: string[],
     size: string[],
-    tag: string[],
-    createAt: Date
+    tag: string[]
   ) => void;
 
   postAddress: (params: Address) => void;
@@ -105,7 +86,7 @@ type ProductContextType = {
   setRefresh: Dispatch<SetStateAction<number>>;
 
   getProduct: () => void;
-  editProduct: (params: SelectedProdProps) => void;
+  editProduct: (params: Product) => void;
 
   selectedProd: Product | null;
   setSelectedProd: Dispatch<SetStateAction<Product | null>>;
@@ -119,19 +100,17 @@ type ProductContextType = {
   allProduct: Product[];
   setAllProduct: Dispatch<SetStateAction<Product[]>>;
 
-  toCart: Product[];
-  setToCart: Dispatch<SetStateAction<Product[]>>;
-
-  fromLocalStorage: ToCartProps[];
-  setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
+  toCart: ToCartProps[];
+  setToCart: Dispatch<SetStateAction<ToCartProps[]>>;
 
   address: Address[];
   setAddress: Dispatch<SetStateAction<Address[]>>;
+
   detail: Product | null;
   setDetail: Dispatch<SetStateAction<Product | null>>;
 
-  toFavor: Product;
-  setToFavor: Dispatch<SetStateAction<Product>>;
+  toFavor: Product[];
+  setToFavor: Dispatch<SetStateAction<Product[]>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -161,8 +140,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     secondCategory: string,
     color: string[],
     size: string[],
-    tag: string[],
-    createdAt: Date
+    tag: string[]
   ) => {
     try {
       const { data } = await api.post(
@@ -179,7 +157,6 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
           color,
           size,
           tag,
-          createdAt,
         },
         {
           headers: {
@@ -241,7 +218,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const editProduct = async (params: SelectedProdProps) => {
+  const editProduct = async (params: Product) => {
     try {
       const { data } = await api.post("/product/editProduct", params, {
         headers: {
@@ -375,7 +352,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       setIsFavor(true);
       return;
     }
-    setToCart(JSON.parse(rawData));
+    setToFavor(JSON.parse(rawData));
 
     setIsFavor(true);
   }, []);
@@ -416,14 +393,11 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setToCart,
         detail,
         setDetail,
-<<<<<<< HEAD
         postAddress,
         address,
         setAddress,
-=======
         toFavor,
         setToFavor,
->>>>>>> 6d8ff86 (add to favorite)
       }}
     >
       {children}

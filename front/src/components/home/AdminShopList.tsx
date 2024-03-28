@@ -81,7 +81,7 @@ export const AdminShopList = () => {
             </div>
           </div>
 
-          <div className="flex gap-32">
+          <div className="md:flex gap-32">
             <CustomRate />
 
             {list == "listView" ? <ListView /> : <GridViewComp />}
