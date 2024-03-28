@@ -144,12 +144,9 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [toCart, setToCart] = useState<ToCartProps[]>([]);
   const [isSaved, setIsSaved] = useState(false);
   const [detail, setDetail] = useState<Product | null>(null);
-<<<<<<< HEAD
   const [address, setAddress] = useState<Address[]>([]);
-=======
   const [toFavor, setToFavor] = useState<Product[]>([]);
   const [isFavor, setIsFavor] = useState(false);
->>>>>>> 6d8ff86 (add to favorite)
 
   const router = useRouter();
 

@@ -38,10 +38,7 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
         }
       },
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 6d8ff86 (add to favorite)
     {
       icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
       action: () => {
