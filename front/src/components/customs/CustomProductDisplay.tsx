@@ -7,7 +7,6 @@ import Image from "next/image";
 import { Product, useProduct } from "../providers/ProductProvider";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ZoomModal } from "./ZoomModal";
-import { Modal } from "@mui/material";
 
 type CustomProductDisplayProps = {
   id?: string;
@@ -24,6 +23,7 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
   const { allProduct, toCart, setToCart, toFavor, setToFavor } = useProduct();
   // const disPrice = mainPrice * (1 - disPercent / 100);
   const [openImage, setOpenImage] = useState(false);
+  console.log(toFavor);
 
   const icons = [
     {
@@ -38,7 +38,6 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
         }
       },
     },
-
     {
       icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
       action: () => {

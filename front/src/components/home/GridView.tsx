@@ -10,6 +10,7 @@ export const GridViewComp = () => {
       {allProduct.slice(0, 12).map((product) => (
         <Grid lg={4} sm={6} xs={12} item>
           <CustomProductDisplay
+            id={product._id}
             productName={product.productName}
             productImg={product.productImage}
             color={product.color}

@@ -19,6 +19,8 @@ export const Comp = (props: CompProps) => {
   const { id, productImage, productName, color, price, count } = props;
   const { toCart, setToCart } = useProduct();
 
+  console.log(toCart);
+
   return (
     <tr className="border-b-[#E1E1E4] border-b-[1px]">
       <td id={id} className="flex items-center gap-1 py-[10px]">
@@ -62,6 +64,7 @@ export const Comp = (props: CompProps) => {
             <p
               onClick={() => {
                 const clicked = toCart.find((cart) => cart.sel._id == id);
+                if (!clicked) return;
                 const newQty = clicked?.count - 1;
                 const newCart = toCart.map((item) => {
                   if (item.sel._id === id) {
@@ -82,7 +85,8 @@ export const Comp = (props: CompProps) => {
             <p
               onClick={() => {
                 const clicked = toCart.find((cart) => cart.sel._id == id);
-                const newQty = clicked?.count + 1;
+                if (!clicked) return;
+                const newQty = clicked.count + 1;
                 const newCart = toCart.map((item) => {
                   if (item.sel._id === id) {
                     return { ...item, count: newQty };
@@ -116,11 +120,11 @@ export const OrderInCart = () => {
   const tableHeader = ["Бүтээгдэхүүн", "Үнэ", "Тоо ширхэг", "Нийт"];
 
   const sum = toCart.reduce((total, num) => {
-    return total + num.sel.mainPrice * num.count;
+    return total + Number(num.sel.mainPrice * num.count);
   }, 0);
 
   return (
-    <div className="py-[100px] flex gap-[50px]">
+    <div className="py-[150px] flex gap-[50px]">
       <div className="w-[60%]">
         <table className="w-[100%]">
           <thead>

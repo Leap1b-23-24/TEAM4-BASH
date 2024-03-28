@@ -42,11 +42,11 @@ export const AdminHome = () => {
         <Container sx={{ py: 8 }}>
           <div className="flex flex-col py-24 gap-10">
             <div className="flex flex-col gap-2 overflow-hidden items-center w-full">
-              <p className="text-[40px] font-[800] text-[#1A0B5B]">
+              <p className="text-[36px] font-[800] text-[#1A0B5B]">
                 Онцлох бүтээгдэхүүн
               </p>
               <div
-                className={`flex relative w-[200%] justify-start basis-0 grow gap-10 py-6 left-[${step}%]`}
+                className={`flex relative justify-start basis-0 grow gap-10 py-6 left-[${step}%]`}
               >
                 {allProduct.map((item, index) => {
                   return (
@@ -54,7 +54,7 @@ export const AdminHome = () => {
                       key={index}
                       id={item._id}
                       image={item.productImage}
-                      label={item.additionInfo}
+                      label={item.productName}
                       price={item.mainPrice}
                     />
                   );
@@ -73,12 +73,12 @@ export const AdminHome = () => {
               />
             </div>
 
-            <div className="relative flex flex-col gap-2 items-center w-full">
-              <p className="text-[40px] font-[800] text-[#1A0B5B]">
+            <div className="relative flex flex-col gap-10 items-center w-full">
+              <p className="text-[32px] font-[800] text-[#1A0B5B]">
                 Шинээр нэмэгдсэн
               </p>
 
-              <Grid container spacing={8}>
+              <Grid container spacing={4}>
                 {allProduct.slice(0, 8).map((product) => (
                   <Grid lg={3} sm={4} xs={6} item>
                     <CustomProductDisplay
@@ -96,7 +96,7 @@ export const AdminHome = () => {
           </div>
 
           <div className="flex flex-col items-center gap-4">
-            <p className="text-[40px] font-[800] text-[#1A0B5B]">
+            <p className="text-[36px] font-[800] text-[#1A0B5B]">
               Үйлчилгээний тухай
             </p>
             <div className="flex gap-4">

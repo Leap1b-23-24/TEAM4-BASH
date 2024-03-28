@@ -245,7 +245,7 @@ export const AdminDemo = () => {
                       Төлөх дүн:
                     </p>
 
-                    <p className="text-[20px] font-bold text-[#151875] w-[20%] px-1">
+                    <p className="text-[20px] font-bold text-[#151875] w-[20%] px-1 whitespace-nowrap">
                       {sum} ₮
                     </p>
                   </div>

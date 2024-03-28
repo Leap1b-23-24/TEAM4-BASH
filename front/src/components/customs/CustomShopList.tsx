@@ -6,9 +6,10 @@ import {
 } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ZoomModal } from "./ZoomModal";
-import { useProduct } from "../providers/ProductProvider";
+import { Product, useProduct } from "../providers/ProductProvider";
 
 type ShopListProps = {
+  id?: string;
   image: string[];
   label: string;
   price: number;
@@ -19,12 +20,13 @@ type ShopListProps = {
 };
 
 export const CustomShopList = (props: ShopListProps) => {
-  const { label, price, color, additionInfo, image, star, starCount } = props;
+  const { label, price, color, additionInfo, image, star, starCount, id } =
+    props;
   const [openImage, setOpenImage] = useState(false);
-  const { allProduct } = useProduct();
+  const { allProduct, toFavor, setToFavor, toCart, setToCart } = useProduct();
 
   return (
-    <div className="w-full">
+    <div id={id} className="w-full">
       <Card
         sx={{
           p: 2,
@@ -73,11 +75,42 @@ export const CustomShopList = (props: ShopListProps) => {
 
           <div className="flex gap-5 pt-2">
             <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
-              <ShoppingCartOutlined className="text-[#535399]" />
+              <ShoppingCartOutlined
+                className="text-[#535399]"
+                onClick={() => {
+                  const sel = allProduct.find(
+                    (item) => item._id === id
+                  ) as Product;
+
+                  const current = toCart.find(
+                    (item) => item.sel._id === sel._id
+                  );
+
+                  if (!current) {
+                    setToCart((prev) => [...prev, { sel, count: 1 }]);
+                  }
+                }}
+              />
             </div>
             <div className="w-9 h-9 bg-[#f7f3f2]  rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
-              <FavoriteBorder className="text-[#535399]" />
+              <FavoriteBorder
+                className="text-[#535399]"
+                onClick={() => {
+                  const clicked = allProduct.find(
+                    (item) => item._id === id
+                  ) as Product;
+
+                  const current = toFavor.find(
+                    (item) => item._id === clicked._id
+                  );
+
+                  if (!current) {
+                    setToFavor((prev) => [...prev, clicked]);
+                  }
+                }}
+              />
             </div>
+
             <div className="w-9 h-9 bg-[#f7f3f2] rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-[#EBF4F3]">
               <ZoomInRounded
                 className="text-[#535399]"

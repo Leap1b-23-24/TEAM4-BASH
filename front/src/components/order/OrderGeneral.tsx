@@ -3,11 +3,10 @@
 import { KeyboardArrowRight, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
-import { useContext } from "react";
 import { useProduct } from "../providers/ProductProvider";
 
 export const OrderGeneral = () => {
-  const { deliveryStatus } = useProduct();
+  const { deliveryStatus, address } = useProduct();
 
   const label = [
     "Бүгд",
@@ -21,14 +20,6 @@ export const OrderGeneral = () => {
   const data = [
     {
       id: "#1234",
-      name: "zoloo",
-      gmail: "zolooo sara",
-      date: "2023-10-22",
-      time: "10:20",
-      payment: "1300",
-    },
-    {
-      id: "#12345",
       name: "zoloo",
       gmail: "zolooo sara",
       date: "2023-10-22",
@@ -104,7 +95,7 @@ export const OrderGeneral = () => {
             </thead>
 
             <tbody>
-              {data.map((item, index) => {
+              {address.map((item, index) => {
                 return (
                   <tr key={index} className="bg-white border-b-2">
                     <td className="px-6 py-4 text-[14px] font-semibold text-[#121316]">
