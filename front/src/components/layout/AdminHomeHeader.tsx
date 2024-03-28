@@ -18,7 +18,7 @@ import { useAuth } from "../providers/AuthProvider";
 export const AdminHomeHeader = () => {
   const pathname = usePathname();
   const { user, isLogged } = useAuth();
-  const { toCart, fromLocalStorage, refresh, setRefresh } = useProduct();
+  const { toCart, toFavor } = useProduct();
 
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
@@ -54,11 +54,14 @@ export const AdminHomeHeader = () => {
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
                 Хадгалах
               </p>
-              <FavoriteBorderOutlined sx={{ color: "#FFF", width: 16 }} />
+              <Badge badgeContent={toFavor?.length} color="primary">
+                <FavoriteBorderOutlined sx={{ color: "#FFF", width: 16 }} />
+              </Badge>
             </div>
 
-            <Badge badgeContent={toCart.length}>
+            <Badge badgeContent={toCart.length} color="primary">
               <ShoppingCartOutlined
+                color="primary"
                 onClick={() => router.push("/home/orderInCartPage")}
                 sx={{ color: "#FFF", width: 19, cursor: "pointer" }}
               />
@@ -89,14 +92,15 @@ export const AdminHomeHeader = () => {
                 onClick={() => {
                   router.push("/home");
                 }}
-                style={{ color: pathname === "/home" ? "#FB2E86" : "inherit" }}
+                style={{
+                  color: pathname === "/home" ? "#FB2E86" : "inherit",
+                }}
               >
-                <p className="text-[14px] font-normal">Нүүр</p>
-                <ExpandMoreOutlined />
+                <p className="text-[14px] font-normal cursor-pointer">Нүүр</p>
               </div>
 
               <p
-                className="text-[14px] font-normal "
+                className="text-[14px] font-normal cursor-pointer"
                 onClick={() => {
                   router.push("/home/shop");
                 }}
@@ -123,6 +127,7 @@ export const AdminHomeHeader = () => {
                   width: 35,
                   p: 0.5,
                   color: "#FFF",
+                  cursor: "pointer",
                 }}
               />
             </div>

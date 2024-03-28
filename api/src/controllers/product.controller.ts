@@ -163,6 +163,8 @@ export const deleteProduct: RequestHandler = async (req, res) => {
   try {
     const { productId } = req.body;
 
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
     const productExist = await ProductModel.findOne({
       _id: productId,
       // merchId: id,

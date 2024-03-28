@@ -125,11 +125,13 @@ type ProductContextType = {
   fromLocalStorage: ToCartProps[];
   setFromLocalStorage: Dispatch<SetStateAction<ToCartProps[]>>;
 
+  address: Address[];
+  setAddress: Dispatch<SetStateAction<Address[]>>;
   detail: Product | null;
   setDetail: Dispatch<SetStateAction<Product | null>>;
 
-  address: Address[];
-  setAddress: Dispatch<SetStateAction<Address[]>>;
+  toFavor: Product;
+  setToFavor: Dispatch<SetStateAction<Product>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -142,7 +144,12 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [toCart, setToCart] = useState<ToCartProps[]>([]);
   const [isSaved, setIsSaved] = useState(false);
   const [detail, setDetail] = useState<Product | null>(null);
+<<<<<<< HEAD
   const [address, setAddress] = useState<Address[]>([]);
+=======
+  const [toFavor, setToFavor] = useState<Product[]>([]);
+  const [isFavor, setIsFavor] = useState(false);
+>>>>>>> 6d8ff86 (add to favorite)
 
   const router = useRouter();
 
@@ -366,6 +373,22 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   }, [toCart]);
 
   useEffect(() => {
+    const rawData = localStorage.getItem("productInFavor");
+    if (!rawData) {
+      setIsFavor(true);
+      return;
+    }
+    setToCart(JSON.parse(rawData));
+
+    setIsFavor(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isFavor) return;
+    localStorage.setItem("productInFavor", JSON.stringify(toFavor));
+  }, [toFavor]);
+
+  useEffect(() => {
     getProduct();
     getCategory();
     getAllProduct();
@@ -396,9 +419,14 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setToCart,
         detail,
         setDetail,
+<<<<<<< HEAD
         postAddress,
         address,
         setAddress,
+=======
+        toFavor,
+        setToFavor,
+>>>>>>> 6d8ff86 (add to favorite)
       }}
     >
       {children}

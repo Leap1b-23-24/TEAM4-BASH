@@ -21,7 +21,7 @@ type CustomProductDisplayProps = {
 
 export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
   const { id, productName, productImg, color, mainPrice, disPercent } = props;
-  const { allProduct, toCart, setToCart } = useProduct();
+  const { allProduct, toCart, setToCart, toFavor, setToFavor } = useProduct();
   // const disPrice = mainPrice * (1 - disPercent / 100);
   const [openImage, setOpenImage] = useState(false);
 
@@ -38,6 +38,10 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
         }
       },
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d8ff86 (add to favorite)
     {
       icon: <ZoomInOutlined className="w-[19px] h-[19px]" />,
       action: () => {
@@ -46,7 +50,15 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
     },
     {
       icon: <FavoriteBorderOutlined className="w-[19px] h-[19px]" />,
-      action: () => {},
+      action: () => {
+        const clicked = allProduct.find((item) => item._id === id) as Product;
+
+        const current = toFavor.find((item) => item._id === clicked._id);
+
+        if (!current) {
+          setToFavor((prev) => [...prev, clicked]);
+        }
+      },
     },
   ];
 
