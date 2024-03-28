@@ -23,7 +23,7 @@ export const ZoomModal = (props: ZoomModalProps) => {
           </div>
           <div className="flex flex-col items-center">
             <p className="text-[#111C85] text-[28px] font-[800]">{label}</p>
-            <img src={image[0]} className="w-[350px] rounded" />
+            <img src={image[0]} className="w-[350px] h-[400px] rounded" />
           </div>
         </div>
       </div>

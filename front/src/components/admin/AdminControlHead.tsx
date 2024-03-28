@@ -10,16 +10,7 @@ export const AdminControlHead = () => {
   const { address } = useProduct();
 
   const arr = address.map((item, index) => item.toCart.map((item) => item));
-  console.log(arr);
-
-  // const sum = arr
-  //   // .reduce((total, num) => {
-  //   // total +
-  //   // num
-  //   .reduce((t, n) => (
-  //     t + n.sel.mainPrice * n.count
-  //   , 0);)
-  // // }, 0);
+  console.log(address);
 
   const sum1 = arr.reduce(
     (sum, el) =>
@@ -31,8 +22,6 @@ export const AdminControlHead = () => {
     0
   );
 
-  console.log(sum1);
-
   const data = [
     {
       icon: <AttachMoney />,
@@ -43,7 +32,7 @@ export const AdminControlHead = () => {
     {
       icon: <ContentPasteRounded />,
       label: "Захиалга",
-
+      // number: Intl.NumberFormat().format(),
       date: "Өнөөдөр",
     },
     {

@@ -39,6 +39,7 @@ export const OrderGeneral = () => {
   ];
 
   const router = useRouter();
+  console.log(address);
 
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
@@ -99,24 +100,24 @@ export const OrderGeneral = () => {
                 return (
                   <tr key={index} className="bg-white border-b-2">
                     <td className="px-6 py-4 text-[14px] font-semibold text-[#121316]">
-                      {item.id}
+                      {/* {item.} */}
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-[14px] font-semibold text-[#121316]">
-                        {item.name}
+                        {item.deliveryAdd.firstName}
                       </p>
                       <p className="text-[14px] font-normal text-[#121316]">
-                        {item.gmail}
+                        {item.deliveryAdd.email}
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {item.date}
+                      {/* {item.date} */}
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {item.time}
+                      {/* {item.time} */}
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {item.payment} ₮
+                      {/* {item.payment} ₮ */}
                     </td>
                     <td className="px-6 py-4">
                       <CustomDeliveryStatus

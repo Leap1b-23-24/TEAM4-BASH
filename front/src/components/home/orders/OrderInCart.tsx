@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../../providers/AuthProvider";
 
 type CompProps = {
-  id: string;
+  id: string | undefined;
   productImage: string;
   productName: string;
   color: string;
@@ -18,8 +18,6 @@ type CompProps = {
 export const Comp = (props: CompProps) => {
   const { id, productImage, productName, color, price, count } = props;
   const { toCart, setToCart } = useProduct();
-
-  console.log(toCart);
 
   return (
     <tr className="border-b-[#E1E1E4] border-b-[1px]">
@@ -113,7 +111,7 @@ export const Comp = (props: CompProps) => {
 };
 
 export const OrderInCart = () => {
-  const { allProduct, toCart, setToCart } = useProduct();
+  const { toCart, setToCart } = useProduct();
   const { user } = useAuth();
   const router = useRouter();
 
@@ -137,6 +135,7 @@ export const OrderInCart = () => {
           <tbody>
             {toCart.map((item, index) => (
               <Comp
+                key={index}
                 id={item.sel._id}
                 productImage={item.sel.productImage[0]}
                 productName={item.sel.productName}

@@ -1,10 +1,15 @@
+"use client";
+
 import {
   CalendarToday,
   FileDownloadOutlined,
   KeyboardArrowDownOutlined,
 } from "@mui/icons-material";
+import { useProduct } from "../providers/ProductProvider";
 
 export const DashboardIncome = () => {
+  const { address } = useProduct();
+
   const data = [
     {
       id: "#ddd",
@@ -12,14 +17,6 @@ export const DashboardIncome = () => {
       phone: "8888",
       payment: "1300",
       date: "2023-10-22",
-    },
-    {
-      id: "#ddd",
-      name: "zoloo",
-      gmail: "zolooo sara",
-      date: "2023-10-22",
-      time: "10:20",
-      payment: "1300",
     },
   ];
 
@@ -66,30 +63,37 @@ export const DashboardIncome = () => {
             <p className="text-sm font-semibold text-[#3F4145] pl-40">Огноо</p>
           </div>
 
-          {data.map((item, index) => {
-            return (
-              <div className="bg-white px-6 py-4 flex border-b-2" key={index}>
-                <p className="text-[14px] font-semibold text-[#121316] pt-2">
-                  {item.id}
-                </p>
+          <div>
+            {address.map((item, index) =>
+              item.toCart.map((item) => {
+                return (
+                  <div
+                    className="bg-white px-6 py-4 flex border-b-2"
+                    key={index}
+                  >
+                    <p className="text-[14px] font-semibold text-[#121316] pt-2">
+                      #{item.sel._id?.slice(0, 8)}
+                    </p>
 
-                <div className="pl-[205px]">
-                  <p className="text-base font-normal text-[#121316] whitespace-nowrap">
-                    {item.gmail}
-                  </p>
-                  <p className="text-[14px] font-normal text-[#121316]">
-                    {item.phone}
-                  </p>
-                </div>
-                <p className="text-[16px] font-normal text-[#121316] pt-2 pl-[228px]">
-                  {item.payment}
-                </p>
-                <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px] whitespace-nowrap">
-                  {item.date}
-                </p>
-              </div>
-            );
-          })}
+                    <div className="pl-[205px]">
+                      <p className="text-base font-normal text-[#121316] whitespace-nowrap">
+                        {/* {item.sel.} */}
+                      </p>
+                      <p className="text-[14px] font-normal text-[#121316]">
+                        {/* {item.phone} */}
+                      </p>
+                    </div>
+                    <p className="text-[16px] font-normal text-[#121316] pt-2 pl-[228px]">
+                      {item.sel.mainPrice}
+                    </p>
+                    <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px] whitespace-nowrap">
+                      {/* {item.date} */}
+                    </p>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </div>

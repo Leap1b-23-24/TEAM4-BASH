@@ -10,7 +10,7 @@ export const login: RequestHandler = async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: "User not found",
+        message: "Ийм нэртэй хэрэглэгч олдсонгүй.",
       });
     }
 
@@ -34,7 +34,7 @@ export const signUp: RequestHandler = async (req, res) => {
 
     if (user) {
       return res.status(401).json({
-        message: "User exist",
+        message: "Ийм нэртэй хэрэглэгч бүртгэгдсэн байна.",
       });
     }
 
@@ -44,7 +44,7 @@ export const signUp: RequestHandler = async (req, res) => {
       password,
     });
 
-    return res.json({ message: "New user successfully created" });
+    return res.json({ message: "Шинэ хэрэглэгч амжилттай үүслээ." });
   } catch (error) {
     console.log(error);
   }
