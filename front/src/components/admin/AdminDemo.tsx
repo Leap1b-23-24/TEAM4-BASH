@@ -11,6 +11,8 @@ import { AdminScroll } from "./AdminScroll";
 import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useAuth } from "../providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup.string().required(),
@@ -22,7 +24,10 @@ const validationSchema = yup.object({
 });
 
 export const AdminDemo = () => {
-  const { productList, postAddress, toCart } = useProduct();
+  const { productList, postAddress, toCart, setToCart } = useProduct();
+  const { user } = useAuth();
+
+  const router = useRouter();
   const sum = toCart.reduce((currentValue, total) => {
     return currentValue + Number(total.sel.mainPrice * total.count);
   }, 0);
@@ -39,9 +44,14 @@ export const AdminDemo = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       postAddress({ deliveryAdd: values, toCart, sumPaid: sum });
-      console.log({ deliveryAdd: values, toCart, sumPaid: sum });
+      setToCart([]);
     },
   });
+
+  if (!user) {
+    router.push("/home");
+    return <div>No user</div>;
+  }
 
   return (
     <div className="w-[full] h-[full] bg-[white]">

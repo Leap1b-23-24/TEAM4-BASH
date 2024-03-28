@@ -45,10 +45,8 @@ export const getAddress: RequestHandler = async (req, res) => {
   try {
     const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
 
-    // return res.json(id);
-
     const address = await AddressModel.find({
-      toCart: { $elemMatch: { sel: { merchId: id } } },
+      toCart: { $elemMatch: { "sel.merchId": id } },
     });
 
     return res.json(address);

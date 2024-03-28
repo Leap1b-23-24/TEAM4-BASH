@@ -62,6 +62,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       if (pathname == "/home/auto/login") {
         router.push("/home");
       }
+
+      setRefresh(refresh + 1);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message ?? error.message, {

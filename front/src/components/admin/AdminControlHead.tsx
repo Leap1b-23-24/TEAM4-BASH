@@ -4,20 +4,52 @@ import {
   PersonOutlineOutlined,
 } from "@mui/icons-material";
 import { Container } from "@mui/material";
+import { useProduct } from "../providers/ProductProvider";
 
 export const AdminControlHead = () => {
+  const { address } = useProduct();
+
+  const arr = address.map((item, index) => item.toCart.map((item) => item));
+  console.log(arr);
+
+  // const sum = arr
+  //   // .reduce((total, num) => {
+  //   // total +
+  //   // num
+  //   .reduce((t, n) => (
+  //     t + n.sel.mainPrice * n.count
+  //   , 0);)
+  // // }, 0);
+
+  const sum1 = arr.reduce(
+    (sum, el) =>
+      sum +
+      el.reduce(
+        (total, product) => total + product.count * product.sel.mainPrice,
+        0
+      ),
+    0
+  );
+
+  console.log(sum1);
+
   const data = [
-    { icon: <AttachMoney />, label: "Орлого", amount: 235000, date: "Өнөөдөр" },
+    {
+      icon: <AttachMoney />,
+      label: "Орлого",
+      number: Intl.NumberFormat().format(sum1),
+      date: "Өнөөдөр",
+    },
     {
       icon: <ContentPasteRounded />,
       label: "Захиалга",
-      amount: 235000,
+
       date: "Өнөөдөр",
     },
     {
       icon: <PersonOutlineOutlined />,
       label: "Хэрэглэгч",
-      amount: 235000,
+
       date: "Өнөөдөр",
     },
   ];
@@ -38,7 +70,7 @@ export const AdminControlHead = () => {
                 </p>
               </div>
 
-              <p className="text-3xl font-bold">{item.amount}</p>
+              <p className="text-3xl font-bold">{item.number}</p>
 
               <p className="text-sm text-[#5E6166] font-normal">{item.date}</p>
             </div>
