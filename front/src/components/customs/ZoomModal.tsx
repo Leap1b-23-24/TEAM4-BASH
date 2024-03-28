@@ -13,7 +13,7 @@ export const ZoomModal = (props: ZoomModalProps) => {
     <Modal open>
       <div className="items-center flex justify-center h-full">
         <div className="p-5 bg-white rounded-md w-[500px]">
-          <div className="flex justify-end">
+          <div className="flex justify-end cursor-pointer">
             <img
               src="/x.png"
               onClick={() => {
