@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var cors_1 = __importDefault(require("cors"));
+var body_parser_1 = require("body-parser");
+var product_router_1 = __importDefault(require("./routers/product.router"));
+var auth_router_1 = __importDefault(require("./routers/auth.router"));
+var category_router_1 = __importDefault(require("./routers/category.router"));
+var comment_router_1 = __importDefault(require("./routers/comment.router"));
+var address_router_1 = __importDefault(require("./routers/address.router"));
+var app = express_1.default();
+app.use(cors_1.default());
+app.use(body_parser_1.json());
+app.use("/product", product_router_1.default);
+app.use("/auth", auth_router_1.default);
+app.use("/category", category_router_1.default);
+app.use("/comment", comment_router_1.default);
+app.use("/address", address_router_1.default);
+exports.default = app;
