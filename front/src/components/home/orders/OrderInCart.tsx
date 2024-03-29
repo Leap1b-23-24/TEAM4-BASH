@@ -114,6 +114,7 @@ export const OrderInCart = () => {
   const { toCart, setToCart } = useProduct();
   const { user } = useAuth();
   const router = useRouter();
+  console.log(toCart);
 
   const tableHeader = ["Бүтээгдэхүүн", "Үнэ", "Тоо ширхэг", "Нийт"];
 

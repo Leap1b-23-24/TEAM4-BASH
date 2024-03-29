@@ -218,3 +218,43 @@ export const starReview: RequestHandler = async (req, res) => {
     console.log(err);
   }
 };
+
+export const soldQnty: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  try {
+    const { deliveryAdd, toCart, sumPaid } = req.body;
+
+    const ids = toCart.find();
+
+    // const soldQuantity = await ProductModel.find({ _id: 1 });
+
+    return res.json(toCart);
+
+    // if (!soldQuantity) {
+    //   return res.status(401).json({
+    //     message: "Product not found",
+    //   });
+    // }
+
+    const sold = await ProductModel
+      .updateOne
+      // { _id: productId },
+      // {
+      //   $set: {
+      //     productSoldQnty: soldQnty,
+      //   },
+      // }
+      ();
+
+    return res.json("Sold quantity");
+  } catch (error) {
+    console.log(error);
+  }
+};

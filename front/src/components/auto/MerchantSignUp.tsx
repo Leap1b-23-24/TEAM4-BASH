@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useAuth } from "../providers/AuthProvider";
 import * as yup from "yup";
 import { CustomInput } from "../customs/CustomInput";
+import { useRouter } from "next/navigation";
 const validationSchema = yup.object({
   email: yup.string().email().required(),
   name: yup.string().required(),
@@ -12,6 +13,7 @@ const validationSchema = yup.object({
 
 export const SignUp = () => {
   const { signUp } = useAuth();
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +28,7 @@ export const SignUp = () => {
   });
 
   return (
-    <div className="w-full bg-white px-14 py-10 gap-10 flex flex-col">
+    <div className="w-full h-screen bg-white px-14 py-10 gap-10 flex flex-col">
       <div className="flex gap-1 justify-start">
         <img src="/pinecone.png" className="object-cover" />
       </div>
@@ -110,7 +112,12 @@ export const SignUp = () => {
             <p className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black">
               Бүртгэлтэй юу?
             </p>
-            <p className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black">
+            <p
+              className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black"
+              onClick={() => {
+                router.push("/auto/login");
+              }}
+            >
               Нэвтрэх
             </p>
           </div>

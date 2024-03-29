@@ -23,7 +23,6 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
   const { allProduct, toCart, setToCart, toFavor, setToFavor } = useProduct();
   // const disPrice = mainPrice * (1 - disPercent / 100);
   const [openImage, setOpenImage] = useState(false);
-  console.log(toFavor);
 
   const icons = [
     {

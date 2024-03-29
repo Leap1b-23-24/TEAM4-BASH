@@ -34,8 +34,8 @@ export const UserSignUp = () => {
   return (
     <div>
       <div className="bg-[#F6F5FF]">
-        <Container sx={{ py: 4 }}>
-          <p className="text-[36px] font-[800] text-[#101750]">Бүртгүүлэх</p>
+        <Container sx={{ py: 6 }}>
+          <p className="text-[24px] font-[800] text-[#101750]">Бүртгүүлэх</p>
           <div className="flex gap-2">
             {data.map((item, index) => {
               return (
@@ -122,7 +122,7 @@ export const UserSignUp = () => {
                 helperText={formik.touched.passAgain && formik.errors.passAgain}
               />
 
-              <p className="text-[15px] text-[#9096B2] font-[400] text-center">
+              <p className="text-[15px] text-[#9096B2] font-[400] text-center hover:font-[700] hover:text-[#101750] cursor-pointer">
                 Нууц үгээ мартсан
               </p>
             </div>
@@ -138,7 +138,7 @@ export const UserSignUp = () => {
             </button>
 
             <p
-              className="text-[#9096B2] font-[400] text-[15px] flex justify-center"
+              className="text-[#9096B2] font-[400] text-[15px] flex justify-center hover:font-[700] hover:text-[#101750] cursor-pointer"
               onClick={() => {
                 router.push("/home/auto/login");
               }}
@@ -146,7 +146,12 @@ export const UserSignUp = () => {
               Нэвтрэх хэсэг
             </p>
           </Card>
-          <p className="text-[#9096B2] font-[400] text-[14px] flex justify-center hover:border-b border-[#9096B2]">
+          <p
+            className="text-[#9096B2] font-[400] text-[14px] flex justify-center hover:border-b border-[#9096B2] cursor-pointer hover:font-[700] hover:text-[#101750]"
+            onClick={() => {
+              router.push("/auto/login");
+            }}
+          >
             мерчант нэвтрэх
           </p>
         </Container>
