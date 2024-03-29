@@ -14,10 +14,11 @@ type CustomProps = {
   label: string;
   price: number;
   id: string | undefined;
+  setPaused: (value: boolean) => void;
 };
 
 export const CustomHome = (props: CustomProps) => {
-  const { image, label, price, id } = props;
+  const { image, label, price, id, setPaused } = props;
   const [openImage, setOpenImage] = useState(false);
   const router = useRouter();
   const { setDetail, allProduct, toFavor, setToFavor, toCart, setToCart } =
@@ -25,12 +26,21 @@ export const CustomHome = (props: CustomProps) => {
 
   return (
     <Card>
-      <div id={id} className="relative group">
-        <div className="w-[270px]">
+      <div
+        id={id}
+        className="relative group"
+        onMouseOver={() => {
+          setPaused(true);
+        }}
+        onMouseLeave={() => {
+          setPaused(false);
+        }}
+      >
+        <div className="w-[270px] flex flex-col gap-3 bg-[#fff]">
           <div className="relative group flex w-full justify-center">
             <img
               src={image[0]}
-              className="h-[240px] w-[240px] object-cover mix-blend-multiply"
+              className="h-[240px] w-[240px] object-cover mix-blend-multiply hover:scale-110"
             />
             <button
               className="group-hover:opacity-[1] opacity-0 absolute bottom-3 left-18 text-[12px] text-white py-[6px] rounded px-3 bg-[#08D15F] font-[500] font-sans"
@@ -56,6 +66,7 @@ export const CustomHome = (props: CustomProps) => {
             </p>
           </div>
         </div>
+
         <div className="group absolute top-3 left-3">
           <div className="flex gap-4 group-hover:opacity-[1] opacity-0">
             <div className="hover:bg-[#EEEFFB] rounded-[50%]">
@@ -88,7 +99,6 @@ export const CustomHome = (props: CustomProps) => {
                   const current = toFavor.find(
                     (item) => item._id === clicked._id
                   );
-                  l;
                   if (!current) {
                     setToFavor((prev) => [...prev, clicked]);
                   }

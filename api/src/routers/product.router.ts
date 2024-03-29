@@ -5,6 +5,7 @@ import {
   getAllProduct,
   getProduct,
   postProduct,
+  soldQnty,
   starReview,
 } from "../controllers/product.controller";
 const productRouter = Router();
@@ -15,6 +16,7 @@ productRouter
   .post("/delete", deleteProduct)
   .post("/editProduct", editProduct)
   .get("/allPro", getAllProduct)
-  .post("/star", starReview);
+  .post("/star", starReview)
+  .post("/sold", soldQnty);
 
 export default productRouter;

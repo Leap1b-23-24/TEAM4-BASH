@@ -54,7 +54,7 @@ export const postProduct: RequestHandler = async (req, res) => {
     });
 
     return res.json({
-      message: "Шинэ бүтээгдэхүүн үүслээ",
+      message: "Шинэ бүтээгдэхүүн амжилттай үүслээ.",
     });
   } catch (err) {
     console.log(err);
@@ -142,7 +142,7 @@ export const editProduct: RequestHandler = async (req, res) => {
       }
     );
     return res.json({
-      message: "Product successfully edited",
+      message: "Бүтээгдэхүүн амжилттай шинэчлэгдлээ.",
     });
   } catch (error) {
     return res.status(401).json({
@@ -178,7 +178,7 @@ export const deleteProduct: RequestHandler = async (req, res) => {
 
     await ProductModel.deleteOne({ _id: productId });
 
-    return res.json({ message: "Product deleted" });
+    return res.json({ message: "Бүтээгдхүүн устгагдлаа." });
   } catch (err) {
     res.json(err);
   }
@@ -213,8 +213,48 @@ export const starReview: RequestHandler = async (req, res) => {
       }
     );
 
-    return res.json({ message: "Accept your rate" });
+    return res.json({ message: "Таны сэтгэгдлийг хүлээн авлаа." });
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const soldQnty: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  try {
+    const { deliveryAdd, toCart, sumPaid } = req.body;
+
+    const ids = toCart.find();
+
+    // const soldQuantity = await ProductModel.find({ _id: 1 });
+
+    return res.json(toCart);
+
+    // if (!soldQuantity) {
+    //   return res.status(401).json({
+    //     message: "Product not found",
+    //   });
+    // }
+
+    const sold = await ProductModel
+      .updateOne
+      // { _id: productId },
+      // {
+      //   $set: {
+      //     productSoldQnty: soldQnty,
+      //   },
+      // }
+      ();
+
+    return res.json("Sold quantity");
+  } catch (error) {
+    console.log(error);
   }
 };

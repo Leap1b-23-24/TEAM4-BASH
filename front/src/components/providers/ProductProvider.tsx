@@ -301,6 +301,12 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         },
       });
 
+      const { data: productQnt } = await api.post("/product/sold", params, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
       toast.success(data.message, {
         position: "top-center",
       });
@@ -329,6 +335,25 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
       console.log(err);
     }
   };
+
+  // const addSoldQnty = async (soldQnty: number, productId: string) => {
+  //   try {
+  //     const { data } = await api.post(
+  //       "/product/sold",
+  //       {
+  //         soldQnty,
+  //         productId,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     const rawData = localStorage.getItem("productInCart");

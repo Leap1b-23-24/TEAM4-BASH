@@ -13,7 +13,6 @@ export const postAddress: RequestHandler = async (req, res) => {
 
   try {
     const { deliveryAdd, toCart, sumPaid } = req.body;
-    console.log(req.body);
 
     const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
 
@@ -26,7 +25,7 @@ export const postAddress: RequestHandler = async (req, res) => {
     });
 
     return res.json({
-      message: "Zahialga amjilttai",
+      message: "Таны захиалга амжилттай захиалагдлаа.",
     });
   } catch (err) {
     console.log(err);

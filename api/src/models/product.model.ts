@@ -56,10 +56,6 @@ export const productSchema = new Schema({
     type: Array,
     require: true,
   },
-  productReactionCount: {
-    type: Number,
-    require: false,
-  },
   productSoldQnty: {
     type: Number,
     require: false,

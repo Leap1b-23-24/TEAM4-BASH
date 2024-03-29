@@ -3,25 +3,22 @@
 import {
   CallOutlined,
   EmailOutlined,
-  ExpandMoreOutlined,
   FavoriteBorderOutlined,
   PersonOutlined,
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Badge, Container, IconButton } from "@mui/material";
+import { Badge, Container } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
 import { useProduct } from "../providers/ProductProvider";
 import { useAuth } from "../providers/AuthProvider";
 
 export const AdminHomeHeader = () => {
   const pathname = usePathname();
-  const { user, isLogged } = useAuth();
+  const { user } = useAuth();
   const { toCart, toFavor } = useProduct();
 
   const router = useRouter();
-  const [isActive, setIsActive] = useState(false);
 
   return (
     <div className="w-full h-full">
@@ -31,7 +28,7 @@ export const AdminHomeHeader = () => {
             <div className="flex gap-2">
               <EmailOutlined sx={{ color: "#FFF", width: 18, pt: 0.2 }} />
               <p className="font-semibold text-[16px] text-[#F1F1F1] font-sans">
-                info@ecommerce.mn
+                {user?.email}
               </p>
             </div>
             <div className="flex gap-2">

@@ -32,6 +32,11 @@ export const AdminDemo = () => {
     return currentValue + Number(total.sel.mainPrice * total.count);
   }, 0);
 
+  const ids = toCart.map((item) => {
+    item.sel._id, item.count;
+  });
+  console.log(ids);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -246,7 +251,7 @@ export const AdminDemo = () => {
                     </p>
 
                     <p className="text-[20px] font-bold text-[#151875] w-[20%] px-1 whitespace-nowrap">
-                      {sum} ₮
+                      {Intl.NumberFormat().format(sum)}₮
                     </p>
                   </div>
                 </div>

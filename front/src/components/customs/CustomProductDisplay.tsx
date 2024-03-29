@@ -23,7 +23,6 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
   const { allProduct, toCart, setToCart, toFavor, setToFavor } = useProduct();
   // const disPrice = mainPrice * (1 - disPercent / 100);
   const [openImage, setOpenImage] = useState(false);
-  console.log(toFavor);
 
   const icons = [
     {
@@ -66,7 +65,7 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
           alt="camera"
           fill
           style={{ objectFit: "contain" }}
-          className="mix-blend-multiply"
+          className="mix-blend-multiply hover:scale-x-105 object-cover"
         />
         <div className="group-hover:block hidden absolute bottom-[5px] left-[5px] text-[#151875] flex flex-col">
           {icons.map((item) => (

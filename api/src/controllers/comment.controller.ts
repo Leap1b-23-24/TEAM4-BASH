@@ -22,7 +22,7 @@ export const postComment: RequestHandler = async (req, res) => {
       updatedAt: new Date(),
     });
 
-    return res.json({ message: "Accepted your rate" });
+    return res.json({ message: "Таны сэтгэгдлийг хүлээн авлаа." });
   } catch (error) {
     console.log(error);
   }

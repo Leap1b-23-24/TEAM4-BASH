@@ -33,7 +33,7 @@ export const AdminScroll = (props: ScrollProps) => {
           </div>
           <div className="w-[20%] px-4">
             <p className="text-[14px] text-[#151875]  h-[80px] w-[full] flex items-center font-bold">
-              {price}₮
+              {Intl.NumberFormat().format(price)}₮
             </p>
           </div>
         </div>

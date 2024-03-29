@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../providers/AuthProvider";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup.string().email().required(),
@@ -14,6 +15,7 @@ const validationSchema = yup.object({
 export const Login = () => {
   const { login } = useAuth();
   const [openGoogle, setOpenGoogle] = useState(false);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +29,7 @@ export const Login = () => {
   });
 
   return (
-    <div className="border-2 w-full bg-white p-10 relative flex flex-col gap-8">
+    <div className="border-2 w-full h-screen bg-white p-10 relative flex flex-col gap-8">
       <div className="flex gap-1 justify-start">
         <img src="/pinecone.png" className="object-cover" />
       </div>
@@ -105,7 +107,12 @@ export const Login = () => {
           </div>
 
           <div className="flex justify-center gap-2">
-            <p className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black">
+            <p
+              className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black"
+              onClick={() => {
+                router.push("/auto/sign");
+              }}
+            >
               Бүртгэлтэй юу?
             </p>
             <p className="text-[14px] text-[#525252] hover:font-semibold hover:border-b-2 border-black">
