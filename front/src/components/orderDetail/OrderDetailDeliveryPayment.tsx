@@ -1,18 +1,14 @@
 import Image from "next/image";
+import { useProduct } from "../providers/ProductProvider";
 
 export const OrderDetailDeliveryPayment = () => {
-  const delProds = [
-    {
-      label: "WOMEN'S HORSEBIT MULE Women’s horsebit mule",
-      amount: 2,
-      total: 677100,
-    },
-    {
-      label: "WOMEN'S HORSEBIT MULE Women’s horsebit mule",
-      amount: 1,
-      total: 125700,
-    },
-  ];
+  const { dashboardOrderDetail } = useProduct();
+
+  const sum =
+    dashboardOrderDetail?.toCart.reduce((total, num) => {
+      return total + num.sel.mainPrice * num.count;
+    }, 0) ?? 0;
+
   return (
     <div className="flex flex-col gap-[30px] basis-0 grow">
       <div className="bg-[#FFFFFF] border-[1px] border-[#ECEDF0] rounded-[12px]">
@@ -28,8 +24,8 @@ export const OrderDetailDeliveryPayment = () => {
         <div className="px-[24px] py-[20px] flex flex-col gap-[4px]">
           <p className="text-base text-[#3F4145]">Гэр</p>
           <p className="font-semibold text-[16px] leading-[20px] text-[#121316] mb-10">
-            Улаанбаатар, Сонгинохайрхан дүүрэг, 1-р хороо, 14r bair 8r orts 6r
-            darvar
+            {/* abcjsdb */}
+            {dashboardOrderDetail?.deliveryAdd.address}
           </p>
         </div>
       </div>
@@ -46,18 +42,19 @@ export const OrderDetailDeliveryPayment = () => {
         <div className="px-[24px] py-[20px] flex flex-col gap-[4px]">
           <p className="text-base text-[#3F4145]">Бүтээгдэхүүн</p>
           <div className="flex flex-col gap-[16px]">
-            {delProds.map((item, index) => (
+            {dashboardOrderDetail?.toCart.map((item, index) => (
               <div key={index} className="flex gap-[4px] justify-between">
                 <div className="flex gap-[4px] w-[60%]">
                   <p className="basis-0 grow line-clamp-1 font-semibold text-[14px] leading-1 text-[#3F4145]">
-                    {item.label}
+                    {item.sel.productName}
                   </p>
                   <p className="font-semibold text-[16px] leading-[20px] text-[#5E6166]">
-                    X{item.amount}
+                    X{item.count}
                   </p>
                 </div>
                 <p className="whitespace-nowrap font-semibold text-[16px] leading-[20px] text-[#3F4145]">
-                  ₮ {item.total}
+                  ₮{" "}
+                  {Intl.NumberFormat().format(item.sel.mainPrice * item.count)}
                 </p>
               </div>
             ))}
@@ -85,7 +82,7 @@ export const OrderDetailDeliveryPayment = () => {
                 Нийт төлсөн дүн
               </p>
               <p className="whitespace-nowrap font-semibold text-[18px] leading-[24px] text-[#121316]">
-                ₮ 807800
+                ₮{Intl.NumberFormat().format(sum)}
               </p>
             </div>
           </div>

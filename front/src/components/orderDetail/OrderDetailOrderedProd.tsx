@@ -4,7 +4,7 @@ type OrderDetailOrderedProdProps = {
   img: string;
   label: string;
   date: string;
-  prodId: number;
+  prodId: string;
   amount: number;
   price: string;
   total: string;

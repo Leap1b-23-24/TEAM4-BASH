@@ -30,6 +30,8 @@ export type Product = {
   color: string[];
   size: string[];
   tag: string[];
+  productSoldQnty: number;
+  createdAt: Date;
 };
 
 export type Category = {
@@ -38,6 +40,8 @@ export type Category = {
 };
 
 export type Address = {
+  _id: string;
+  status: string;
   deliveryAdd: {
     email: string;
     firstName: string;
@@ -48,6 +52,7 @@ export type Address = {
   };
   toCart: ToCartProps[];
   sumPaid: number;
+  createdAt: Date;
 };
 
 type ToCartProps = {
@@ -111,6 +116,9 @@ type ProductContextType = {
 
   toFavor: Product[];
   setToFavor: Dispatch<SetStateAction<Product[]>>;
+
+  dashboardOrderDetail: Address | null;
+  setDashboardOrderDetail: Dispatch<SetStateAction<Address | null>>;
 };
 
 export const ProductProvider = ({ children }: PropsWithChildren) => {
@@ -126,6 +134,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
   const [address, setAddress] = useState<Address[]>([]);
   const [toFavor, setToFavor] = useState<Product[]>([]);
   const [isFavor, setIsFavor] = useState(false);
+  const [dashboardOrderDetail, setDashboardOrderDetail] =
+    useState<Address | null>(null);
 
   const router = useRouter();
 
@@ -423,6 +433,8 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
         setAddress,
         toFavor,
         setToFavor,
+        dashboardOrderDetail,
+        setDashboardOrderDetail,
       }}
     >
       {children}

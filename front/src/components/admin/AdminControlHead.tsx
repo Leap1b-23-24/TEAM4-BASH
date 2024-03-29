@@ -10,7 +10,7 @@ export const AdminControlHead = () => {
   const { address } = useProduct();
 
   const arr = address.map((item, index) => item.toCart.map((item) => item));
-  console.log(address);
+  console.log(arr);
 
   const sum1 = arr.reduce(
     (sum, el) =>
@@ -32,13 +32,13 @@ export const AdminControlHead = () => {
     {
       icon: <ContentPasteRounded />,
       label: "Захиалга",
-      // number: Intl.NumberFormat().format(),
+      number: 3,
       date: "Өнөөдөр",
     },
     {
       icon: <PersonOutlineOutlined />,
       label: "Хэрэглэгч",
-
+      number: 2,
       date: "Өнөөдөр",
     },
   ];
