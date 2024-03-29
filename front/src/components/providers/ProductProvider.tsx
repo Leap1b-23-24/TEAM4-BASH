@@ -79,7 +79,7 @@ type ProductContextType = {
     tag: string[]
   ) => void;
 
-  postAddress: (params: Address) => void;
+  postAddress: (params: Omit<Address, "_id">) => void;
 
   postCategory: (category: string) => void;
   deleteProduct: (productId: string) => void;
@@ -303,7 +303,7 @@ export const ProductProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const postAddress = async (params: Address) => {
+  const postAddress = async (params: Omit<Address, "_id">) => {
     try {
       const { data } = await api.post("/address/post", params, {
         headers: {

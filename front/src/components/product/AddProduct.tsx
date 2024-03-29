@@ -90,6 +90,8 @@ export const AddProduct = (props: Props) => {
             merchId: "",
             star: 0,
             starCount: 0,
+            productSoldQnty: 0,
+            createdAt: new Date(),
           });
     },
   });

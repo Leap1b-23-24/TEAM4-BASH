@@ -46,8 +46,14 @@ export const AdminDemo = () => {
       city: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      postAddress({ deliveryAdd: values, toCart, sumPaid: sum });
+    onSubmit: async (values) => {
+      await postAddress({
+        deliveryAdd: values,
+        toCart,
+        sumPaid: sum,
+        createdAt: new Date(),
+        status: "shine",
+      });
       setToCart([]);
     },
   });
