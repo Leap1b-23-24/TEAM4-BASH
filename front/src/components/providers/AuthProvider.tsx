@@ -46,10 +46,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const { data } = await api.post("/auth/login", {
-        email,
-        password,
-      });
+      const { data } = await api.post(
+        "https://team4-bash.onrender.com/auth/login",
+        {
+          email,
+          password,
+        }
+      );
       const { token } = data;
       localStorage.setItem("token", token);
 
@@ -76,11 +79,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const signUp = async (email: string, name: string, password: string) => {
     try {
-      const { data } = await api.post("/auth/sign", {
-        email,
-        name,
-        password,
-      });
+      const { data } = await api.post(
+        "https://team4-bash.onrender.com/auth/sign",
+        {
+          email,
+          name,
+          password,
+        }
+      );
 
       const { token } = data;
 
@@ -111,11 +117,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const getUser = async () => {
     try {
-      const { data } = await api.get("/auth/user", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const { data } = await api.get(
+        "https://team4-bash.onrender.com/auth/user",
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
       setUser(data);
     } catch (err) {
@@ -125,7 +134,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const getAllUser = async () => {
     try {
-      const { data } = await api.get("/auth/all");
+      const { data } = await api.get(
+        "https://team4-bash.onrender.com/auth/all"
+      );
 
       setAllUser(data);
     } catch (err) {
