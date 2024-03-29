@@ -11,11 +11,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@mui/material";
 
 type Props = {
-  productImage: string;
-  isColor: string[];
-  setIsColor: Dispatch<SetStateAction<string[]>>;
-  isSize: string[];
-  setIsSize: Dispatch<SetStateAction<string[]>>;
+  productImage?: string;
+  isColor?: string[];
+  setIsColor?: Dispatch<SetStateAction<string[]>>;
+  isSize?: string[];
+  setIsSize?: Dispatch<SetStateAction<string[]>>;
 };
 
 const validationSchema = yup.object({
@@ -56,6 +56,7 @@ export const AddProduct = (props: Props) => {
       color: selectedProd ? selectedProd?.color : [],
       size: selectedProd ? selectedProd?.size : [],
       tag: selectedProd ? selectedProd?.tag : [],
+      createdAt: new Date(),
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {

@@ -12,7 +12,7 @@ import { useProduct } from "../providers/ProductProvider";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../providers/AuthProvider";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup.string().required(),
@@ -24,7 +24,7 @@ const validationSchema = yup.object({
 });
 
 export const AdminDemo = () => {
-  const { productList, postAddress, toCart, setToCart } = useProduct();
+  const { postAddress, toCart, setToCart } = useProduct();
   const { user } = useAuth();
 
   const router = useRouter();
@@ -35,7 +35,6 @@ export const AdminDemo = () => {
   const ids = toCart.map((item) => {
     item.sel._id, item.count;
   });
-  console.log(ids);
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +53,7 @@ export const AdminDemo = () => {
   });
 
   if (!user) {
-    router.push("/home");
+    redirect("/home");
     return <div>No user</div>;
   }
 

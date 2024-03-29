@@ -65,7 +65,7 @@ export const CustomProductDisplay = (props: CustomProductDisplayProps) => {
           alt="camera"
           fill
           style={{ objectFit: "contain" }}
-          className="mix-blend-multiply hover:scale-x-105 object-cover"
+          className="mix-blend-multiply hover:scale-x-105 object-cover duration-300"
         />
         <div className="group-hover:block hidden absolute bottom-[5px] left-[5px] text-[#151875] flex flex-col">
           {icons.map((item) => (

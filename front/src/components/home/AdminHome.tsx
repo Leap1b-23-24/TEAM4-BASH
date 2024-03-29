@@ -123,7 +123,7 @@ export const AdminHome = () => {
               </p>
 
               <Grid container spacing={4}>
-                {allProduct.slice(0, 8).map((product) => (
+                {allProduct.slice(0, 12).map((product) => (
                   <Grid lg={3} sm={4} xs={6} item>
                     <CustomProductDisplay
                       id={product._id}

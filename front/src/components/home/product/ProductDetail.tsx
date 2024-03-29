@@ -6,7 +6,7 @@ import { Unelgee } from "./Rate";
 import { useProduct } from "../../providers/ProductProvider";
 import { ItemDetail } from "./Detail";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const data = ["Home", "Product Details"];
 
@@ -27,7 +27,7 @@ export const ProductDetail = (props: DetailProps) => {
   const [isActive, setIsActive] = useState(true);
 
   if (!detail) {
-    router.push("/home");
+    redirect("/home");
   }
 
   return (

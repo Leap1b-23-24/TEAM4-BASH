@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 
 type ScrollProps = {
-  id: string;
+  id: string | undefined;
   image: string;
   label: string;
   price: number;

@@ -45,7 +45,12 @@ type FormikProps = {
 export const AddProductTwo = (props: FormikProps) => {
   const [openColor, setOpenColor] = useState(false);
   const [openSize, setOpenSize] = useState(false);
-  const category = ["huuuhed", "ss"];
+  const category = [
+    "Ухаалаг утас, таблет",
+    "Чихэвч",
+    "Хувцас",
+    "Гэр ахуйн бараа",
+  ];
 
   const handleClick = () => {
     setOpenColor(false);

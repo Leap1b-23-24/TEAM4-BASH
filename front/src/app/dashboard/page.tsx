@@ -8,11 +8,6 @@ export default function Home() {
   const { user } = useAuth();
   const router = useRouter();
 
-  // if (!user) {
-  //   router.push("/auto/login");
-  //   return <div>No user</div>;
-  // }
-
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
       <AdminControlHead />
