@@ -131,7 +131,7 @@ export const OrderDetail = () => {
                   key={index}
                   img={item.sel.productImage[0]}
                   label={item.sel.productName}
-                  date={dashboardOrderDetail.createdAt
+                  date={new Date(dashboardOrderDetail.createdAt)
                     .toDateString()
                     .slice(0, 10)}
                   prodId={item.sel.barCode}

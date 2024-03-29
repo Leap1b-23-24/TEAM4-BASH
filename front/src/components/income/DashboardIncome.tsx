@@ -14,6 +14,8 @@ export const DashboardIncome = () => {
 
   const arr = address.map((item, index) => item.toCart.map((item) => item));
 
+  console.log(address);
+
   const sum1 = arr.reduce(
     (sum, el) =>
       sum +

@@ -114,12 +114,12 @@ export const OrderGeneral = () => {
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
                       <div className="flex justify-center">
-                        {item.createdAt?.toDateString().slice(0, 10)}
+                        {new Date(item.createdAt).toDateString().slice(0, 10)}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
                       <div className="flex justify-center">
-                        {item.createdAt.toDateString().slice(11, 16)}
+                        {new Date(item.createdAt).toDateString().slice(11, 16)}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
