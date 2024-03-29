@@ -1,34 +1,32 @@
 import mongoose, { Schema, model } from "mongoose";
 
 export const addressSchema = new Schema({
-  deliveryAdd: [
-    {
-      email: {
-        type: String,
-        require: false,
-      },
-      firstName: {
-        type: String,
-        require: false,
-      },
-      lastName: {
-        type: String,
-        require: false,
-      },
-      address: {
-        type: String,
-        require: false,
-      },
-      city: {
-        type: String,
-        require: false,
-      },
-      info: {
-        type: String,
-        require: false,
-      },
+  deliveryAdd: {
+    email: {
+      type: String,
+      require: false,
     },
-  ],
+    firstName: {
+      type: String,
+      require: false,
+    },
+    lastName: {
+      type: String,
+      require: false,
+    },
+    address: {
+      type: String,
+      require: false,
+    },
+    city: {
+      type: String,
+      require: false,
+    },
+    info: {
+      type: String,
+      require: false,
+    },
+  },
   toCart: [
     {
       sel: {
@@ -114,6 +112,7 @@ export const addressSchema = new Schema({
     require: true,
   },
   createdAt: Date,
+  updatedAt: Date,
 });
 
 export const AddressModel = model("address", addressSchema);

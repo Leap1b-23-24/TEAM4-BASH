@@ -48,7 +48,7 @@ export const ProductTable = () => {
             Price={item.mainPrice}
             Total={item.quantity}
             SoldTotal={item.quantity}
-            AddDate={item.createdAt.toString().slice(0, 10)}
+            AddDate={item.createdAt?.toString().slice(0, 10)}
           />
         ))}
       </main>

@@ -40,7 +40,7 @@ export const CustomHome = (props: CustomProps) => {
           <div className="relative group flex w-full justify-center">
             <img
               src={image[0]}
-              className="h-[240px] w-[240px] object-cover mix-blend-multiply hover:scale-110"
+              className="h-[240px] w-[240px] object-cover mix-blend-multiply hover:scale-110 duration-300"
             />
             <button
               className="group-hover:opacity-[1] opacity-0 absolute bottom-3 left-18 text-[12px] text-white py-[6px] rounded px-3 bg-[#08D15F] font-[500] font-sans"

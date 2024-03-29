@@ -22,6 +22,7 @@ export const postAddress: RequestHandler = async (req, res) => {
       sumPaid,
       userId: id,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return res.json({

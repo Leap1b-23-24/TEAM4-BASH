@@ -6,19 +6,23 @@ import {
   KeyboardArrowDownOutlined,
 } from "@mui/icons-material";
 import { useProduct } from "../providers/ProductProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 export const DashboardIncome = () => {
   const { address } = useProduct();
+  const { allUser } = useAuth();
 
-  const data = [
-    {
-      id: "#ddd",
-      gmail: "zolooo sara",
-      phone: "8888",
-      payment: "1300",
-      date: "2023-10-22",
-    },
-  ];
+  const arr = address.map((item, index) => item.toCart.map((item) => item));
+
+  const sum1 = arr.reduce(
+    (sum, el) =>
+      sum +
+      el.reduce(
+        (total, product) => total + product.count * product.sel.mainPrice,
+        0
+      ),
+    0
+  );
 
   return (
     <div className="flex justify-center w-full bg-[#F7F7F8]">
@@ -33,7 +37,9 @@ export const DashboardIncome = () => {
           </div>
 
           <div className="p-6 flex justify-between bg-white">
-            <p className="text-[28px] font-bold">22221</p>
+            <p className="text-[28px] font-bold">
+              {Intl.NumberFormat().format(sum1)}₮
+            </p>
 
             <div className="flex gap-2">
               <button className="text-sm font-semibold py-2 px-4 border-2 rounded-xl text-[#3F4145] hover:text-white hover:bg-[#18BA51] bg-white">
@@ -64,35 +70,42 @@ export const DashboardIncome = () => {
           </div>
 
           <div>
-            {address.map((item, index) =>
-              item.toCart.map((item) => {
+            {address.map((item, index) => {
+              const user = allUser.filter(
+                (el) => el.email === item.deliveryAdd.email
+              );
+
+              const userName = user.map((item) => item.name);
+
+              const userEmail = user.map((item) => item.email);
+              return item.toCart.map((item) => {
                 return (
                   <div
-                    className="bg-white px-6 py-4 flex border-b-2"
+                    className="bg-white px-6 py-4 flex border-b-2 relative"
                     key={index}
                   >
                     <p className="text-[14px] font-semibold text-[#121316] pt-2">
                       #{item.sel._id?.slice(0, 8)}
                     </p>
 
-                    <div className="pl-[205px]">
-                      <p className="text-base font-normal text-[#121316] whitespace-nowrap">
-                        {/* {item.sel.} */}
+                    <div className="pl-[164px]">
+                      <p className="text-base text-[#121316] whitespace-nowrap font-semibold">
+                        {userName}
                       </p>
                       <p className="text-[14px] font-normal text-[#121316]">
-                        {/* {item.phone} */}
+                        {userEmail}
                       </p>
                     </div>
-                    <p className="text-[16px] font-normal text-[#121316] pt-2 pl-[228px]">
-                      {item.sel.mainPrice}
+                    <p className="text-[16px] font-normal text-[#121316] pt-2 absolute right-[200px]">
+                      {Intl.NumberFormat().format(item.sel.mainPrice)}₮
                     </p>
-                    <p className="text-[14px] font-normal text-[#121316] pt-2 pl-[174px] whitespace-nowrap">
-                      {/* {item.date} */}
+                    <p className="text-[14px] font-normal text-[#121316] pt-2 whitespace-nowrap right-4 absolute">
+                      {item.sel.createdAt?.toString().slice(0, 10)}
                     </p>
                   </div>
                 );
-              })
-            )}
+              });
+            })}
           </div>
         </div>
       </div>
