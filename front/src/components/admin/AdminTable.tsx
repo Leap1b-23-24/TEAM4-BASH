@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useProduct } from "../providers/ProductProvider";
+import { useEffect, useState } from "react";
 
 export const AdminTable = () => {
-  const { address } = useProduct();
+  const { address, productList } = useProduct();
+  const [no, setNo] = useState(1);
 
   const tableHead = ["№", "Бүтээгдэхүүн", "Зарагдсан", "Үнэ"];
   return (
@@ -33,40 +35,38 @@ export const AdminTable = () => {
             </tr>
           </thead>
           <tbody>
-            {address.map((item, index) =>
-              item.toCart.map((item) => {
-                return (
-                  <tr key={index} className="border-b-[1px] border-[#ECEDF0]">
-                    <td className="py-[16px] px-[24px]">1</td>
-                    <td className="flex gap-[12px] p-[16px]">
-                      <Image
-                        width={40}
-                        height={40}
-                        src={item.sel.productImage[0]}
-                        alt="product image"
-                      ></Image>
-                      <div className="basis-0 grow flex flex-col gap-[4px]">
-                        <p className="text-[14px] leading-[16px] font-semibold text-[#121316] line-clamp-1">
-                          {item.sel.productName}
-                        </p>
-                        <p className="text-[14px] leading-[20px] font-normal text-[#3F4145]">
-                          {item.sel.barCode}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="py-[16px] pl-[28px] text-[14px] leading-[20px] font-normal text-[#121316]">
-                      {item.count}
-                    </td>
-                    <td className="py-[16px] pl-[34px] text-[14px] leading-[20px] font-normal text-[#121316] whitespace-nowrap">
-                      {Intl.NumberFormat().format(
-                        item.sel.mainPrice * item.count
-                      )}
-                      ₮
-                    </td>
-                  </tr>
-                );
-              })
-            )}
+            {productList.map((item, index) => {
+              return (
+                <tr key={index} className="border-b-[1px] border-[#ECEDF0]">
+                  <td className="py-[16px] px-[24px]">{index + 1}</td>
+                  <td className="flex gap-[12px] p-[16px]">
+                    <Image
+                      width={40}
+                      height={40}
+                      src={item.productImage[0]}
+                      alt="product image"
+                    ></Image>
+                    <div className="basis-0 grow flex flex-col gap-[4px]">
+                      <p className="text-[14px] leading-[16px] font-semibold text-[#121316] line-clamp-1">
+                        {item.productName}
+                      </p>
+                      <p className="text-[14px] leading-[20px] font-normal text-[#3F4145]">
+                        {item.barCode}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-[16px] pl-[28px] text-[14px] leading-[20px] font-normal text-[#121316]">
+                    {item.productSoldQnty}
+                  </td>
+                  <td className="py-[16px] pl-[34px] text-[14px] leading-[20px] font-normal text-[#121316] whitespace-nowrap">
+                    {Intl.NumberFormat().format(
+                      item.mainPrice * item.productSoldQnty
+                    )}
+                    ₮
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

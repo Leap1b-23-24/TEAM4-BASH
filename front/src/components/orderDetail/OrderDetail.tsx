@@ -7,28 +7,14 @@ import { useRouter } from "next/navigation";
 import { useProduct } from "../providers/ProductProvider";
 
 export const OrderDetail = () => {
-  const { deliveryStatus, setDeliveryStatus } = useProduct();
+  const {
+    deliveryStatus,
+    setDeliveryStatus,
+    dashboardOrderDetail,
+    setDashboardOrderDetail,
+  } = useProduct();
 
-  const orderedProds = [
-    {
-      img: "/orderedProd.png",
-      label: "WOMEN'S HORSEBIT MULE",
-      date: "2024-01-20",
-      prodId: 30349049903,
-      amount: 3,
-      price: 225700,
-      total: 677100,
-    },
-    {
-      img: "/orderedProd.png",
-      label: "WOMEN'S HORSEBIT MULE",
-      date: "2024-01-01",
-      prodId: 1234567890,
-      amount: 1,
-      price: 125700,
-      total: 125700,
-    },
-  ];
+  console.log(dashboardOrderDetail);
 
   const status = [
     "Шинэ захиалга",
@@ -67,7 +53,7 @@ export const OrderDetail = () => {
                   Захиалгын ID дугаар:
                 </p>
                 <p className="text-[#121316] font-semibold text-[16px] leading-[20px]">
-                  #12345678
+                  {dashboardOrderDetail?._id.slice(0, 6)}
                 </p>
               </div>
               <div>
@@ -131,25 +117,29 @@ export const OrderDetail = () => {
               </div>
               <div className="flex">
                 <p className="text-[#121316] font-semibold text-[16px] leading-[20px]">
-                  Solongo Zoloo-
+                  {dashboardOrderDetail?.deliveryAdd.firstName}-
                 </p>
                 <p className="text-[#121316] font-normal text-sm">
-                  Zoloosoko0526@gmail.com, 88556061
+                  {dashboardOrderDetail?.deliveryAdd.email}
                 </p>
               </div>
             </div>
 
             <div className="flex flex-col gap-[16px]">
-              {orderedProds.map((item, index) => (
+              {dashboardOrderDetail?.toCart.map((item, index) => (
                 <OrderDetailOrderedProd
                   key={index}
-                  img={item.img}
-                  label={item.label}
-                  date={item.date}
-                  prodId={item.prodId}
-                  amount={item.amount}
-                  price={Intl.NumberFormat().format(item.price)}
-                  total={Intl.NumberFormat().format(item.total)}
+                  img={item.sel.productImage[0]}
+                  label={item.sel.productName}
+                  date={dashboardOrderDetail.createdAt
+                    .toDateString()
+                    .slice(0, 10)}
+                  prodId={item.sel.barCode}
+                  amount={item.count}
+                  price={Intl.NumberFormat().format(item.sel.mainPrice)}
+                  total={Intl.NumberFormat().format(
+                    item.sel.mainPrice * item.count
+                  )}
                 />
               ))}
             </div>

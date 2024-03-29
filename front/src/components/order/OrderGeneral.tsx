@@ -4,9 +4,16 @@ import { KeyboardArrowRight, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { CustomDeliveryStatus } from "../customs/CustomDeliveryStatus";
 import { useProduct } from "../providers/ProductProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 export const OrderGeneral = () => {
-  const { deliveryStatus, address } = useProduct();
+  const {
+    deliveryStatus,
+    address,
+    dashboardOrderDetail,
+    setDashboardOrderDetail,
+  } = useProduct();
+  const { allUser } = useAuth();
 
   const label = [
     "Бүгд",
@@ -15,17 +22,6 @@ export const OrderGeneral = () => {
     "Хүргэлтэнд гарсан",
     "Хүргэгдсэн",
     "Цуцлагдсан",
-  ];
-
-  const data = [
-    {
-      id: "#1234",
-      name: "zoloo",
-      gmail: "zolooo sara",
-      date: "2023-10-22",
-      time: "10:20",
-      payment: "1300",
-    },
   ];
 
   const tableHeader = [
@@ -39,7 +35,6 @@ export const OrderGeneral = () => {
   ];
 
   const router = useRouter();
-  console.log(address);
 
   return (
     <div className="w-full h-full bg-[#F7F7F8]">
@@ -97,53 +92,57 @@ export const OrderGeneral = () => {
 
             <tbody>
               {address.map((item, index) => {
+                const user = allUser.filter(
+                  (el) => el.email === item.deliveryAdd.email
+                );
+                const userName = user.map((item) => item.name);
+
+                const userEmail = user.map((item) => item.email);
+
                 return (
                   <tr key={index} className="bg-white border-b-2">
                     <td className="px-6 py-4 text-[14px] font-semibold text-[#121316]">
-                      {/* {item.} */}
+                      #{item._id.slice(0, 6)}
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-[14px] font-semibold text-[#121316]">
-                        {item.deliveryAdd.firstName}
+                        {userName}
                       </p>
                       <p className="text-[14px] font-normal text-[#121316]">
-                        {item.deliveryAdd.email}
+                        {userEmail}
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {/* {item.date} */}
+                      <div className="flex justify-center">
+                        {item.createdAt?.toDateString().slice(0, 10)}
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {/* {item.time} */}
+                      <div className="flex justify-center">
+                        {item.createdAt.toDateString().slice(11, 16)}
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-[#121316]">
-                      {/* {item.payment} ₮ */}
+                      <div className="flex justify-center">
+                        {Intl.NumberFormat().format(item.sumPaid)} ₮
+                      </div>
                     </td>
                     <td className="px-6 py-4">
-                      <CustomDeliveryStatus
-                        label={
-                          deliveryStatus === "new order"
-                            ? "Шинэ захиалга"
-                            : deliveryStatus === "preparing"
-                            ? "Бэлтгэгдэж байна"
-                            : deliveryStatus === "delivering"
-                            ? "Хүргэлтэнд гарсан"
-                            : deliveryStatus === "delivered"
-                            ? "Хүргэгдсэн"
-                            : deliveryStatus === "cancelled"
-                            ? "Цуцлагдсан"
-                            : ""
-                        }
-                      />
+                      <div className="flex justify-center">
+                        <CustomDeliveryStatus label={item.status} />
+                      </div>
                     </td>
 
                     <td
                       className="px-6 py-4 cursor-pointer "
                       onClick={() => {
                         router.push("/dashboard/order/detail");
+                        setDashboardOrderDetail(item);
                       }}
                     >
-                      <KeyboardArrowRight />
+                      <div className="flex justify-center">
+                        <KeyboardArrowRight />
+                      </div>
                     </td>
                   </tr>
                 );
